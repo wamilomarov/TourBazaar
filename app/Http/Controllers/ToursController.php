@@ -12,14 +12,26 @@ class ToursController extends Controller
     public function create(Request $request)
     {
         $tour = new Tour($request->all());
-        //$tour->save();
-        return $request->cities;
+        $tour->save();
+       foreach ($request->cities as $city){
+           DB::table('tours_cities')->insert([
+               'tour_id' => $tour->id,
+               'city_id' => $city
+           ]);
+       }
+       foreach ($request->countries as $country){
+           DB::table('tours_countries')->insert([
+               'tour_id' => $tour->id,
+               'country_id' => $country
+           ]);
+       }
     }
 
     public function getCreateTourForm()
     {
-        $countries = DB::table('countries')->select('name', 'cc_flips as code')->get();
-        return view('addTour')->with('countries', $countries);
+        $countries = DB::table('countries')->select('name', 'id')->get();
+        $cities = DB::table('cities')->select('name', 'id')->get();
+        return view('addTour')->with('countries', $countries)->with('cities', $cities);
     }
 
     public function allTours()
@@ -27,11 +39,17 @@ class ToursController extends Controller
         $tours = DB::select('select 
                               *,
                               users.name,
+                              cnt.id,
+                              ct.id
                               
                             from tours 
                             
                             LEFT JOIN users ON users.id = tours.user_id
-                            where status <> 0
+                            LEFT JOIN tours_countries cnt ON cnt.`tour_id` = tours.id
+                            LEFT JOIN tours_cities ct ON ct.`tour_id` = tours.id
+                            
+                            GROUP BY tours.id
+                            
                             ');
         return $tours;
     }

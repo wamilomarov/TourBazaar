@@ -60,6 +60,8 @@ Route::group(['middleware' => ['auth', 'web']], function (){
 
     Route::post('addTour', 'ToursController@create');
 
+    Route::get('getTours', 'ToursController@allTours');
+
     Route::post('updateTour', 'ToursController@update');
 
     Route::post('deleteTour', 'ToursController@delete');

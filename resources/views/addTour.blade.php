@@ -10,8 +10,7 @@
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('addTour') }}">
                             {{ csrf_field() }}
 
-
-                            <input type="hidden" name="user_id" value="34">
+                            <input type="number" name="user_id" value="34">
 
                             <div class="input_fields_wrap countries">
                                 <button class="add_countries_button">Add More Countries</button>
@@ -53,9 +52,16 @@
 
                         <datalist id="countries">
                             @foreach($countries as $country)
-                                <option value="{{$country->name}}">{{$country->code}}</option>
+                                <option value="{{$country->id}}">{{$country->name}}</option>
                             @endforeach
                         </datalist>
+
+                        <datalist id="cities">
+                            @foreach($cities as $city)
+                                <option value="{{$city->id}}">{{$city->name}}</option>
+                            @endforeach
+                        </datalist>
+
                     </div>
                 </div>
             </div>
