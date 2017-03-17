@@ -37,10 +37,12 @@ class ToursController extends Controller
     public function allTours()
     {
         $tours = DB::select('select 
-                              *,
-                              users.name,
-                              cnt.id,
-                              ct.id
+                              tours.id as tour_id,
+                              tours.title_az,
+                              tours.title_en,
+                              users.`name`,
+                              GROUP_CONCAT(cnt.`id`) as country_id,
+                              ct.`id` as city_id
                               
                             from tours 
                             
@@ -48,7 +50,7 @@ class ToursController extends Controller
                             LEFT JOIN tours_countries cnt ON cnt.`tour_id` = tours.id
                             LEFT JOIN tours_cities ct ON ct.`tour_id` = tours.id
                             
-                            GROUP BY tours.id
+                           GROUP BY tours.id
                             
                             ');
         return $tours;
