@@ -26,7 +26,7 @@
 
                             <input type="text" name="title_en" placeholder="Title en"><br>
 
-                            <input type="date" name="expire_time">
+                            <input type="date" name="expire_date">
 
                             <input type="number" name="price">
 

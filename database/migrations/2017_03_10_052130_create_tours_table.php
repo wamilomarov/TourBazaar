@@ -20,7 +20,7 @@ class CreateToursTable extends Migration
             $table->integer('user_id');
             $table->string('title_az');
             $table->string('title_en');
-            $table->timestamp('expire_time');
+            $table->dateTime('expire_date');
             $table->integer('price');
             $table->string('currency');
             $table->boolean('is_hot')->default(0);

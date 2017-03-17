@@ -31,6 +31,8 @@ Route::get('setLocale/{lang}', function($lang){
 
 Route::get('tours', 'HomeController@tours');
 
+Route::post('searchTours', 'ToursController@search');
+
 
 //------------------------------------------FOR ADMIN-----------------------------------
 Route::group(['middleware' => ['auth', 'admin', 'web']], function(){
@@ -65,6 +67,7 @@ Route::group(['middleware' => ['auth', 'web']], function (){
     Route::post('updateTour', 'ToursController@update');
 
     Route::post('deleteTour', 'ToursController@delete');
+
 
 
 });
