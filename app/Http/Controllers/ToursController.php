@@ -41,8 +41,8 @@ class ToursController extends Controller
                               tours.title_az,
                               tours.title_en,
                               users.`name`,
-                              GROUP_CONCAT(cnt.`id`) as country_id,
-                              ct.`id` as city_id
+                              GROUP_CONCAT( DISTINCT (SELECT `name` FROM countries WHERE countries.`id` = cnt.`country_id`) ) as countries,
+                              GROUP_CONCAT( DISTINCT (SELECT  `name` FROM cities WHERE cities.`id` = ct.`id`)) as cities
                               
                             from tours 
                             
