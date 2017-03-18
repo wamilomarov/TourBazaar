@@ -110,13 +110,13 @@ class ToursController extends Controller
 
         $query .= $order;
 
-         //return $query;
-         $result = DB::select($query);
+        //return $query;
+        $result = DB::select($query);
 
-         return $result;
-
-
+        return $result;
+        
     }
+
 
 
 }

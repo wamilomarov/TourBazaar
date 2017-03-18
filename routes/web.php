@@ -33,6 +33,11 @@ Route::get('tours', 'HomeController@tours');
 
 Route::post('searchTours', 'ToursController@search');
 
+Route::get('admin', function (){
+    $user = new \App\User();
+   return view('admin.app')->with('user', $user);
+});
+
 
 //------------------------------------------FOR ADMIN-----------------------------------
 Route::group(['middleware' => ['auth', 'admin', 'web']], function(){
