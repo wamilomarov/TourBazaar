@@ -284,27 +284,6 @@
                 <div class="container-liquid">
                     <div class="row">
                         <div class="col-xs-2">
-                            <div class="stat-box colorone">
-                                <i class="author">&nbsp;</i>
-                                <h4>Users</h4>
-                                <h1>56</h1>
-                            </div>
-                        </div>
-                        <div class="col-xs-2">
-                            <div class="stat-box colortwo">
-                                <i class="chart">&nbsp;</i>
-                                <h4>Visits</h4>
-                                <h1>1288</h1>
-                            </div>
-                        </div>
-                        <div class="col-xs-2">
-                            <div class="stat-box colorthree">
-                                <i class="pages">&nbsp;</i>
-                                <h4>Pages</h4>
-                                <h1>125</h1>
-                            </div>
-                        </div>
-                        <div class="col-xs-2">
                             <div class="stat-box colorfour">
                                 <i class="users">&nbsp;</i>
                                 <h4>New Users</h4>
@@ -312,262 +291,143 @@
                             </div>
                         </div>
                         <div class="col-xs-2">
-                            <div class="stat-box colorfive">
-                                <i class="downloads">&nbsp;</i>
-                                <h4>Downloads</h4>
-                                <h1>4005</h1>
+                            <div class="stat-box colortwo">
+                                <i class="chart">&nbsp;</i>
+                                <h4>Overall requests up to date</h4>
+                                <h1>1288</h1>
                             </div>
                         </div>
                         <div class="col-xs-2">
-                            <div class="stat-box colorsix">
-                                <i class="comments">&nbsp;</i>
-                                <h4>Comments</h4>
-                                <h1>56</h1>
+                            <div class="stat-box colorthree">
+                                <i class="pages">&nbsp;</i>
+                                <h4>Tours</h4>
+                                <h1>125</h1>
                             </div>
                         </div>
-                        <div class="col-xs-6">
-                            <div class="sec-box">
-                                <a class="closethis">Close</a>
-                                <header>
-                                    <h2 class="heading">Daily Visitors</h2>
-                                </header>
-                                <div class="contents boxpadding">
-                                    <a class="togglethis">Toggle</a>
-                                    <div class="charts-box">
-                                        <script type="text/javascript" src="assets/js/raphael-2.1.0.min.js"></script>
-                                        <script type="text/javascript" src="assets/js/morris-0.4.1.min.js"></script>
-                                        <div id="displaydigonalbar"></div>
-                                        <script>
-                                            /* data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type */
-                                            var day_data = [
-                                                {"period": "2012-10-01", "licensed": 3407, "sorned": 660},
-                                                {"period": "2012-09-30", "licensed": 3351, "sorned": 629},
-                                                {"period": "2012-09-29", "licensed": 3269, "sorned": 618},
-                                                {"period": "2012-09-20", "licensed": 3246, "sorned": 661},
-                                                {"period": "2012-09-19", "licensed": 3257, "sorned": 667},
-                                                {"period": "2012-09-18", "licensed": 3248, "sorned": 627},
-                                                {"period": "2012-09-17", "licensed": 3171, "sorned": 660},
-                                                {"period": "2012-09-16", "licensed": 3171, "sorned": 676},
-                                                {"period": "2012-09-15", "licensed": 3201, "sorned": 656},
-                                                {"period": "2012-09-10", "licensed": 3215, "sorned": 622}
-                                            ];
-                                            Morris.Bar({
-                                                element: 'displaydigonalbar',
-                                                data: day_data,
-                                                xkey: 'period',
-                                                ykeys: ['licensed', 'sorned'],
-                                                labels: ['Licensed', 'SORN'],
-                                                xLabelAngle: 60
-                                            });
-                                        </script>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
-                            <div class="sec-box">
-                                <a class="closethis">Close</a>
-                                <header>
-                                    <h2 class="heading">Updating data</h2>
-                                </header>
-                                <div class="contents boxpadding">
-                                    <a class="togglethis">Toggle</a>
-                                    <div class="charts-box">
-                                        <div id="updatingdata"></div>
-                                        <script>
-                                            var nReloads = 0;
-                                            function data(offset) {
-                                                var ret = [];
-                                                for (var x = 0; x <= 360; x += 10) {
-                                                    var v = (offset + x) % 360;
-                                                    ret.push({
-                                                        x: x,
-                                                        y: Math.sin(Math.PI * v / 180).toFixed(4),
-                                                        z: Math.cos(Math.PI * v / 180).toFixed(4)
-                                                    });
-                                                }
-                                                return ret;
-                                            }
-                                            var graph = Morris.Line({
-                                                element: 'updatingdata',
-                                                data: data(0),
-                                                xkey: 'x',
-                                                ykeys: ['y', 'z'],
-                                                labels: ['sin()', 'cos()'],
-                                                parseTime: false,
-                                                ymin: -1.0,
-                                                ymax: 1.0,
-                                                hideHover: true
-                                            });
-                                            function update() {
-                                                nReloads++;
-                                                graph.setData(data(5 * nReloads));
-                                                $('#reloadStatus').text(nReloads + ' reloads');
-                                            }
-                                            setInterval(update, 100);
-                                        </script>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-8">
-                            <div class="sec-box">
-                                <a class="closethis">Close</a>
-                                <header>
-                                    <h2 class="heading">USA Map</h2>
-                                </header>
-                                <div class="contents">
-                                    <a class="togglethis">Toggle</a>
-                                    <section class="map-box">
-                                        <script type="text/javascript" src="assets/js/jqvmap/jquery.vmap.min.js"></script>
-                                        <script type="text/javascript" src="assets/js/jqvmap/jquery.vmap.sampledata.js"></script>
-                                        <script type="text/javascript" src="assets/js/jqvmap/maps/jquery.vmap.usa.js"></script>
-                                        <script>
-                                            jQuery(document).ready(function() {
-                                                jQuery('#usamap').vectorMap({
-                                                    map: 'usa_en',
-                                                    backgroundColor: '#33363f',
-                                                    color: '#ffffff',
-                                                    hoverOpacity: 0.7,
-                                                    selectedColor: '#999999',
-                                                    enableZoom: true,
-                                                    showTooltip: true,
-                                                    values: sample_data,
-                                                    scaleColors: ['#54acc0', '#e9535e'],
-                                                    normalizeFunction: 'polynomial'
-                                                });
-                                            });
-                                        </script>
-                                        <div id="usamap" class="mapsections"></div>
-                                    </section>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-4">
-                            <div class="sec-box">
-                                <a class="closethis">Close</a>
-                                <header>
-                                    <h2 class="heading">Some List</h2>
-                                </header>
-                                <div class="contents boxpadding">
-                                    <a class="togglethis">Toggle</a>
-                                    <div class="linkslist">
-                                        <ul>
-                                            <li class="success-list"><a href="#">Feed the cat</a><span class="captions">23 minutes ago</span></li>
-                                            <li class="error-list"><a href="#">Meeting with Mark</a><span class="captions">23 minutes ago</span></li>
-                                            <li><a href="#">Visit John</a><span class="captions">23 minutes ago</span></li>
-                                            <li><a href="#">Urna adipiscing dictumst</a><span></span></li>
-                                            <li><a href="#">Scelerisque magna adipiscing</a><span></span></li>
-                                            <li><a href="#">Porttitor integer odio enim</a><span></span></li>
-                                            <li><a href="#">Platea! Dis sociis a purus</a><span></span></li>
-                                            <li class="error-list"><a href="#">Meeting with Mark</a><span class="captions">23 minutes ago</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
-                            <div class="sec-box">
-                                <a class="closethis">Close</a>
-                                <header>
-                                    <h2 class="heading">Top Comments</h2>
-                                </header>
-                                <div class="contents">
-                                    <a class="togglethis">Toggle</a>
-                                    <div class="comments-box boxpadding">
-                                        <div class="media">
-                                            <a href="#" class="pull-left">
-                                                <img src="assets/images/avatar3.jpg" alt="" class="media-object" style="width: 64px; height: 64px;" />
-                                            </a>
-                                            <div class="media-body">
-                                                <h5 class="media-heading">John K. Weber<small>May 12, 2013 - 5:22 am</small></h5>
-                                                Turpis tincidunt, habitasse egestas parturient tempor urna nunc montes? Duis
-                                                <div class="clearfix"></div>
-                                                <a href="#" class="btn-default btn">Reply</a>
-                                                <div class="media">
-                                                    <a href="#" class="pull-left">
-                                                        <img src="assets/images/avatar2.jpg" alt="" class="media-object" style="width: 64px; height: 64px;" />
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <h5 class="media-heading">James C. Carrillo<small>May 12, 2013 - 5:22 am</small></h5>
-                                                        Turpis tincidunt, habitasse egestas parturient tempor urna nunc
-                                                        <div class="clearfix"></div>
-                                                        <a href="#" class="btn-default btn">Reply</a>
-                                                        <div class="media">
-                                                            <a href="#" class="pull-left">
-                                                                <img src="assets/images/avatar2.jpg" alt="" class="media-object" style="width: 64px; height: 64px;" />
-                                                            </a>
-                                                            <div class="media-body">
-                                                                <h5 class="media-heading">Bethanie C. Laws<small>May 12, 2013 - 5:22 am</small></h5>
-                                                                Turpis tincidunt, habitasse egestas parturient tempor
-                                                                <div class="clearfix"></div>
-                                                                <a href="#" class="btn-default btn">Reply</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="media">
-                                            <a href="#" class="pull-left">
-                                                <img src="assets/images/avatar2.jpg" alt="" class="media-object" style="width: 64px; height: 64px;" />
-                                            </a>
-                                            <div class="media-body">
-                                                <h5 class="media-heading">Bethanie C. Laws<small>May 12, 2013 - 5:22 am</small></h5>
-                                                Turpis tincidunt, habitasse egestas parturient tempor urna nunc montes? Duis
-                                                <div class="clearfix"></div>
-                                                <a href="#" class="btn-default btn">Reply</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-6">
-                            <div class="tabs-section">
-                                <ul class="nav nav-tabs" id="myTab">
-                                    <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-                                    <li><a href="#profile" data-toggle="tab">Profile</a></li>
-                                    <li><a href="#messages" data-toggle="tab">Messages</a></li>
-                                </ul>
 
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="home">
-                                        <section class="boxpadding">
-                                            <p>
-                                                <strong>Rhoncus duis enim in purus? Ac augue mid est mus augue lundium purus, turpis? Ut quis lundium pid, ridiculus ac aliquam dolor, scelerisque aliquet, sit porta cras ultricies ridiculus tempor vel sit, scelerisque! Rhoncus urna. Integer nec porttitor urna turpis, pellentesque nascetur, dictumst nunc? Enim!</strong>
-                                            </p>
-                                            <p>
-                                                Placerat vel ac amet porta, ac. Quis est ut ac penatibus. Augue in scelerisque dictumst? Turpis dapibus porta est? Tristique, proin, cursus nec! Tincidunt, natoque tristique velit mus nisi etiam elementum placerat, arcu sed sit, in vel? Turpis scelerisque scelerisque et nisi egestas massa? Sed, auctor integer amet pulvinar, lectus pulvinar, quis mattis sit ut et diam amet platea, enim ac platea augue sagittis parturient montes porttitor, in cursus a aenean? Non, aenean adipiscing turpis.
-                                            </p>
-                                            <p>
-                                                Magna dictumst massa? Mauris phasellus et mus, adipiscing augue ac nisi, turpis integer sed? Pulvinar platea sagittis adipiscing diam arcu platea, duis pulvinar proin pid ac phasellus vel magna, risus vut enim scelerisque? Rhoncus lundium? Proin nunc integer cum et rhoncus, risus natoque et. Quis vel sed? Rhoncus nec. Ac phasellus. Mattis quis, tincidunt aliquet? Elementum turpis porttitor dignissim, nisi elementum, tincidunt risus, amet lectus nisi nisi facilisis, amet lacus integer porttitor pulvinar diam eu velit enim aliquam scelerisque lacus sit phasellus tincidunt augue eros ac phasellus scelerisque a, mauris. Quis et dapibus tortor vel scelerisque! Cum ultrices nisi, adipiscing velit diam purus! Proin scelerisque quis ac purus et? Ridiculus, vel! Rhoncus etiam, aliquet scelerisque nisi lundium dolor est. Ridiculus, vel! Rhoncus etiam, aliquet scelerisque nisi lundium dolor est.
-                                            </p>
-                                        </section>
+                        <div class="col-xs-12">
+                            <div class="sec-box">
+                                <a class="closethis">Close</a>
+                                <header>
+                                    <h2 class="heading">Data Tables</h2>
+                                </header>
+                                <div class="contents">
+                                    <a class="togglethis">Toggle</a>
+                                    <div class="table-box">
+                                        <script type="text/javascript" src="assets/js/jquery.dataTables.min.js"></script>
+                                        <div id="example_wrapper" class="dataTables_wrapper" role="grid"><div id="example_length" class="dataTables_length"><label>Show <select size="1" name="example_length" aria-controls="example"><option value="10" selected="selected">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div><div class="dataTables_filter" id="example_filter"><label>Search all columns: <input type="text" aria-controls="example"></label></div><table class="display table dataTable" id="example" aria-describedby="example_info">
+                                                <thead>
+                                                <tr role="row"><th class="sorting" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 163px;" aria-label="Rendering engine: activate to sort column ascending">Rendering engine</th><th class="sorting" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 164px;" aria-label="Browser: activate to sort column ascending">Browser</th><th class="sorting_desc" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 164px;" aria-sort="descending" aria-label="Platform(s): activate to sort column ascending">Platform(s)</th><th class="center sorting" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 164px;" aria-label="Engine version: activate to sort column ascending">Engine version</th><th class="center sorting" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 164px;" aria-label="CSS grade: activate to sort column ascending">CSS grade</th></tr>
+                                                </thead>
+
+                                                <tfoot>
+                                                <tr><th rowspan="1" colspan="1"><input type="text" name="search_engine" value="Search engines" class="search_init"></th><th rowspan="1" colspan="1"><input type="text" name="search_browser" value="Search browsers" class="search_init"></th><th rowspan="1" colspan="1"><input type="text" name="search_platform" value="Search platforms" class="search_init"></th><th rowspan="1" colspan="1"><input type="text" name="search_version" value="Search versions" class="search_init"></th><th rowspan="1" colspan="1"><input type="text" name="search_grade" value="Search grades" class="search_init"></th></tr>
+                                                </tfoot>
+                                                <tbody role="alert" aria-live="polite" aria-relevant="all"><tr class="gradeA odd">
+                                                    <td class="">Trident</td>
+                                                    <td class=" ">Internet Explorer 7</td>
+                                                    <td class="  sorting_1">Win XP SP2+</td>
+                                                    <td class="center ">7</td>
+                                                    <td class="center ">A</td>
+                                                </tr><tr class="gradeA even">
+                                                    <td class="">Trident</td>
+                                                    <td class=" ">AOL browser (AOL desktop)</td>
+                                                    <td class="  sorting_1">Win XP</td>
+                                                    <td class="center ">6</td>
+                                                    <td class="center ">A</td>
+                                                </tr><tr class="gradeA odd">
+                                                    <td class="">Gecko</td>
+                                                    <td class=" ">Netscape Browser 8</td>
+                                                    <td class="  sorting_1">Win 98SE+</td>
+                                                    <td class="center ">1.7</td>
+                                                    <td class="center ">A</td>
+                                                </tr><tr class="gradeA even">
+                                                    <td class="">Gecko</td>
+                                                    <td class=" ">Firefox 1.0</td>
+                                                    <td class="  sorting_1">Win 98+ / OSX.2+</td>
+                                                    <td class="center ">1.7</td>
+                                                    <td class="center ">A</td>
+                                                </tr><tr class="gradeA odd">
+                                                    <td class="">Gecko</td>
+                                                    <td class=" ">Firefox 1.5</td>
+                                                    <td class="  sorting_1">Win 98+ / OSX.2+</td>
+                                                    <td class="center ">1.8</td>
+                                                    <td class="center ">A</td>
+                                                </tr><tr class="gradeA even">
+                                                    <td class="">Gecko</td>
+                                                    <td class=" ">Firefox 2.0</td>
+                                                    <td class="  sorting_1">Win 98+ / OSX.2+</td>
+                                                    <td class="center ">1.8</td>
+                                                    <td class="center ">A</td>
+                                                </tr><tr class="gradeA odd">
+                                                    <td class="">Gecko</td>
+                                                    <td class=" ">Netscape Navigator 9</td>
+                                                    <td class="  sorting_1">Win 98+ / OSX.2+</td>
+                                                    <td class="center ">1.8</td>
+                                                    <td class="center ">A</td>
+                                                </tr><tr class="gradeA even">
+                                                    <td class="">Gecko</td>
+                                                    <td class=" ">Seamonkey 1.1</td>
+                                                    <td class="  sorting_1">Win 98+ / OSX.2+</td>
+                                                    <td class="center ">1.8</td>
+                                                    <td class="center ">A</td>
+                                                </tr><tr class="gradeA odd">
+                                                    <td class="">Gecko</td>
+                                                    <td class=" ">Mozilla 1.7</td>
+                                                    <td class="  sorting_1">Win 98+ / OSX.1+</td>
+                                                    <td class="center ">1.7</td>
+                                                    <td class="center ">A</td>
+                                                </tr><tr class="gradeA even">
+                                                    <td class="">Gecko</td>
+                                                    <td class=" ">Mozilla 1.8</td>
+                                                    <td class="  sorting_1">Win 98+ / OSX.1+</td>
+                                                    <td class="center ">1.8</td>
+                                                    <td class="center ">A</td>
+                                                </tr></tbody></table><div class="dataTables_info" id="example_info">Showing 1 to 10 of 39 entries</div><div class="dataTables_paginate paging_two_button" id="example_paginate"><a class="paginate_disabled_previous" tabindex="0" role="button" id="example_previous" aria-controls="example">Previous</a><a class="paginate_enabled_next" tabindex="0" role="button" id="example_next" aria-controls="example">Next</a></div></div>
+                                        <script>
+                                            var asInitVals = new Array();
+                                            $(document).ready(function() {
+                                                var oTable = $('#example').dataTable( {
+                                                    "oLanguage": {
+                                                        "sSearch": "Search all columns:"
+                                                    }
+                                                } );
+
+                                                $("tfoot input").keyup( function () {
+                                                    /* Filter on the column (the index) of this element */
+                                                    oTable.fnFilter( this.value, $("tfoot input").index(this) );
+                                                } );
+
+
+
+                                                /*
+                                                 * Support functions to provide a little bit of 'user friendlyness' to the textboxes in
+                                                 * the footer
+                                                 */
+                                                $("tfoot input").each( function (i) {
+                                                    asInitVals[i] = this.value;
+                                                } );
+
+                                                $("tfoot input").focus( function () {
+                                                    if ( this.className == "search_init" )
+                                                    {
+                                                        this.className = "";
+                                                        this.value = "";
+                                                    }
+                                                } );
+
+                                                $("tfoot input").blur( function (i) {
+                                                    if ( this.value == "" )
+                                                    {
+                                                        this.className = "search_init";
+                                                        this.value = asInitVals[$("tfoot input").index(this)];
+                                                    }
+                                                } );
+                                            } );
+
+                                        </script>
                                     </div>
-                                    <div class="tab-pane" id="profile">
-                                        <section class="boxpadding">
-                                            <p>
-                                                Placerat vel ac amet porta, ac. Quis est ut ac penatibus. Augue in scelerisque dictumst? Turpis dapibus porta est? Tristique, proin, cursus nec! Tincidunt, natoque tristique velit mus nisi etiam elementum placerat, arcu sed sit, in vel? Turpis scelerisque scelerisque et nisi egestas massa? Sed, auctor integer amet pulvinar, lectus pulvinar, quis mattis sit ut et diam amet platea, enim ac platea augue sagittis parturient montes porttitor, in cursus a aenean? Non, aenean adipiscing turpis.
-                                            </p>
-                                            <p>
-                                                Magna dictumst massa? Mauris phasellus et mus, adipiscing augue ac nisi, turpis integer sed? Pulvinar platea sagittis adipiscing diam arcu platea, duis pulvinar proin pid ac phasellus vel magna, risus vut enim scelerisque? Rhoncus lundium? Proin nunc integer cum et rhoncus, risus natoque et. Quis vel sed? Rhoncus nec. Ac phasellus. Mattis quis, tincidunt aliquet? Elementum turpis porttitor dignissim, nisi elementum, tincidunt risus, amet lectus nisi nisi facilisis, amet lacus integer porttitor pulvinar diam eu velit enim aliquam scelerisque lacus sit phasellus tincidunt augue eros ac phasellus scelerisque a, mauris. Quis et dapibus tortor vel scelerisque! Cum ultrices nisi, adipiscing velit diam purus! Proin scelerisque quis ac purus et? Ridiculus, vel! Rhoncus etiam, aliquet scelerisque nisi lundium dolor est. Ridiculus, vel! Rhoncus etiam, aliquet scelerisque nisi lundium dolor est.
-                                            </p>
-                                            <p>
-                                                <strong>Rhoncus duis enim in purus? Ac augue mid est mus augue lundium purus, turpis? Ut quis lundium pid, ridiculus ac aliquam dolor, scelerisque aliquet, sit porta cras ultricies ridiculus tempor vel sit, scelerisque! Rhoncus urna. Integer nec porttitor urna turpis, pellentesque nascetur, dictumst nunc? Enim!</strong>
-                                            </p>
-                                        </section>
-                                    </div>
-                                    <div class="tab-pane" id="messages">
-                                        <section class="boxpadding">
-                                            <p>
-                                                <strong>Rhoncus duis enim in purus? Ac augue mid est mus augue lundium purus, turpis? Ut quis lundium pid, ridiculus ac aliquam dolor, scelerisque aliquet, sit porta cras ultricies ridiculus tempor vel sit, scelerisque! Rhoncus urna. Integer nec porttitor urna turpis, pellentesque nascetur, dictumst nunc? Enim!</strong>
-                                            </p>
-                                            <p>
-                                                Magna dictumst massa? Mauris phasellus et mus, adipiscing augue ac nisi, turpis integer sed? Pulvinar platea sagittis adipiscing diam arcu platea, duis pulvinar proin pid ac phasellus vel magna, risus vut enim scelerisque? Rhoncus lundium? Proin nunc integer cum et rhoncus, risus natoque et. Quis vel sed? Rhoncus nec. Ac phasellus. Mattis quis, tincidunt aliquet? Elementum turpis porttitor dignissim, nisi elementum, tincidunt risus, amet lectus nisi nisi facilisis, amet lacus integer porttitor pulvinar diam eu velit enim aliquam scelerisque lacus sit phasellus tincidunt augue eros ac phasellus scelerisque a, mauris. Quis et dapibus tortor vel scelerisque! Cum ultrices nisi, adipiscing velit diam purus! Proin scelerisque quis ac purus et? Ridiculus, vel! Rhoncus etiam, aliquet scelerisque nisi lundium dolor est. Ridiculus, vel! Rhoncus etiam, aliquet scelerisque nisi lundium dolor est.
-                                            </p>
-                                        </section>
-                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
                             </div>
                         </div>
