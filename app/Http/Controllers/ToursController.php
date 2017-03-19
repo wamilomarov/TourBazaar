@@ -119,6 +119,31 @@ class ToursController extends Controller
         
     }
 
+    public function getCountriesList(Request $request)
+    {
+        $result = "";
+        $input = $request->input;
+
+        $list = DB::select("SELECT name FROM countries WHERE name LIKE '%$input%'");
+
+        foreach ($list as $item) {
+            $result .= "<option value = '$item->name'></option>";
+        }
+        echo $result;
+    }
+
+    public function getCitiesList(Request $request)
+    {
+        $result = "";
+        $input = $request->country;
+
+        $list = DB::select("SELECT name FROM cities WHERE country_id = (SELECT id FROM countries WHERE name = '$input')");
+
+        foreach ($list as $item) {
+            $result .= "<option value = '$item->name'></option>";
+        }
+        echo $result;
+    }
 
 
 }

@@ -38,6 +38,10 @@ Route::get('admin', function (){
    return view('admin.dashboard')->with('user', $user);
 });
 
+Route::get('getCountriesList/{input}', 'ToursController@getCountriesList');
+
+Route::get('getCitiesList/{country}', 'ToursController@getCitiesList');
+
 
 //------------------------------------------FOR ADMIN-----------------------------------
 Route::group(['middleware' => ['auth', 'admin', 'web']], function(){
@@ -62,6 +66,11 @@ Route::group(['middleware' => ['auth', 'admin', 'web']], function(){
 
 //------------------------------------------FOR USER------------------------------------
 Route::group(['middleware' => ['auth', 'web']], function (){
+
+    Route::get('admin', function (){
+        $user = new \App\User();
+        return view('admin.dashboard')->with('user', $user);
+    });
 
     Route::get('addTour', 'ToursController@getCreateTourForm');
 

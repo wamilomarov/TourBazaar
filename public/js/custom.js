@@ -5,32 +5,31 @@ function getCities() {
     var input = document.getElementById('countries').value;
         if (countries.length > 1){
 
-            console.log(countries);
             $.ajax({url: "../getCities/" + input, success: function(result){
                 $("#countries_list").html(result);
             }});
         }
 }
 
-function getCitiesList() {
-    var countries = document.getElementById('countries').value;
-    if (countries.length > 1){
+function getCitiesList(country_id, city_id) {
+    var country = document.getElementById(country_id).value;
+    console.log(country);
 
-        console.log(countries);
-        // $.ajax({url: "/getCities/" + country, success: function(result){
-        //     $("#div1").html(result);
-        // }});
-    }
+        $.ajax({url: "http://localhost:8000/getCitiesList/" + country, success: function(result){
+            console.log(result);
+            $("#list_" + city_id +"").empty();
+            $("#list_" + city_id +"").append(result);
+        }});
 }
 
-function getCountries() {
-    var countries = document.getElementById('countries').value;
-    if (countries.length > 1){
+function getCountriesList(id) {
+    var input = document.getElementById(id).value;
+    if (input.length > 1){
 
-        console.log(countries);
-        // $.ajax({url: "/getCities/" + country, success: function(result){
-        //     $("#div1").html(result);
-        // }});
+        $.ajax({url: "http://localhost:8000/getCountriesList/" + input, success: function(result){
+            $("#list_" + id +"").empty();
+            $("#list_" + id +"").append(result);
+        }});
     }
 }
 
@@ -46,14 +45,14 @@ $(document).ready(function() {
             x++; //text box increment
             var newCity = document.createElement('tr');
            $(newCity).append('<td class="col-md-4">Places of visit</td>' +
-               '<td class="col-md-8"><input type="text" name="countries[]" placeholder="Countries" list="countries_list' + x + '" id="countries' + x + '" onkeyup="getCountries(\'countries' + x + '\')" class="form-control" style="display: inline; width: auto;">' +
-                '<input type="text" name="cities[]" placeholder="Cities" list="cities_list' + x + '" id="cities' + x + '" onfocus="getCitiesList(\'countries' + x + '\')" onkeyup="getCities(\'cities' + x + '\')" class="form-control" style="display: inline; width: auto;">' +
+               '<td class="col-md-8"><input type="text" name="countries[]" placeholder="Countries" list="list_countries' + x + '" id="countries' + x + '" onkeyup="getCountriesList(\'countries' + x + '\')" class="form-control" style="display: inline; width: auto;">' +
+                '<input type="text" name="cities[]" placeholder="Cities" list="list_cities' + x + '" id="cities' + x + '" onfocus="getCitiesList(\'countries' + x + '\', \'cities' + x + '\')" onkeyup="getCities(\'cities' + x + '\')" class="form-control" style="display: inline; width: auto;">' +
                 '<button class="btn remove_field">Remove</button></td>');
              wrapper.parentNode.insertBefore(newCity, wrapper.nextSibling);
 
-             $('body').append('<datalist id="countries_list"' + x + '></datalist>');
-            $('body').append('<datalist id="cities_list"' + x + '></datalist>');
-             console.log(x);
+             $('body').append('<datalist id="list_countries' + x + '"></datalist>');
+            $('body').append('<datalist id="list_cities' + x + '"></datalist>');
+
             // $(wrapper).append(
             //     "<input type=\"text\" name=\"countries[]\" placeholder=\"Countries\" list=\"countries\" id=\"countries" + x + "\" onkeyup=\"getCountries('countries" + x + "')\" class=\"form-control\" style=\"display: inline; width: auto;\">" +
             // "<input type=\"text\" name=\"cities[]\" placeholder=\"Cities\" list=\"cities\" id=\"cities\" onfocus=\"getCitiesList('countries" + x + "')\" onkeyup=\"getCities('cities" + x + "')\" class=\"form-control\" style=\"display: inline; width: auto;\">" +
@@ -68,7 +67,6 @@ $(document).ready(function() {
     $('table').on('click', ".remove_field", function(e){ //user click on remove text
 
         e.preventDefault();
-        console.log(x);
         $(this).parent().parent().remove();
         x--;
 
