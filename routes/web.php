@@ -35,7 +35,7 @@ Route::post('searchTours', 'ToursController@search');
 
 Route::get('admin', function (){
     $user = new \App\User();
-   return view('admin.app')->with('user', $user);
+   return view('admin.dashboard')->with('user', $user);
 });
 
 

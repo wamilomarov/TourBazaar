@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Tour;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ToursController extends Controller
@@ -11,27 +12,28 @@ class ToursController extends Controller
 
     public function create(Request $request)
     {
-        $tour = new Tour($request->all());
-        $tour->save();
-       foreach ($request->cities as $city){
-           DB::table('tours_cities')->insert([
-               'tour_id' => $tour->id,
-               'city_id' => $city
-           ]);
-       }
-       foreach ($request->countries as $country){
-           DB::table('tours_countries')->insert([
-               'tour_id' => $tour->id,
-               'country_id' => $country
-           ]);
-       }
+//        $tour = new Tour($request->all());
+//        $tour->save();
+//       foreach ($request->cities as $city){
+//           DB::table('tours_cities')->insert([
+//               'tour_id' => $tour->id,
+//               'city_id' => $city
+//           ]);
+//       }
+//       foreach ($request->countries as $country){
+//           DB::table('tours_countries')->insert([
+//               'tour_id' => $tour->id,
+//               'country_id' => $country
+//           ]);
+//       }
+        return $request->all();
     }
 
     public function getCreateTourForm()
     {
-        $countries = DB::table('countries')->select('name', 'id')->get();
-        $cities = DB::table('cities')->select('name', 'id')->get();
-        return view('addTour')->with('countries', $countries)->with('cities', $cities);
+//        $countries = DB::table('countries')->select('name', 'id')->get();
+//        $cities = DB::table('cities')->select('name', 'id')->get();
+        return view('admin.addTour')->with('user', Auth::user());
     }
 
     public function allTours()
