@@ -33,11 +33,12 @@
                                         <td class="col-md-8"><input type="text" placeholder="Title (EN)" class="form-control" name="title_en"></td>
                                     </tr>
 
-                                    <tr>
+                                    <tr id="places">
                                         <td class="col-md-4">Places of visit</td>
                                         <td class="col-md-8">
-                                            <input type="text" name="countries" placeholder="Countries" list="countries" id="countries" onkeyup="getCountries()" class="form-control">
-                                            <input type="text" name="cities" placeholder="Cities" list="cities" id="cities" onfocus="getCitiesList()" onkeyup="getCities()" class="form-control">
+                                            <input type="text" name="countries[]" placeholder="Countries" list="countries" id="countries1" onkeyup="getCountries('countries1')" class="form-control" style="display: inline; width: auto;">
+                                            <input type="text" name="cities[]" placeholder="Cities" list="cities" id="cities1" onfocus="getCitiesList('countries1')" onkeyup="getCities('cities1')" class="form-control" style="display: inline; width: auto;">
+                                            <button class=" btn add_field_button">Add More Fields</button>
                                         </td>
                                     </tr>
 
