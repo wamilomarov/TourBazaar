@@ -1,10 +1,19 @@
 @extends('admin.app')
 
 @section('content')
+    <style>
+        .heading{
+            margin-top: 37px;
+        }
+        .submit{
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
     <div class="content-section">
         <div class="container-liquid">
             <div class="row">
-                <div class="col-xs-10 col-xs-offset-1">
+                <div class="col-xs-12">
                     <div class="sec-box">
                         <a class="closethis">Close</a>
                         <header>
@@ -12,61 +21,56 @@
                         </header>
                         <div class="contents">
                             <a class="togglethis">Toggle</a>
-                            <div class="table-box">
-                                <table class="table">
-                                    <thead>
+                            <div class="table-box col-xs-12">
+                                {{--<table class="table">--}}
+                                    {{--<thead>--}}
                                     {{--<tr>--}}
                                         {{--<th class="col-md-4">Description</th>--}}
                                         {{--<th class="col-md-8">Form Elements</th>--}}
                                     {{--</tr>--}}
-                                    </thead>
-                                    <tbody>
+                                    {{--</thead>--}}
+                                    {{--<tbody>--}}
                                     <form action="{{url('addTour')}}" method="post">
                                         {{ csrf_field() }}
-                                    <tr>
-                                        <td class="col-md-4">Title (AZ)</td>
-                                        <td class="col-md-8"><input type="text" placeholder="Title (AZ)" class="form-control" name="title_az" id="title_az" ></td>
-                                    </tr>
 
-                                    <tr>
-                                        <td class="col-md-4">Title (EN)</td>
-                                        <td class="col-md-8"><input type="text" placeholder="Title (EN)" class="form-control" name="title_en"></td>
-                                    </tr>
+                                        <div class="col-md-2 heading">Titles</div>
+                                        <div class="col-md-5"><input type="text" placeholder="Title (AZ)" class="form-control" name="title_az" id="title_az" ></div>
+                                        <div class="col-md-5"><input type="text" placeholder="Title (EN)" class="form-control" name="title_en"></div>
 
-                                    <tr id="places">
-                                        <td class="col-md-4">Places of visit</td>
-                                        <td class="col-md-8">
-                                            <input type="text" name="countries[]" placeholder="Countries" list="list_countries1" id="countries1" onkeyup="getCountriesList('countries1')" class="form-control" style="display: inline; width: auto;">
-                                            <input type="text" name="cities[]" placeholder="Cities" list="list_cities1" id="cities1" onfocus="getCitiesList('countries1', 'cities1')" class="form-control" style="display: inline; width: auto;">
-                                            <button class=" btn add_field_button">Add More Fields</button>
+
+                                    <div id="places">
+                                        <div class="col-md-2 heading">Places of visit</div>
+                                        <div class="col-md-4"><input type="text" name="countries[]" placeholder="Countries" list="list_countries1" id="countries1" onkeyup="getCountriesList('countries1')" class="form-control"></div>
+                                        <div class="col-md-4"><input type="text" name="cities[]" placeholder="Cities" list="list_cities1" id="cities1" onfocus="getCitiesList('countries1', 'cities1')" class="form-control pull-left"></div>
+                                        <div class="col-md-2"><button class=" btn add_field_button">Add More Fields</button></div>
                                             <datalist id="list_countries1">
 
                                             </datalist>
                                             <datalist id="list_cities1">
 
                                             </datalist>
-                                        </td>
-                                    </tr>
+                                    </div>
 
 
 
-                                    <tr>
-                                        <td class="col-md-4">Expire Date</td>
-                                        <td class="col-md-8"><input type="date" class="form-control"></td>
-                                    </tr>
 
-                                    <tr>
-                                        <td class="col-md-4">Price</td>
-                                        <td class="col-md-8"><input type="number" placeholder="Price" name="price" class="form-control" style="display: inline; width: auto;">
-                                            <select class="form-control" style="display: inline; width: auto;">
+                                        <div class="col-md-2 heading">Expire Date</div>
+                                        <div class="col-md-4"><input type="date" class="form-control"></div>
+
+
+                                        <div class="col-md-1 heading">Price</div>
+                                        <div class="col-md-3" style="display: inline;"><input type="number" placeholder="Price" name="price" class="form-control" style="display: inline;"></div>
+                                            <div class="col-md-2"><select class="form-control" style="display: inline;">
                                                 <option value="AZN">AZN</option>
                                                 <option value="USD">USD</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-md-4">Suggest as a hot offer</td>
-                                        <td class="col-md-8">
+                                            </select></div>
+
+                                        <div class="col-md-2">Descriptions</div>
+                                        <div class="col-md-5"><textarea rows="4" class="form-control" placeholder="Description (AZ)" name="description_az"></textarea></div>
+                                        <div class="col-md-5"><textarea rows="4" class="form-control" placeholder="Description (EN)" name="description_en"></textarea></div>
+
+                                        <div class="col-md-2 heading">Hot offer</div>
+                                        <div class="col-md-4">
                                             <div class="onoffswitch android">
                                                 <input type="checkbox" name="is_hot" class="onoffswitch-checkbox" id="android">
                                                 <label class="onoffswitch-label" for="android">
@@ -76,28 +80,16 @@
                                                     </div>
                                                 </label>
                                             </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-md-4">Description (AZ)</td>
-                                        <td class="col-md-8"><textarea rows="3" class="form-control" name="description_az"></textarea></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-md-4">Description (EN)</td>
-                                        <td class="col-md-8"><textarea rows="3" class="form-control" name="description_en"></textarea></td>
-                                    </tr>
+                                        </div>
 
-                                    <tr>
-                                        <td class="col-md-4">Photos (Max. 3 photos)</td>
-                                        <td class="col-md-8"><input type="file" name="photos" multiple></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-md-4"></td>
-                                        <td class="col-md-6"><button type="submit" class="btn btn-primary btn-lg">Add</button></td>
-                                    </tr>
+                                        <div class="col-md-2 heading">Photos (Max. 3 photos)</div>
+                                        <div class="col-md-4 heading"><input type="file" name="photos" multiple></div>
+
+                                        <div class="col-md-12"><button type="submit" class="btn btn-primary submit center-block">Add</button></div>
+
                                     </form>
-                                    </tbody>
-                                </table>
+                                    {{--</tbody>--}}
+                                {{--</table>--}}
 
                             </div>
                             <div class="clearfix"></div>

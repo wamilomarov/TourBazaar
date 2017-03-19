@@ -32,12 +32,12 @@ $(document).ready(function() {
         e.preventDefault();
         if(x < max_fields){ //max input box allowed
             x++; //text box increment
-            var newCity = document.createElement('tr');
-           $(newCity).append('<td class="col-md-4">Places of visit</td>' +
-               '<td class="col-md-8">' +
-               '<input type="text" name="countries[]" placeholder="Countries" list="list_countries' + x + '" id="countries' + x + '" onkeyup="getCountriesList(\'countries' + x + '\')" class="form-control" style="display: inline; width: auto;">' +
-                '<input type="text" name="cities[]" placeholder="Cities" list="list_cities' + x + '" id="cities' + x + '" onfocus="getCitiesList(\'countries' + x + '\', \'cities' + x + '\')" class="form-control" style="display: inline; width: auto;">' +
-                '<button class="btn remove_field">Remove</button></td>');
+            var newCity = document.createElement('div');
+            newCity.setAttribute("id", "places");
+           $(newCity).append('<div class="col-md-2 heading">Places of visit</div>' +
+               '<div class="col-md-4"><input type="text" name="countries[]" placeholder="Countries" list="list_countries' + x + '" id="countries' + x + '" onkeyup="getCountriesList(\'countries' + x + '\')" class="form-control"></div>' +
+               '<div class="col-md-4"><input type="text" name="cities[]" placeholder="Cities" list="list_cities' + x + '" id="cities' + x + '" onfocus="getCitiesList(\'countries' + x + '\', \'cities' + x + '\')" class="form-control"></div>' +
+               '<div class="col-md-2"><button class="btn remove_field">Remove</button></div>');
              wrapper.parentNode.insertBefore(newCity, wrapper.nextSibling);
 
              $('body').append('<datalist id="list_countries' + x + '"></datalist>');
@@ -54,7 +54,7 @@ $(document).ready(function() {
         }
     });
 
-    $('table').on('click', ".remove_field", function(e){ //user click on remove text
+    $('div').on('click', ".remove_field", function(e){ //user click on remove text
 
         e.preventDefault();
         $(this).parent().parent().remove();
