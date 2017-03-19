@@ -36,9 +36,15 @@
                                     <tr id="places">
                                         <td class="col-md-4">Places of visit</td>
                                         <td class="col-md-8">
-                                            <input type="text" name="countries[]" placeholder="Countries" list="countries" id="countries1" onkeyup="getCountries('countries1')" class="form-control" style="display: inline; width: auto;">
-                                            <input type="text" name="cities[]" placeholder="Cities" list="cities" id="cities1" onfocus="getCitiesList('countries1')" onkeyup="getCities('cities1')" class="form-control" style="display: inline; width: auto;">
+                                            <input type="text" name="countries[]" placeholder="Countries" list="countries_list1" id="countries1" onkeyup="getCountries('countries1')" class="form-control" style="display: inline; width: auto;">
+                                            <input type="text" name="cities[]" placeholder="Cities" list="cities_list1" id="cities1" onfocus="getCitiesList('countries1')" onkeyup="getCities('cities1')" class="form-control" style="display: inline; width: auto;">
                                             <button class=" btn add_field_button">Add More Fields</button>
+                                            <datalist id="countries_list1">
+
+                                            </datalist>
+                                            <datalist id="cities_list1">
+
+                                            </datalist>
                                         </td>
                                     </tr>
 

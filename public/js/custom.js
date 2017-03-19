@@ -46,10 +46,13 @@ $(document).ready(function() {
             x++; //text box increment
             var newCity = document.createElement('tr');
            $(newCity).append('<td class="col-md-4">Places of visit</td>' +
-               '<td class="col-md-8"><input type="text" name="countries[]" placeholder="Countries" list="countries" id="countries' + x + '" onkeyup="getCountries(\'countries' + x + '\')" class="form-control" style="display: inline; width: auto;">' +
-                '<input type="text" name="cities[]" placeholder="Cities" list="cities" id="cities' + x + '" onfocus="getCitiesList(\'countries' + x + '\')" onkeyup="getCities(\'cities' + x + '\')" class="form-control" style="display: inline; width: auto;">' +
-                '<a href="#" class="remove_field">Remove</a></td>');
+               '<td class="col-md-8"><input type="text" name="countries[]" placeholder="Countries" list="countries_list' + x + '" id="countries' + x + '" onkeyup="getCountries(\'countries' + x + '\')" class="form-control" style="display: inline; width: auto;">' +
+                '<input type="text" name="cities[]" placeholder="Cities" list="cities_list' + x + '" id="cities' + x + '" onfocus="getCitiesList(\'countries' + x + '\')" onkeyup="getCities(\'cities' + x + '\')" class="form-control" style="display: inline; width: auto;">' +
+                '<button class="btn remove_field">Remove</button></td>');
              wrapper.parentNode.insertBefore(newCity, wrapper.nextSibling);
+
+             $('body').append('<datalist id="countries_list"' + x + '></datalist>');
+            $('body').append('<datalist id="cities_list"' + x + '></datalist>');
              console.log(x);
             // $(wrapper).append(
             //     "<input type=\"text\" name=\"countries[]\" placeholder=\"Countries\" list=\"countries\" id=\"countries" + x + "\" onkeyup=\"getCountries('countries" + x + "')\" class=\"form-control\" style=\"display: inline; width: auto;\">" +
@@ -57,13 +60,16 @@ $(document).ready(function() {
             //     "<button class=\"btn add_field_button\">Add More Fields</button>"
             // ); //add input box
         }
+        else {
+            window.alert('Maximum number of places is reached');
+        }
     });
 
-    $('td').on('click', ".remove_field", function(e){ //user click on remove text
+    $('table').on('click', ".remove_field", function(e){ //user click on remove text
 
         e.preventDefault();
         console.log(x);
-        $(this).parent().remove();
+        $(this).parent().parent().remove();
         x--;
 
     })
