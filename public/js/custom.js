@@ -1,19 +1,8 @@
 /**
  * Created by Shamil on 19.03.2017.
  */
-function getCities() {
-    var input = document.getElementById('countries').value;
-        if (countries.length > 1){
-
-            $.ajax({url: "../getCities/" + input, success: function(result){
-                $("#countries_list").html(result);
-            }});
-        }
-}
-
 function getCitiesList(country_id, city_id) {
     var country = document.getElementById(country_id).value;
-    console.log(country);
 
         $.ajax({url: "http://localhost:8000/getCitiesList/" + country, success: function(result){
             console.log(result);
@@ -45,8 +34,9 @@ $(document).ready(function() {
             x++; //text box increment
             var newCity = document.createElement('tr');
            $(newCity).append('<td class="col-md-4">Places of visit</td>' +
-               '<td class="col-md-8"><input type="text" name="countries[]" placeholder="Countries" list="list_countries' + x + '" id="countries' + x + '" onkeyup="getCountriesList(\'countries' + x + '\')" class="form-control" style="display: inline; width: auto;">' +
-                '<input type="text" name="cities[]" placeholder="Cities" list="list_cities' + x + '" id="cities' + x + '" onfocus="getCitiesList(\'countries' + x + '\', \'cities' + x + '\')" onkeyup="getCities(\'cities' + x + '\')" class="form-control" style="display: inline; width: auto;">' +
+               '<td class="col-md-8">' +
+               '<input type="text" name="countries[]" placeholder="Countries" list="list_countries' + x + '" id="countries' + x + '" onkeyup="getCountriesList(\'countries' + x + '\')" class="form-control" style="display: inline; width: auto;">' +
+                '<input type="text" name="cities[]" placeholder="Cities" list="list_cities' + x + '" id="cities' + x + '" onfocus="getCitiesList(\'countries' + x + '\', \'cities' + x + '\')" class="form-control" style="display: inline; width: auto;">' +
                 '<button class="btn remove_field">Remove</button></td>');
              wrapper.parentNode.insertBefore(newCity, wrapper.nextSibling);
 

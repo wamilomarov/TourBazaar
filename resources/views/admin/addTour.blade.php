@@ -57,7 +57,7 @@
 
                                     <tr>
                                         <td class="col-md-4">Price</td>
-                                        <td class="col-md-8"><input type="number" placeholder="Price" class="form-control" style="display: inline; width: auto;">
+                                        <td class="col-md-8"><input type="number" placeholder="Price" name="price" class="form-control" style="display: inline; width: auto;">
                                             <select class="form-control" style="display: inline; width: auto;">
                                                 <option value="AZN">AZN</option>
                                                 <option value="USD">USD</option>
