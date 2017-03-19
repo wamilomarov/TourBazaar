@@ -23,6 +23,19 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+
+    <script>
+        function getCities() {
+            console.log('d');
+            if ($('#countries').val().length > 1){
+                var country = $(this).val();
+                console.log(country);
+                // $.ajax({url: "/getCities/" + country, success: function(result){
+                //     $("#div1").html(result);
+                // }});
+            }
+        }
+    </script>
     <![endif]-->
 </head>
 

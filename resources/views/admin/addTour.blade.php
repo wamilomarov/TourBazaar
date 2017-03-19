@@ -25,7 +25,7 @@
                                         {{ csrf_field() }}
                                     <tr>
                                         <td class="col-md-4">Title (AZ)</td>
-                                        <td class="col-md-8"><input type="text" placeholder="Title (AZ)" class="form-control" name="title_az"></td>
+                                        <td class="col-md-8"><input type="text" placeholder="Title (AZ)" class="form-control" name="title_az" id="title_az" ></td>
                                     </tr>
 
                                     <tr>
@@ -36,8 +36,8 @@
                                     <tr>
                                         <td class="col-md-4">Places of visit</td>
                                         <td class="col-md-8">
-                                            <input type="text" name="countries" placeholder="Countries" list="countries" data-role="tagsinput" id="countries" onkeyup="getCities()" class="form-control">
-                                            <input type="text" name="cities" placeholder="Cities" list="cities" data-role="tagsinput" id="cities" class="form-control">
+                                            <input type="text" name="countries" placeholder="Countries" list="countries" id="countries" onkeyup="getCountries()" class="form-control">
+                                            <input type="text" name="cities" placeholder="Cities" list="cities" id="cities" onfocus="getCitiesList()" onkeyup="getCities()" class="form-control">
                                         </td>
                                     </tr>
 
