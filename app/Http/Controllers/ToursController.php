@@ -26,6 +26,7 @@ class ToursController extends Controller
 //               'country_id' => $country
 //           ]);
 //       }
+        if (isset($request->is_hot))
         return $request->all();
     }
 

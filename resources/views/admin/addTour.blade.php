@@ -33,15 +33,15 @@
                                     <form action="{{url('addTour')}}" method="post">
                                         {{ csrf_field() }}
 
-                                        <div class="col-md-2 heading">Titles</div>
-                                        <div class="col-md-5"><input type="text" placeholder="Title (AZ)" class="form-control" name="title_az" id="title_az" ></div>
-                                        <div class="col-md-5"><input type="text" placeholder="Title (EN)" class="form-control" name="title_en"></div>
+                                        <div class="col-md-2 heading">Titles:</div>
+                                        <div class="col-md-5"><input type="text" placeholder="Title (AZ)" class="form-control" name="title_az" value="{{old('title_az')}}"></div>
+                                        <div class="col-md-5"><input type="text" placeholder="Title (EN)" class="form-control" name="title_en" value="{{old('title_en')}}"></div>
 
 
                                     <div id="places">
-                                        <div class="col-md-2 heading">Places of visit</div>
+                                        <div class="col-md-2 heading">Places of visit:</div>
                                         <div class="col-md-4"><input type="text" name="countries[]" placeholder="Countries" list="list_countries1" id="countries1" onkeyup="getCountriesList('countries1')" class="form-control"></div>
-                                        <div class="col-md-4"><input type="text" name="cities[]" placeholder="Cities" list="list_cities1" id="cities1" onfocus="getCitiesList('countries1', 'cities1')" class="form-control pull-left"></div>
+                                        <div class="col-md-4"><input type="text" name="cities[]" placeholder="Cities" list="list_cities1" id="cities1" onfocus="getCitiesList('countries1', 'cities1')" class="form-control"></div>
                                         <div class="col-md-2"><button class=" btn add_field_button">Add More Fields</button></div>
                                             <datalist id="list_countries1">
 
@@ -54,13 +54,13 @@
 
 
 
-                                        <div class="col-md-2 heading">Expire Date</div>
-                                        <div class="col-md-4"><input type="date" class="form-control"></div>
+                                        <div class="col-md-2 heading">Expire Date:</div>
+                                        <div class="col-md-4"><input type="date" class="form-control" name="expire_date" value="{{old('expire_date')}}"></div>
 
 
-                                        <div class="col-md-1 heading">Price</div>
+                                        <div class="col-md-1 heading">Price:</div>
                                         <div class="col-md-3" style="display: inline;"><input type="number" placeholder="Price" name="price" class="form-control" style="display: inline;"></div>
-                                            <div class="col-md-2"><select class="form-control" style="display: inline;">
+                                            <div class="col-md-2"><select class="form-control" name="currency" style="display: inline;">
                                                 <option value="AZN">AZN</option>
                                                 <option value="USD">USD</option>
                                             </select></div>
