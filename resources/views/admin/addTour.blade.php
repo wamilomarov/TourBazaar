@@ -1,4 +1,4 @@
-@extends('admin.app')
+@extends('admin.panel')
 
 @section('content')
     <style>

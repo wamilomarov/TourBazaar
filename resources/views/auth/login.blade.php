@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('admin.app')
 
-@section('content')
+@section('panel')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -66,3 +66,43 @@
     </div>
 </div>
 @endsection
+
+<div class="loginwrapper whiter">
+    <span class="circle"></span>
+    <div class="loginone">
+        <header>
+            <a href="dashboard1.html"><img src="assets/images/logodark.png" alt="" /></a>
+            <p>Enter your credentials to login to your account</p>
+        </header>
+        <form role="form" method="POST" action="{{ route('login') }}">
+            {{csrf_field()}}
+            <div class="username">
+                <input type="text" class="form-control" placeholder="Enter your username" />
+                <i class="glyphicon glyphicon-user"></i>
+            </div>
+            <div class="password">
+                <input type="password" class="form-control" placeholder="Enter your password" />
+                <i class="glyphicon glyphicon-lock"></i>
+            </div>
+            <div class="custom-radio-checkbox">
+                <input tabindex="1" type="checkbox" class="minimalcheckradios">
+                <label>Remember me</label>
+            </div>
+            <script>
+                $(document).ready(function(){
+                    $('.minimalcheckradios').iCheck({
+                        checkboxClass: 'icheckbox_minimal',
+                        radioClass: 'iradio_minimal',
+                        increaseArea: '20%' // optional
+                    });
+                });
+            </script>
+            <input type="submit" class="btn btn-default" value="Sign In" />
+        </form>
+        <footer>
+            <a href="#" class="forgot pull-left">I forgot my password</a>
+            <a href="#" class="register pull-right">Create account</a>
+            <div class="clear"></div>
+        </footer>
+    </div>
+</div>

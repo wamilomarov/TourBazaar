@@ -1,5 +1,5 @@
 
-@extends('admin.app')
+@extends('admin.panel')
 
 @section('content')
 <div class="content-section">
