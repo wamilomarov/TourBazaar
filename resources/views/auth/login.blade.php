@@ -5,7 +5,7 @@
         <span class="circle"></span>
         <div class="loginone">
             <header>
-                <a href="{{url('')}}"><img src="assets/images/logodark.png" alt="" /></a>
+                <a href="{{url('admin')}}"><img src="assets/images/logodark.png" alt="" /></a>
                 <p>Enter your credentials to login to your account</p>
             </header>
             <form role="form" method="POST" action="{{ route('login') }}">

@@ -68,7 +68,7 @@ Route::group(['middleware' => ['auth', 'admin', 'web']], function(){
 Route::group(['middleware' => ['auth', 'web']], function (){
 
     Route::get('admin', function (){
-        $user = new \App\User();
+        $user = \Illuminate\Support\Facades\Auth::user();
         return view('admin.dashboard')->with('user', $user);
     });
 

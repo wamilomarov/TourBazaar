@@ -6,20 +6,20 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Adminise - Clean And Corporate Admin Panel Template</title>
     <!--// Stylesheets //-->
-    <link href="assets/css/style.css" rel="stylesheet" media="screen" />
-    <link href="assets/css/bootstrap.css" rel="stylesheet" media="screen" />
-    <link href="css/bootstrap-tagsinput.css" rel="stylesheet" />
+    <link href="../assets/css/style.css" rel="stylesheet" media="screen" />
+    <link href="../assets/css/bootstrap.css" rel="stylesheet" media="screen" />
+    <link href="../css/bootstrap-tagsinput.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <!--// Javascript //-->
-    <script type="text/javascript" src="assets/js/jquery.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/js/jquery.accordion.js"></script>
-    <script type="text/javascript" src="assets/js/jquery.custom-scrollbar.min.js"></script>
-    <script type="text/javascript" src="assets/js/icheck.min.js"></script>
-    <script type="text/javascript" src="assets/js/selectnav.min.js"></script>
-    <script type="text/javascript" src="assets/js/functions.js"></script>
-    <script type="text/javascript" src="js/bootstrap-tagsinput.js"></script>
-    <script type="text/javascript" src="js/custom.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.js"></script>
+    <script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.accordion.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.custom-scrollbar.min.js"></script>
+    <script type="text/javascript" src="../assets/js/icheck.min.js"></script>
+    <script type="text/javascript" src="../assets/js/selectnav.min.js"></script>
+    <script type="text/javascript" src="../assets/js/functions.js"></script>
+    <script type="text/javascript" src="../js/bootstrap-tagsinput.js"></script>
+    <script type="text/javascript" src="../js/custom.js"></script>
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
