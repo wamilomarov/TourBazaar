@@ -23,16 +23,16 @@
                     <nav class="navigation">
                         <ul class="navi-acc" id="nav2">
                             <li>
-                                <a href="#dashboard" class="dashboard">Dashboard</a>
+                                <a href="{{url('admin')}}" class="dashboard">Dashboard</a>
                             </li>
                             <li>
-                                <a href="#layouts" class="ui-elements">Tours</a>
+                                <a href="{{url('getMyTours')}}" class="ui-elements">Tours</a>
                             </li>
                             <li>
                                 <a href="{{url('addTour')}}" class="pages">New Tour</a>
                             </li>
                             <li>
-                                <a href="#mailbox" class="mailbox">Requests<span class="label label-custom1">05</span></a>
+                                <a href="{{url('getRequestsToMe')}}" class="mailbox">Requests<span class="label label-custom1">05</span></a>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
