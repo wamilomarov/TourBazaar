@@ -24,6 +24,12 @@ class UsersController extends Controller
 
     public function create(Request $request)
     {
+        if ($request->hasFile('photo')){
+            return json_encode(array('user' => true));
+        }
+        else{
+            return $request->all();
+        }
         $user = new User($request->all());
         if (!$user->exists()){
             $user->password = bcrypt($request->password);

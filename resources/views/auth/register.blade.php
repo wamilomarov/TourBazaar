@@ -1,12 +1,18 @@
-@extends('layouts.app')
+@extends('admin.panel')
 
 @section('content')
-<div class="container">
+    <style>
+        .col-md-4, .col-md-6{
+            margin-bottom: 30px;
+            margin-top: 0;
+        }
+    </style>
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-                <div class="panel-body">
+
+                <h2>Add Agency</h2>
+
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('addAgency') }}">
                         {{ csrf_field() }}
 
@@ -74,6 +80,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}">
+                            <label for="photo" class="col-md-4 control-label">Logo image</label>
+
+                            <div class="col-md-6">
+                                <input id="photo" type="file" class="form-control" name="photo" value="{{ old('photo') }}" required>
+
+                                @if ($errors->has('photo'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('photo') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
@@ -82,9 +102,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
         </div>
     </div>
-</div>
+
 @endsection
