@@ -3,15 +3,76 @@
 namespace App\Http\Controllers;
 
 use App\Tour;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\Facades\Image;
+
 
 class ToursController extends Controller
 {
 
     public function create(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'photos.*' => 'image|mimes:jpg,png',
+            'expire_date' => 'date|date_format:Y-m-d|after:today'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('addTour')
+                ->withErrors($validator);
+        }
+        if ($request->hasFile('photos')){
+            $images = $request->allFiles();
+            foreach ($images['photos'] as $photo) {
+                if ($photo->getClientSize() > 2000000){
+                    return redirect('addTour')->withErrors(['photos'=>['File size of one picture must be lower than 2MB.']]);
+                }
+            }
+
+            $tour = new Tour($request->all());
+            $tour->user_id = Auth::user()->id;
+
+            $tour->save();
+
+            foreach ($images['photos'] as $image) {
+                $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
+
+                Image::make($image)->resize(300, 300)->save(public_path('/uploads/cover_images/'. $fileName));
+
+                DB::select("INSERT INTO tours_photos (tour_id, photo) VALUES (".$tour->id.", '$fileName')");
+            }
+
+            foreach ($request->countries as $country) {
+                DB::select("INSERT INTO tours_countries (tour_id, country_id) VALUES (
+                            $tour->id,
+                            (SELECT id FROM countries WHERE name = '$country'))");
+            }
+
+            foreach ($request->cities as $city) {
+                DB::select("INSERT INTO tours_cities (tour_id, city_id) VALUES (
+                            $tour->id,
+                            (SELECT id FROM cities WHERE name = '$city'))");
+            }
+
+
+
+            //DB::table('tours_countries')->insert(['tour_id' => $tour->id, 'country_id' => $request->city]);
+
+        }
+//            $image = $request->file('photos');
+//
+//            $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
+//
+//            Image::make($image)->resize(300, 300)->save(public_path('/uploads/cover_images/'. $fileName));
+//
+//            $user = User::find($request->id);
+//            $user->cover_image = $fileName;
+//
+//            $user->save();
+//        }
 //        $tour = new Tour($request->all());
 //        $tour->save();
 //       foreach ($request->cities as $city){
@@ -26,7 +87,7 @@ class ToursController extends Controller
 //               'country_id' => $country
 //           ]);
 //       }
-        if (isset($request->is_hot))
+
         return $request->all();
     }
 
@@ -125,7 +186,7 @@ class ToursController extends Controller
         $result = "";
         $input = $request->input;
 
-        $list = DB::select("SELECT name FROM countries WHERE name LIKE '%$input%'");
+        $list = DB::select("SELECT id, name FROM countries WHERE name LIKE '%$input%'");
 
         foreach ($list as $item) {
             $result .= "<option value = '$item->name'></option>";
@@ -138,7 +199,7 @@ class ToursController extends Controller
         $result = "";
         $input = $request->country;
 
-        $list = DB::select("SELECT name FROM cities WHERE country_id = (SELECT id FROM countries WHERE name = '$input')");
+        $list = DB::select("SELECT id, name FROM cities WHERE country_id = (SELECT id FROM countries WHERE name = '$input')");
 
         foreach ($list as $item) {
             $result .= "<option value = '$item->name'></option>";
@@ -190,10 +251,17 @@ class ToursController extends Controller
         return back();
     }
 
+    public function decline(Request $request)
+    {
+        $tour_id = $request->tour_id;
+        DB::update("UPDATE tours SET status = -1 WHERE id = $tour_id");
+        return back();
+    }
+
     public function remove(Request $request)
     {
-        $tour_id = $request->id;
-        DB::update("UPDATE tours SET status = 0 WHERE id = $tour_id");
+        $tour_id = $request->tour_id;
+        DB::update("UPDATE tours SET status = -1 WHERE id = $tour_id");
         return back();
     }
 

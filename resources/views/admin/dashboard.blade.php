@@ -95,7 +95,7 @@
                                         </tr>
                                         </tfoot>
                                         <tbody role="alert" aria-live="polite" aria-relevant="all">
-                                        @foreach($tours as $tour)
+                                        @foreach($tours['tours'] as $tour)
                                         <tr class="gradeA odd">
                                             <td class="">{{$tour->title}}</td>
                                             <td class=" ">{{$tour->agency}}</td>
@@ -263,14 +263,10 @@
                                                         @endif
                                                     </td>
                                                     <td class="center ">
-                                                        <a href="{{url('acceptTour', $tour->id)}}">
-                                                            <button type="button" class="btn btn-success " aria-label="Left Align">
-                                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                                            </button>
-                                                        </a>
-                                                        <a  href="{{url('declineTour', $tour->id)}}">
+                                                        <a  href="{{url('removeTour', $tour->id)}}">
                                                             <button type="button" class="btn btn-danger ">
-                                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                                <span class="glyphicon glyphicon-remove" aria-hidden="true">
+                                                                    Remove</span>
                                                             </button>
                                                         </a>
                                                     </td>

@@ -115,16 +115,14 @@
                                 </li>
                             @endif
                             <li class="inbox">
-                                <a href="inbox.html"><i class="glyphicon glyphicon-envelope"></i>Inbox<span>(03)</span></a>
+                                <a href="inbox.html"><i class="glyphicon glyphicon-envelope"></i>Requests
+                                    <span>({{\Illuminate\Support\Facades\Auth::user()->requests()['0']->new_requests}})</span></a>
                             </li>
                             <li class="settings">
                                 <a href="#"><i class="glyphicon glyphicon-wrench"></i>Settings</a>
                                 <div class="popdown popdown-right settings">
                                     <nav>
-                                        @if(\Illuminate\Support\Facades\Auth::user()->status != 5)
-                                        <a href="#"><i class="glyphicon glyphicon-user"></i>Your Profile</a>
-                                        <a href="#"><i class="glyphicon glyphicon-pencil"></i>Edit Account</a>
-                                        @endif
+                                        <a href="{{url('updateProfile')}}"><i class="glyphicon glyphicon-pencil"></i>Edit Profile</a>
                                         <a href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><i

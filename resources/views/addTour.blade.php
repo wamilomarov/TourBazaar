@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Register</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" method="POST" action="{{ url('addTour') }}">
+                        <form class="form-horizontal" enctype="multipart/form-data" role="form" method="POST" action="{{ url('addTour') }}">
                             {{ csrf_field() }}
 
                             <input type="number" name="user_id" value="34">
