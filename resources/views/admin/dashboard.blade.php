@@ -8,21 +8,21 @@
                     <div class="stat-box colorfour">
                         <i class="users">&nbsp;</i>
                         <h4>New requests</h4>
-                        <h1>23</h1>
+                        <h1>{{$requests['0']->new_requests}}</h1>
                     </div>
                 </div>
                 <div class="col-xs-2">
                     <div class="stat-box colortwo">
                         <i class="chart">&nbsp;</i>
                         <h4>Overall requests up to date</h4>
-                        <h1>1288</h1>
+                        <h1>{{$requests['0']->all_requests}}</h1>
                     </div>
                 </div>
                 <div class="col-xs-2">
                     <div class="stat-box colorthree">
                         <i class="pages">&nbsp;</i>
                         <h4>Tours</h4>
-                        <h1>125</h1>
+                        <h1>{{$tours['0']->count}}</h1>
                     </div>
                 </div>
 

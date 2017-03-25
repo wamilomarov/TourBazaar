@@ -15,11 +15,12 @@ class CreateRequestsTable extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('status')->default(1);
             $table->integer('tour_id');
             $table->integer('user_id');
-            $table->string('client_full_name');
-            $table->string('client_email');
-            $table->string('client_phone');
+            $table->string('client_full_name', 100);
+            $table->string('client_email', 100);
+            $table->string('client_phone', 50);
             $table->integer('user_seen')->default(0);
             $table->integer('admin_seen')->default(0);
             $table->timestamps();

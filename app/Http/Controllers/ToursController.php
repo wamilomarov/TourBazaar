@@ -148,7 +148,9 @@ class ToursController extends Controller
 
     public function dashboard()
     {
+
         $tours = DB::select("SELECT 
+        (SELECT COUNT(id) FROM tours WHERE status = 1) as `count`,
         tours.id,
         tours.title_en AS title,
         tours.price,
@@ -160,9 +162,17 @@ class ToursController extends Controller
 
         $user = \Illuminate\Support\Facades\Auth::user();
 
+
         $requests = DB::select("SELECT
+        COUNT(id) as `new_requests`,
+        (SELECT COUNT(id) FROM requests WHERE status = 1) as `all_requests`
+        FROM
+        requests
+        WHERE 
+        admin_seen = 0
         ");
-        return view('admin.dashboard')->with('user', $user)->with('tours', $tours)->with('requests', $requests);
+
+        return view('admin.dashboard', compact('user', 'tours', 'requests'));
     }
 
 
