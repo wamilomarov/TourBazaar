@@ -157,8 +157,12 @@ class ToursController extends Controller
         users.name AS agency
         FROM tours
         LEFT JOIN users ON users.id = tours.user_id");
+
         $user = \Illuminate\Support\Facades\Auth::user();
-        return view('admin.dashboard')->with('user', $user)->with('tours', $tours);
+
+        $requests = DB::select("SELECT
+        ");
+        return view('admin.dashboard')->with('user', $user)->with('tours', $tours)->with('requests', $requests);
     }
 
 
