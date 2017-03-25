@@ -146,5 +146,20 @@ class ToursController extends Controller
         echo $result;
     }
 
+    public function dashboard()
+    {
+        $tours = DB::select("SELECT 
+        tours.id,
+        tours.title_en AS title,
+        tours.price,
+        tours.is_hot,
+        tours.expire_date,
+        users.name AS agency
+        FROM tours
+        LEFT JOIN users ON users.id = tours.user_id");
+        $user = \Illuminate\Support\Facades\Auth::user();
+        return view('admin.dashboard')->with('user', $user)->with('tours', $tours);
+    }
+
 
 }

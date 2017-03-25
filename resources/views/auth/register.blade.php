@@ -13,7 +13,7 @@
 
                 <h2>Add Agency</h2>
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('addAgency') }}">
+                    <form enctype="multipart/form-data" class="form-horizontal" role="form" method="POST" action="{{ route('addAgency') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -80,17 +80,12 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('photo') ? ' has-error' : '' }}">
-                            <label for="photo" class="col-md-4 control-label">Logo image</label>
+                        <div class="form-group">
+                            <label for="image" class="col-md-4 control-label">Logo image</label>
 
                             <div class="col-md-6">
-                                <input id="photo" type="file" class="form-control" name="photo" value="{{ old('photo') }}" required>
+                                <input id="image" type="file" class="form-control" name="cover_image" required>
 
-                                @if ($errors->has('photo'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('photo') }}</strong>
-                                    </span>
-                                @endif
                             </div>
                         </div>
 

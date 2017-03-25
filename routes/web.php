@@ -67,10 +67,7 @@ Route::group(['middleware' => ['auth', 'admin', 'web']], function(){
 //------------------------------------------FOR USER------------------------------------
 Route::group(['middleware' => ['auth', 'web']], function (){
 
-    Route::get('admin', function (){
-        $user = \Illuminate\Support\Facades\Auth::user();
-        return view('admin.dashboard')->with('user', $user);
-    });
+    Route::get('admin', 'ToursController@dashboard');
 
     Route::get('addTour', 'ToursController@getCreateTourForm');
 

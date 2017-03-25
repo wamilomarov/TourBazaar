@@ -24,20 +24,27 @@ class UsersController extends Controller
 
     public function create(Request $request)
     {
-        if ($request->hasFile('photo')){
-            return json_encode(array('user' => true));
-        }
-        else{
-            return $request->all();
-        }
-        $user = new User($request->all());
+        if ($request->hasFile('cover_image')) {
+            $image = $request->file('cover_image');
+
+            $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
+
+            Image::make($image)->resize(300, 300)->save(public_path('/uploads/cover_images/' . $fileName));
+
+
+            $user = new User($request->all());
         if (!$user->exists()){
             $user->password = bcrypt($request->password);
+            $user->cover_image = $fileName;
             $user->save();
-            return response()->json($user);
+            return back();
         }
         else{
-            return false;
+            return "User exists";
+        }
+        }
+        else{
+            return "No image";
         }
     }
 
