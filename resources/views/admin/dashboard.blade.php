@@ -26,7 +26,6 @@
                     </div>
                 </div>
 
-
                 <div class="col-xs-12">
                     <div class="sec-box">
                         <a class="closethis">Close</a>
