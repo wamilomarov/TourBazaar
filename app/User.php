@@ -39,11 +39,35 @@ class User extends Authenticatable
 
         $count = DB::table('users')->where('email', $email)->count();
 
-        if ($count == 0){
+        if ($count == 0) {
             return false;
-        }
-        else{
+        } else {
             return true;
+        }
+    }
+
+    public function requests()
+    {
+        if ($this->status == 5) {
+            return DB::select("SELECT
+            *,
+            COUNT(id) as `new_requests`,
+            (SELECT COUNT(id) FROM requests WHERE status = 1) as `all_requests`
+            FROM
+            requests
+            WHERE 
+            admin_seen = 0
+            ");
+        } elseif ($this->status == 1) {
+            return DB::select("SELECT
+            *,
+            COUNT(id) as `new_requests`,
+            (SELECT COUNT(id) FROM requests WHERE status = 1) as `all_requests`
+            FROM
+            requests
+            WHERE 
+            user_seen = 0 AND user_id = $this->id
+            ");
         }
     }
 }

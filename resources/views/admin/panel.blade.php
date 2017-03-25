@@ -41,8 +41,11 @@
                                 </li>
                             @endif
                             <li>
-                                <a href="{{url('getRequests')}}" class="mailbox">Requests<span
-                                            class="label label-custom1">05</span></a>
+                                <a href="{{url('getRequests')}}" class="mailbox">Requests
+                                    @if(\Illuminate\Support\Facades\Auth::user()->requests()['0']->new_requests > 0)
+                                    <span class="label label-custom1">{{\Illuminate\Support\Facades\Auth::user()->requests()['0']->new_requests}}</span>
+                                    @endif
+                                </a>
                             </li>
                         </ul>
                         <div class="clearfix"></div>
@@ -63,12 +66,12 @@
                         @if( \Illuminate\Support\Facades\Auth::check())
                         <figure>
 
-                            <a href="#"><img src="uploads/cover_images/{{\Illuminate\Support\Facades\Auth::user()->cover_image}}" alt="Adminise"/></a>
+                            <img src="uploads/cover_images/{{\Illuminate\Support\Facades\Auth::user()->cover_image}}" alt="Adminise"/>
 
                         </figure>
                         <div class="welcome">
                             <p>Welcome</p>
-                            <h5><a href="#">{{\Illuminate\Support\Facades\Auth::user()->name}}</a></h5>
+                            <h5><a href="{{url('updateProfile')}}">{{\Illuminate\Support\Facades\Auth::user()->name}}</a></h5>
                         </div>
                         @endif
                     </div>

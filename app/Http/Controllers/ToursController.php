@@ -148,32 +148,53 @@ class ToursController extends Controller
 
     public function dashboard()
     {
-
-        $tours = DB::select("SELECT 
-        (SELECT COUNT(id) FROM tours WHERE status = 1) as `count`,
+        if (Auth::user()->status == 5){
+            $tours['tours'] = DB::select("SELECT 
         tours.id,
+        tours.status,
         tours.title_en AS title,
         tours.price,
         tours.is_hot,
         tours.expire_date,
         users.name AS agency
         FROM tours
-        LEFT JOIN users ON users.id = tours.user_id");
+        LEFT JOIN users ON users.id = tours.user_id
+        WHERE tours.status = 0");
+            $tours['count'] = DB::select("SELECT COUNT(id) as `count` FROM tours WHERE status = 1");
+        }
+        elseif (Auth::user()->status == 1){
+            $tours['tours'] = DB::select("SELECT 
+        tours.id,
+        tours.status,
+        tours.title_en AS title,
+        tours.price,
+        tours.is_hot,
+        tours.expire_date,
+        users.name AS agency
+        FROM tours
+        LEFT JOIN users ON users.id = tours.user_id
+        WHERE tours.status = 0 AND tours.user_id = ".Auth::user()->id);
+            $tours['count'] = DB::select("SELECT COUNT(id) as `count` FROM tours WHERE status = 1 AND user_id = ".Auth::user()->id);
+        }
+
 
         $user = \Illuminate\Support\Facades\Auth::user();
 
-
-        $requests = DB::select("SELECT
-        COUNT(id) as `new_requests`,
-        (SELECT COUNT(id) FROM requests WHERE status = 1) as `all_requests`
-        FROM
-        requests
-        WHERE 
-        admin_seen = 0
-        ");
-
-        return view('admin.dashboard', compact('user', 'tours', 'requests'));
+        return view('admin.dashboard', compact('user', 'tours'));
     }
 
+    public function accept(Request $request)
+    {
+        $tour_id = $request->tour_id;
+        DB::update("UPDATE tours SET status = 1 WHERE id = $tour_id");
+        return back();
+    }
+
+    public function remove(Request $request)
+    {
+        $tour_id = $request->id;
+        DB::update("UPDATE tours SET status = 0 WHERE id = $tour_id");
+        return back();
+    }
 
 }

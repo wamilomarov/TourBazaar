@@ -11,7 +11,7 @@
 
                     <ul>
                         @foreach($users as $user)
-                            <li><h4>{{$user->name}}</h4> <a href="{{route('update', $user->id)}}"><button>update</button></a></li>
+                            <li><h4>{{$user->name}}</h4> <a href="{{url('updateProfile', $user->id)}}"><button>update</button></a></li>
                         @endforeach
                     </ul>
                 </div>

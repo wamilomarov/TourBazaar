@@ -56,11 +56,12 @@ Route::group(['middleware' => ['auth', 'admin', 'web']], function(){
 
     Route::get('getAgencies', 'UsersController@index');
 
-    Route::get('updateAgency/{id}', 'UsersController@getUpdateForm')->name('update');
-
-    Route::post('updateAgency', 'UsersController@update')->name('updateAgency');
-
     Route::get('deleteAgency/{id}', 'UsersController@delete')->name('deleteAgency');
+
+    Route::get('acceptTour/{tour_id}', 'ToursController@accept');
+
+    Route::get('declineTour/{tour_id}', 'ToursController@remove');
+
 
 });
 
@@ -78,6 +79,10 @@ Route::group(['middleware' => ['auth', 'web']], function (){
     Route::post('updateTour', 'ToursController@update');
 
     Route::post('deleteTour', 'ToursController@delete');
+
+    Route::get('updateProfile', 'UsersController@getUpdateForm');
+
+    Route::post('updateProfile', 'UsersController@update');
 
 
 
