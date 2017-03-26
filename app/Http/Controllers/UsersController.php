@@ -84,12 +84,37 @@ class UsersController extends Controller
     public function getRequests()
     {
         if (Auth::user()->status == 1){
-            $requests = DB::table('requests')->select('*')->where('user_id', Auth::user()->id)->limit(150)->get();
-            $requests = DB::select("");
+            //$requests = DB::table('requests')->select('*')->where('user_id', Auth::user()->id)->limit(150)->get();
+            $requests = DB::select("SELECT requests.id,
+                                           requests.status,
+                                           requests.client_full_name,
+                                           requests.client_email,
+                                           requests.client_phone,
+                                           requests.created_at AS `date`,
+                                           tours.title_en AS tour_name
+                                    FROM requests
+                                    LEFT JOIN tours ON tours.id = requests.tour_id
+                                    WHERE requests.user_id = ".Auth::user()->id." AND requests.status = 1 
+                                    ORDER BY requests.created_at DESC
+                                    LIMIT 150");
             DB::table('requests')->where('user_id', Auth::user()->id)->where('user_seen', 0)->update(['user_seen' => 1]);
         }
         elseif (Auth::user()->status == 5){
-            $requests = DB::table('requests')-select('*')->where('user_id', Auth::user()->id)->limit(150)->get();
+            //$requests = DB::table('requests')-select('*')->where('user_id', Auth::user()->id)->limit(150)->get();
+            $requests = DB::select("SELECT requests.id,
+                                           requests.status,
+                                           requests.client_full_name,
+                                           requests.client_email,
+                                           requests.client_phone,
+                                           requests.created_at AS `date`,
+                                           tours.title_en AS tour_name,
+                                           users.name AS user_name 
+                                    FROM requests
+                                    LEFT JOIN tours ON tours.id = requests.tour_id 
+                                    LEFT JOIN users ON users.id = requests.user_id
+                                    WHERE requests.status = 1
+                                    ORDER BY requests.created_at DESC
+                                    LIMIT 150");
             DB::table('requests')->where('user_id', Auth::user()->id)->where('admin_seen', 0)->update(['admin_seen' => 1]);
         }
 

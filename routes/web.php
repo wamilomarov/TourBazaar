@@ -42,6 +42,8 @@ Route::get('getCountriesList/{input}', 'ToursController@getCountriesList');
 
 Route::get('getCitiesList/{country}', 'ToursController@getCitiesList');
 
+Route::get('/tours', 'ToursController@search');
+
 
 //------------------------------------------FOR ADMIN-----------------------------------
 Route::group(['middleware' => ['auth', 'admin', 'web']], function(){

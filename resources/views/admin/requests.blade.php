@@ -24,32 +24,38 @@
                                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="example"
                                                     rowspan="1" colspan="1" style="width: 163px;"
                                                     aria-label="Rendering engine: activate to sort column ascending">
-                                                    Title
+                                                    Full Name
                                                 </th>
                                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="example"
                                                     rowspan="1" colspan="1" style="width: 164px;"
                                                     aria-label="Browser: activate to sort column ascending">
-                                                    Agency
+                                                    Email
                                                 </th>
                                                 <th class="sorting_desc" role="columnheader" tabindex="0"
                                                     aria-controls="example" rowspan="1" colspan="1" style="width: 164px;"
                                                     aria-sort="descending"
                                                     aria-label="Platform(s): activate to sort column ascending">
-                                                    Price
+                                                    Phone
                                                 </th>
                                                 <th class="center sorting" role="columnheader" tabindex="0"
                                                     aria-controls="example" rowspan="1" colspan="1" style="width: 164px;"
                                                     aria-label="Engine version: activate to sort column ascending">
-                                                    Hot Offer
+                                                    Agency
                                                 </th>
                                                 <th class="center sorting" role="columnheader" tabindex="0"
                                                     aria-controls="example" rowspan="1" colspan="1" style="width: 164px;"
                                                     aria-label="CSS grade: activate to sort column ascending">
-                                                    Expire date
+                                                    Tour
                                                 </th>
                                                 <th class="center sorting" role="columnheader" tabindex="0"
                                                     aria-controls="example" rowspan="1" colspan="1" style="width: 164px;"
-                                                    aria-label="Action: activate to sort column ascending">Action
+                                                    aria-label="CSS grade: activate to sort column ascending">
+                                                    Date
+                                                </th>
+                                                <th class="center sorting" role="columnheader" tabindex="0"
+                                                    aria-controls="example" rowspan="1" colspan="1" style="width: 164px;"
+                                                    aria-label="Action: activate to sort column ascending">
+                                                    Action
                                                 </th>
                                             </tr>
                                             </thead>
@@ -76,26 +82,17 @@
                                             <tbody role="alert" aria-live="polite" aria-relevant="all">
                                             @foreach($tours['tours'] as $tour)
                                                 <tr class="gradeA odd">
-                                                    <td class="">{{$tour->title}}</td>
-                                                    <td class=" ">{{$tour->agency}}</td>
-                                                    <td class="  sorting_1">{{$tour->price}}</td>
+                                                    <td class="">{{$req->client_full_name}}</td>
+                                                    <td class="  sorting_1">{{$req->client_email}} </td>
+                                                    <td class="center ">{{$req->client_phone}}</td>
+                                                    <td class="center ">{{$req->user_name}}</td>
+                                                    <td class="center ">{{$req->tour_name}}</td>
+                                                    <td class="center ">{{date_format($req->date,"d/M/Y")}}</td>
                                                     <td class="center ">
-                                                        @if($tour->is_hot)
-                                                            Yes
-                                                        @else
-                                                            No
-                                                        @endif
-                                                    </td>
-                                                    <td class="center ">{{$tour->expire_date}}</td>
-                                                    <td class="center ">
-                                                        <a href="{{url('acceptTour', $tour->id)}}">
-                                                            <button type="button" class="btn btn-success " aria-label="Left Align">
-                                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                                            </button>
-                                                        </a>
-                                                        <a  href="{{url('declineTour', $tour->id)}}">
+                                                        <a  href="{{url('removeRequest', $req->id)}}">
                                                             <button type="button" class="btn btn-danger ">
-                                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                                                <span class="glyphicon glyphicon-remove" aria-hidden="true">
+                                                                    Remove</span>
                                                             </button>
                                                         </a>
                                                     </td>
@@ -171,34 +168,30 @@
                                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="example"
                                                     rowspan="1" colspan="1" style="width: 163px;"
                                                     aria-label="Rendering engine: activate to sort column ascending">
-                                                    Title
+                                                    Full Name
                                                 </th>
                                                 <th class="sorting_desc" role="columnheader" tabindex="0"
                                                     aria-controls="example" rowspan="1" colspan="1" style="width: 164px;"
                                                     aria-sort="descending"
                                                     aria-label="Platform(s): activate to sort column ascending">
-                                                    Price
+                                                    Email
                                                 </th>
                                                 <th class="center sorting" role="columnheader" tabindex="0"
                                                     aria-controls="example" rowspan="1" colspan="1" style="width: 164px;"
                                                     aria-label="Engine version: activate to sort column ascending">
-                                                    Hot Offer
+                                                    Phone
                                                 </th>
                                                 <th class="center sorting" role="columnheader" tabindex="0"
                                                     aria-controls="example" rowspan="1" colspan="1" style="width: 164px;"
                                                     aria-label="CSS grade: activate to sort column ascending">
-                                                    Expire date
+                                                    Tour Name
                                                 </th>
                                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="example"
                                                     rowspan="1" colspan="1" style="width: 164px;"
                                                     aria-label="Browser: activate to sort column ascending">
-                                                    Active
+                                                    Date
                                                 </th>
-                                                <th class="center sorting" role="columnheader" tabindex="0"
-                                                    aria-controls="example" rowspan="1" colspan="1" style="width: 164px;"
-                                                    aria-label="Action: activate to sort column ascending">
-                                                    Action
-                                                </th>
+
                                             </tr>
                                             </thead>
 
@@ -227,22 +220,8 @@
                                                     <td class="">{{$req->client_full_name}}</td>
                                                     <td class="  sorting_1">{{$req->client_email}} </td>
                                                     <td class="center ">{{$req->client_phone}}</td>
-                                                    <td class="center ">{{$req->created_at}}</td>
-                                                    <td class="center ">
-                                                        @if($tour->status == 1)
-                                                            Yes
-                                                        @else
-                                                            No
-                                                        @endif
-                                                    </td>
-                                                    <td class="center ">
-                                                        <a  href="{{url('removeTour', $tour->id)}}">
-                                                            <button type="button" class="btn btn-danger ">
-                                                                <span class="glyphicon glyphicon-remove" aria-hidden="true">
-                                                                    Remove</span>
-                                                            </button>
-                                                        </a>
-                                                    </td>
+                                                    <td class="center ">{{$req->tour_name}}</td>
+                                                    <td class="center ">{{date_format($req->date,"d/M/Y")}}</td>
                                                 </tr>
                                             @endforeach
 

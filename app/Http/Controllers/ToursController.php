@@ -120,7 +120,7 @@ class ToursController extends Controller
                             LEFT JOIN tours_countries cnt ON cnt.`tour_id` = tours.id
                             LEFT JOIN tours_cities ct ON ct.`tour_id` = tours.id
                             
-                            WHERE 1                            
+                            WHERE tours.status = 1                             
                             ";
 
          if (isset($request->price_from)){
