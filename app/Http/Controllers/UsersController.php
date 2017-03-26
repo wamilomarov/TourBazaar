@@ -84,12 +84,13 @@ class UsersController extends Controller
     public function getRequests()
     {
         if (Auth::user()->status == 1){
-            $requests = DB::table('requests')-select('*')->where('user_id', Auth::user()->id);
-            DB::table('requests')->where('user_id', Auth::user()->id)->where('user_seen', 0)->update(['user_seen' => 1])->limit(150);
+            $requests = DB::table('requests')->select('*')->where('user_id', Auth::user()->id)->limit(150)->get();
+            $requests = DB::select("");
+            DB::table('requests')->where('user_id', Auth::user()->id)->where('user_seen', 0)->update(['user_seen' => 1]);
         }
         elseif (Auth::user()->status == 5){
-            $requests = DB::table('requests')-select('*')->where('user_id', Auth::user()->id);
-            DB::table('requests')->where('user_id', Auth::user()->id)->where('admin_seen', 0)->update(['admin_seen' => 1])->limit(150);
+            $requests = DB::table('requests')-select('*')->where('user_id', Auth::user()->id)->limit(150)->get();
+            DB::table('requests')->where('user_id', Auth::user()->id)->where('admin_seen', 0)->update(['admin_seen' => 1]);
         }
 
         return view('admin.requests')->with('requests', $requests);
