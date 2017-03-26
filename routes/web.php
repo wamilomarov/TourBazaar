@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth', 'admin', 'web']], function(){
     Route::get('declineTour/{tour_id}', 'ToursController@decline');
 
 
+
 });
 
 //------------------------------------------FOR USER------------------------------------
@@ -75,7 +76,7 @@ Route::group(['middleware' => ['auth', 'web']], function (){
 
     Route::post('addTour', 'ToursController@create');
 
-    Route::get('getTours', 'ToursController@allTours');
+    Route::get('getTours', 'ToursController@getTours');
 
     Route::post('updateTour', 'ToursController@update');
 
@@ -86,6 +87,8 @@ Route::group(['middleware' => ['auth', 'web']], function (){
     Route::post('updateProfile', 'UsersController@update');
 
     Route::get('removeTour/{tour_id}', 'ToursController@remove');
+
+    Route::get('getRequests', 'UsersController@getRequests');
 
 
 

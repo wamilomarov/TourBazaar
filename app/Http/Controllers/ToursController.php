@@ -40,7 +40,7 @@ class ToursController extends Controller
             foreach ($images['photos'] as $image) {
                 $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
 
-                Image::make($image)->resize(300, 300)->save(public_path('/uploads/cover_images/'. $fileName));
+                Image::make($image)->resize(500, 500)->save(public_path('/uploads/cover_images/'. $fileName));
 
                 DB::select("INSERT INTO tours_photos (tour_id, photo) VALUES (".$tour->id.", '$fileName')");
             }
@@ -57,67 +57,46 @@ class ToursController extends Controller
                             (SELECT id FROM cities WHERE name = '$city'))");
             }
 
-
-
-            //DB::table('tours_countries')->insert(['tour_id' => $tour->id, 'country_id' => $request->city]);
-
         }
-//            $image = $request->file('photos');
-//
-//            $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
-//
-//            Image::make($image)->resize(300, 300)->save(public_path('/uploads/cover_images/'. $fileName));
-//
-//            $user = User::find($request->id);
-//            $user->cover_image = $fileName;
-//
-//            $user->save();
-//        }
-//        $tour = new Tour($request->all());
-//        $tour->save();
-//       foreach ($request->cities as $city){
-//           DB::table('tours_cities')->insert([
-//               'tour_id' => $tour->id,
-//               'city_id' => $city
-//           ]);
-//       }
-//       foreach ($request->countries as $country){
-//           DB::table('tours_countries')->insert([
-//               'tour_id' => $tour->id,
-//               'country_id' => $country
-//           ]);
-//       }
 
-        return $request->all();
+        return redirect('admin');
     }
 
     public function getCreateTourForm()
     {
-//        $countries = DB::table('countries')->select('name', 'id')->get();
-//        $cities = DB::table('cities')->select('name', 'id')->get();
-        return view('admin.addTour')->with('user', Auth::user());
+        return view('admin.addTour');
     }
 
-    public function allTours()
+    public function getTours()
     {
-        $tours = DB::select('select 
-                              tours.id as tour_id,
-                              tours.title_az,
-                              tours.title_en,
-                              users.`name`,
-                              GROUP_CONCAT( DISTINCT (SELECT `name` FROM countries WHERE countries.`id` = cnt.`country_id`) ) as countries,
-                              GROUP_CONCAT( DISTINCT (SELECT  `name` FROM cities WHERE cities.`id` = ct.`id`)) as cities
-                              
-                            from tours 
-                            
-                            LEFT JOIN users ON users.id = tours.user_id
-                            LEFT JOIN tours_countries cnt ON cnt.`tour_id` = tours.id
-                            LEFT JOIN tours_cities ct ON ct.`tour_id` = tours.id
-                            
-                            GROUP BY tours.id
-                            
-                            ');
-        return $tours;
+        if (Auth::user()->status == 1){
+            $tours = DB::select("SELECT 
+        tours.id,
+        tours.status,
+        tours.title_en AS title,
+        tours.price,
+        tours.currency,
+        tours.is_hot,
+        tours.expire_date
+        FROM tours
+        WHERE tours.status =1 AND tours.user_id = ".Auth::user()->id);
+        }
+        elseif (Auth::user()->status == 5){
+            $tours = DB::select("SELECT 
+        tours.id,
+        tours.status,
+        tours.title_en AS title,
+        tours.price,
+        tours.currency,
+        tours.is_hot,
+        tours.expire_date,
+        users.name AS agency
+        FROM tours
+        LEFT JOIN users ON users.id = tours.user_id
+        WHERE tours.status = 1");
+        }
+
+        return view('admin.tours')->with('tours', $tours);
     }
 
     public function search(Request $request)
@@ -230,10 +209,8 @@ class ToursController extends Controller
         tours.title_en AS title,
         tours.price,
         tours.is_hot,
-        tours.expire_date,
-        users.name AS agency
+        tours.expire_date
         FROM tours
-        LEFT JOIN users ON users.id = tours.user_id
         WHERE tours.status = 0 AND tours.user_id = ".Auth::user()->id);
             $tours['count'] = DB::select("SELECT COUNT(id) as `count` FROM tours WHERE status = 1 AND user_id = ".Auth::user()->id);
         }
@@ -263,6 +240,32 @@ class ToursController extends Controller
         $tour_id = $request->tour_id;
         DB::update("UPDATE tours SET status = -1 WHERE id = $tour_id");
         return back();
+    }
+
+    public function allTours()
+    {
+        if (Auth::user()->status == 5)
+        $tours = DB::select('select 
+                              tours.id as id,
+                              tours.title_az,
+                              tours.title_en,
+                              users.`name`,
+                              GROUP_CONCAT( DISTINCT (SELECT `name` FROM countries WHERE countries.`id` = cnt.`country_id`) ) as countries,
+                              GROUP_CONCAT( DISTINCT (SELECT  `name` FROM cities WHERE cities.`id` = ct.`id`)) as cities
+                              
+                            from tours 
+                            
+                            LEFT JOIN users ON users.id = tours.user_id
+                            LEFT JOIN tours_countries cnt ON cnt.`tour_id` = tours.id
+                            LEFT JOIN tours_cities ct ON ct.`tour_id` = tours.id
+                            
+                            GROUP BY tours.id
+                            
+                            ');
+        foreach ($tours as $tour) {
+            $tour->photos[] = DB::table('tours_photos')->select('photo')->where('tour_id', $tour->id)->get();
+        }
+        return $tours;
     }
 
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Facades\Image;
 
@@ -78,6 +79,21 @@ class UsersController extends Controller
         $user->status = 0;
         $user->save();
         return $user;
+    }
+
+    public function getRequests()
+    {
+        if (Auth::user()->status == 1){
+            $requests = DB::table('requests')-select('*')->where('user_id', Auth::user()->id);
+            DB::table('requests')->where('user_id', Auth::user()->id)->where('user_seen', 0)->update(['user_seen' => 1])->limit(150);
+        }
+        elseif (Auth::user()->status == 5){
+            $requests = DB::table('requests')-select('*')->where('user_id', Auth::user()->id);
+            DB::table('requests')->where('user_id', Auth::user()->id)->where('admin_seen', 0)->update(['admin_seen' => 1])->limit(150);
+        }
+
+        return view('admin.requests')->with('requests', $requests);
+
     }
 
 
