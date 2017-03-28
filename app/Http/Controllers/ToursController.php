@@ -284,8 +284,15 @@ class ToursController extends Controller
     {
         $tour = Tour::find($request->tour_id);
         $tour->photos = DB::table('tours_photos')->select('photo')->where('tour_id', $tour->id)->get();
+        $tour->countries = DB::select("SELECT countries.name FROM tours_countries
+                                       LEFT JOIN countries ON countries.id = tours_countries.country_id
+                                       WHERE tours_countries.tour_id = $tour->id");
+        $tour->cities = DB::select("SELECT cities.name FROM tours_cities
+                                       LEFT JOIN cities ON cities.id = tours_cities.city_id
+                                       WHERE tours_cities.tour_id = $tour->id");
 
-        return $tour;
+        //return $tour;
+        return view('tourDetails')->with('tour', $tour);
     }
 
 }

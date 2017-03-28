@@ -10,15 +10,15 @@
     <title>Travel</title>
 
     <!-- Css Folder -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/bootstrap-theme.css" rel="stylesheet">
-    <link href="css/font-awesome.css" rel="stylesheet">
-    <link href="css/color.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
-    <link href="css/responsive.css" rel="stylesheet">
-    <link href="css/themetypo.css" rel="stylesheet">
-    <link href="css/bxslider.css" rel="stylesheet">
-    <link href="css/datepicker.css" rel="stylesheet">
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <link href="../css/bootstrap-theme.css" rel="stylesheet">
+    <link href="../css/font-awesome.css" rel="stylesheet">
+    <link href="../css/color.css" rel="stylesheet">
+    <link href="../style.css" rel="stylesheet">
+    <link href="../css/responsive.css" rel="stylesheet">
+    <link href="../css/themetypo.css" rel="stylesheet">
+    <link href="../css/bxslider.css" rel="stylesheet">
+    <link href="../css/datepicker.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
