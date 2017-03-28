@@ -84,7 +84,6 @@ class UsersController extends Controller
     public function getRequests()
     {
         if (Auth::user()->status == 1){
-            //$requests = DB::table('requests')->select('*')->where('user_id', Auth::user()->id)->limit(150)->get();
             $requests = DB::select("SELECT requests.id,
                                            requests.status,
                                            requests.client_full_name,
@@ -100,7 +99,6 @@ class UsersController extends Controller
             DB::table('requests')->where('user_id', Auth::user()->id)->where('user_seen', 0)->update(['user_seen' => 1]);
         }
         elseif (Auth::user()->status == 5){
-            //$requests = DB::table('requests')-select('*')->where('user_id', Auth::user()->id)->limit(150)->get();
             $requests = DB::select("SELECT requests.id,
                                            requests.status,
                                            requests.client_full_name,

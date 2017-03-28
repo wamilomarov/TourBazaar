@@ -16,7 +16,6 @@ class ToursController extends Controller
     public function create(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'photos.*' => 'image|mimes:jpg,png',
             'expire_date' => 'date|date_format:Y-m-d|after:today'
         ]);
 
@@ -35,32 +34,35 @@ class ToursController extends Controller
             $tour = new Tour($request->all());
             $tour->user_id = Auth::user()->id;
 
-            $tour->save();
+            return $tour;
 
-            foreach ($images['photos'] as $image) {
-                $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
+            //$tour->save();
 
-                Image::make($image)->resize(500, 500)->save(public_path('/uploads/cover_images/'. $fileName));
-
-                DB::select("INSERT INTO tours_photos (tour_id, photo) VALUES (".$tour->id.", '$fileName')");
-            }
-
-            foreach ($request->countries as $country) {
-                DB::select("INSERT INTO tours_countries (tour_id, country_id) VALUES (
-                            $tour->id,
-                            (SELECT id FROM countries WHERE name = '$country'))");
-            }
-
-            foreach ($request->cities as $city) {
-                DB::select("INSERT INTO tours_cities (tour_id, city_id) VALUES (
-                            $tour->id,
-                            (SELECT id FROM cities WHERE name = '$city'))");
-            }
+//            foreach ($images['photos'] as $image) {
+//                $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
+//
+//                Image::make($image)->resize(368, 278)->save(public_path('/uploads/tour_images/'. $fileName));
+//
+//                DB::select("INSERT INTO tours_photos (tour_id, photo) VALUES (".$tour->id.", '$fileName')");
+//            }
+//
+//            foreach ($request->countries as $country) {
+//                DB::select("INSERT INTO tours_countries (tour_id, country_id) VALUES (
+//                            $tour->id,
+//                            (SELECT id FROM countries WHERE name = '$country'))");
+//            }
+//
+//            foreach ($request->cities as $city) {
+//                DB::select("INSERT INTO tours_cities (tour_id, city_id) VALUES (
+//                            $tour->id,
+//                            (SELECT id FROM cities WHERE name = '$city'))");
+//            }
 
         }
 
-        return redirect('admin');
+        //return redirect('addTour');
     }
+
 
     public function getCreateTourForm()
     {
@@ -104,10 +106,13 @@ class ToursController extends Controller
         $order = " ORDER BY is_hot DESC";
 
         $query = "select 
-                              tours.id as tour_id,
+                              tours.id,
                               tours.title_az,
                               tours.title_en,
                               tours.price,
+                              tours.currency,
+                              tours.expire_date,
+                              tours.is_hot,
                               users.`name`,
                               GROUP_CONCAT( DISTINCT (SELECT `name` FROM countries WHERE countries.`id` = cnt.`country_id`) ) as countries_list,
                               GROUP_CONCAT( DISTINCT (SELECT  `name` FROM cities WHERE cities.`id` = ct.`id`)) as cities_list,
@@ -154,9 +159,15 @@ class ToursController extends Controller
         $query .= $order;
 
         //return $query;
-        $result = DB::select($query);
+        $tours = DB::select($query);
 
-        return $result;
+        foreach ($tours as $tour) {
+            $tour->photos = DB::table('tours_photos')->select('photo')->where('tour_id', $tour->id)->get();
+        }
+
+        //return $tours;
+
+        return view('home')->with('tours', $tours);
         
     }
 
@@ -263,9 +274,18 @@ class ToursController extends Controller
                             
                             ');
         foreach ($tours as $tour) {
-            $tour->photos[] = DB::table('tours_photos')->select('photo')->where('tour_id', $tour->id)->get();
+            $tour->photos = DB::table('tours_photos')->select('photo')->where('tour_id', $tour->id)->get();
         }
+
         return $tours;
+    }
+
+    public function getTour(Request $request)
+    {
+        $tour = Tour::find($request->tour_id);
+        $tour->photos = DB::table('tours_photos')->select('photo')->where('tour_id', $tour->id)->get();
+
+        return $tour;
     }
 
 }

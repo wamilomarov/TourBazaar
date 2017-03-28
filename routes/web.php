@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'ToursController@search');
 
 Route::post('searchTour', 'ToursController@search');
 
@@ -43,6 +43,8 @@ Route::get('getCountriesList/{input}', 'ToursController@getCountriesList');
 Route::get('getCitiesList/{country}', 'ToursController@getCitiesList');
 
 Route::get('/tours', 'ToursController@search');
+
+Route::get('/getTour/{tour_id}', 'ToursController@getTour');
 
 
 //------------------------------------------FOR ADMIN-----------------------------------
