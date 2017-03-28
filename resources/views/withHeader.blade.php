@@ -401,13 +401,13 @@
     <!--// CopyRight //-->
 
     <!-- jQuery (Necessary For JavaScript Plugins) -->
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.bxslider.min.js"></script>
-    <script src="js/bootstrap-datepicker.js"></script>
-    <script src="js/waypoints-min.js"></script>
-    <script src="js/jquery.accordion.js"></script>
-    <script src="js/functions.js"></script>
+    <script src="../js/jquery.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.bxslider.min.js"></script>
+    <script src="../js/bootstrap-datepicker.js"></script>
+    <script src="../js/waypoints-min.js"></script>
+    <script src="../js/jquery.accordion.js"></script>
+    <script src="../js/functions.js"></script>
 
 
 
