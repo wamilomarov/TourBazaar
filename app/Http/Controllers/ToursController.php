@@ -76,7 +76,7 @@ class ToursController extends Controller
             $tours = DB::select("SELECT 
         tours.id,
         tours.status,
-        tours.title_en AS title,
+        tours.title_" . App::getLocale() . " AS title,
         tours.price,
         tours.currency,
         tours.is_hot,
@@ -88,7 +88,7 @@ class ToursController extends Controller
             $tours = DB::select("SELECT 
         tours.id,
         tours.status,
-        tours.title_en AS title,
+        tours.title_". App::getLocale() ." AS title,
         tours.price,
         tours.currency,
         tours.is_hot,
@@ -109,7 +109,7 @@ class ToursController extends Controller
         $query = "select 
                               tours.id,
                               tours.title_az,
-                              tours.title_en,
+                              tours.title_". App::getLocale() ." AS title,
                               tours.price,
                               tours.currency,
                               tours.expire_date,
@@ -204,7 +204,7 @@ class ToursController extends Controller
             $tours['tours'] = DB::select("SELECT 
         tours.id,
         tours.status,
-        tours.title_en AS title,
+        tours.title_". App::getLocale() ." AS title,
         tours.price,
         tours.is_hot,
         tours.expire_date,
@@ -218,7 +218,7 @@ class ToursController extends Controller
             $tours['tours'] = DB::select("SELECT 
         tours.id,
         tours.status,
-        tours.title_en AS title,
+        tours.title_". App::getLocale() ." AS title,
         tours.price,
         tours.is_hot,
         tours.expire_date
@@ -257,10 +257,10 @@ class ToursController extends Controller
     public function allTours()
     {
         if (Auth::user()->status == 5)
-        $tours = DB::select('select 
+        $tours = DB::select("select 
                               tours.id as id,
                               tours.title_az,
-                              tours.title_en,
+                              tours.title_". App::getLocale() ." AS `title`,
                               users.`name`,
                               GROUP_CONCAT( DISTINCT (SELECT `name` FROM countries WHERE countries.`id` = cnt.`country_id`) ) as countries,
                               GROUP_CONCAT( DISTINCT (SELECT  `name` FROM cities WHERE cities.`id` = ct.`id`)) as cities
@@ -273,7 +273,7 @@ class ToursController extends Controller
                             
                             GROUP BY tours.id
                             
-                            ');
+                            ");
         foreach ($tours as $tour) {
             $tour->photos = DB::table('tours_photos')->select('photo')->where('tour_id', $tour->id)->get();
         }
@@ -283,14 +283,41 @@ class ToursController extends Controller
 
     public function getTour(Request $request)
     {
-        $tour = Tour::find($request->tour_id);
+        //$tour = Tour::find($request->tour_id);
+        $tour = DB::select("SELECT tours.id,
+                            tours.title_" . App::getLocale() . " AS title,
+                            users.name AS user_name,
+                            users.id AS user_id,
+                            users.cover_image AS user_cover,
+                            tours.expire_date,
+                            tours.price,
+                            tours.currency,
+                            tours.is_hot,
+                            tours.description_" . App::getLocale() . " AS description
+                            FROM tours
+                            LEFT JOIN users ON users.id = tours.user_id
+                            WHERE tours.id = $request->tour_id AND tours.status = 1")[0];
+
         $tour->photos = DB::table('tours_photos')->select('photo')->where('tour_id', $tour->id)->get();
+
         $tour->countries = DB::select("SELECT countries.name FROM tours_countries
                                        LEFT JOIN countries ON countries.id = tours_countries.country_id
                                        WHERE tours_countries.tour_id = $tour->id");
+
         $tour->cities = DB::select("SELECT cities.name FROM tours_cities
                                        LEFT JOIN cities ON cities.id = tours_cities.city_id
                                        WHERE tours_cities.tour_id = $tour->id");
+
+        $tour->tours = DB::select("SELECT 
+                            tours.id,
+                            tours.title_" . App::getLocale() . " AS title,
+                            tours_photos.photo,
+                            tours.expire_date
+                            FROM tours
+                            LEFT JOIN users ON users.id = tours.user_id
+                            LEFT JOIN tours_photos ON tours_photos.tour_id = tours.id
+                            WHERE tours.user_id = $tour->user_id AND tours.status = 1 AND tours.id <> $tour->id
+                            ORDER BY tours.is_hot desc LIMIT 3");
 
         //return $tour;
         return view('tourDetails')->with('tour', $tour);

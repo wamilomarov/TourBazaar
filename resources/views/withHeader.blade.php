@@ -97,72 +97,13 @@
                                 <div class="collapse navbar-collapse" id="navbar-collapse-1">
                                     <ul class="nav navbar-nav">
                                         <li><a href="index-2.html">Home</a>
-                                            <ul class="sub-dropdown">
-                                                <li><a href="index-map.html">Map HomePage</a></li>
-                                            </ul>
+                                        </li>
+                                        <li><a href="index-2.html">About Azerbaijan</a>
+                                        </li>
+                                        <li><a href="index-2.html">Hot offers</a>
                                         </li>
                                         <li><a href="about-us.html">About Us</a></li>
-                                        <li><a href="#">Blog</a>
-                                            <ul class="sub-dropdown">
-                                                <li><a href="blog-grid.html">Blog Grid</a></li>
-                                                <li><a href="blog-large.html">Blog Large</a></li>
-                                                <li><a href="blog-medium.html">Blog Medium</a></li>
-                                                <li><a href="blog-detail.html">Single Post Layout</a>
-                                                    <ul class="sub-dropdown">
-                                                        <li><a href="blog-detail-video.html">Video & Soundcloud</a></li>
-                                                        <li><a href="blog-detail.html">Single Image Layout</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="package-list.html">Tour Packages</a>
-                                            <ul class="sub-dropdown">
-                                                <li><a href="package-list.html">Packages List</a></li>
-                                                <li><a href="package-detail.html">Package Single Layout</a>
-                                                    <ul class="sub-dropdown">
-                                                        <li><a href="package-video.html">Video & Soundcloud</a></li>
-                                                        <li><a href="package-detail.html">Package Single Image</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="gallery.html">Gallery</a>
-                                            <ul class="sub-dropdown">
-                                                <li><a href="gallery-2column.html">Gallery 2Column</a></li>
-                                                <li><a href="gallery-3column.html">Gallery 3Column</a></li>
-                                                <li><a href="gallery.html">Gallery 4Column</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">Pages</a>
-                                            <ul class="sub-dropdown">
-                                                <li><a href="undercunstruction.html">Undercunstruction</a></li>
-                                                <li><a href="404.html">404</a></li>
-                                                <li><a href="services.html">Services</a></li>
-                                                <li><a href="#">Team</a>
-                                                    <ul class="sub-dropdown">
-                                                        <li><a href="team-grid.html">Team Grid</a></li>
-                                                        <li><a href="team-medium.html">Team Medium</a></li>
-                                                        <li><a href="team-detail.html">Team Detail</a></li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="#">ShortCode</a>
-                                            <ul class="sub-dropdown">
-                                                <li><a href="accordian.html">Accordian</a></li>
-                                                <li><a href="button.html">Button</a></li>
-                                                <li><a href="frame.html">Frame</a></li>
-                                                <li><a href="list.html">list Style</a></li>
-                                                <li><a href="message.html">Alert Message</a></li>
-                                                <li><a href="sepratore.html">Sepratore</a></li>
-                                                <li><a href="services.html">Services</a></li>
-                                                <li><a href="skills.html">Skills</a></li>
-                                                <li><a href="table.html">Table</a></li>
-                                                <li><a href="tabs.html">Tabs</a></li>
-                                                <li><a href="shortcode.html">Testimonial & Actions</a></li>
-                                                <li><a href="video.html">Video</a></li>
-                                                <li><a href="map.html">Map</a></li>
-                                            </ul>
+                                        <li><a href="package-list.html">Be our partner</a>
                                         </li>
                                         <li><a href="contact-us.html">contact us</a></li>
                                     </ul>

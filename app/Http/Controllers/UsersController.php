@@ -90,7 +90,7 @@ class UsersController extends Controller
                                            requests.client_email,
                                            requests.client_phone,
                                            requests.created_at AS `date`,
-                                           tours.title_en AS tour_name
+                                           tours.title_" . App::getLocale() . " AS tour_name
                                     FROM requests
                                     LEFT JOIN tours ON tours.id = requests.tour_id
                                     WHERE requests.user_id = ".Auth::user()->id." AND requests.status = 1 
@@ -105,7 +105,7 @@ class UsersController extends Controller
                                            requests.client_email,
                                            requests.client_phone,
                                            requests.created_at AS `date`,
-                                           tours.title_en AS tour_name,
+                                           tours.title_" . App::getLocale() . " AS tour_name,
                                            users.name AS user_name 
                                     FROM requests
                                     LEFT JOIN tours ON tours.id = requests.tour_id 
