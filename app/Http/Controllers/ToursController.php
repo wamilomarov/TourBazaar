@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Tour;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -293,6 +294,32 @@ class ToursController extends Controller
 
         //return $tour;
         return view('tourDetails')->with('tour', $tour);
+    }
+
+    public function setLocale(Request $request)
+    {
+        $validator = Validator::make($request->only(['lang']), [
+            'lang' => 'in:en,az'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back();
+        }
+        App::setLocale($request->lang);
+        return redirect()->back();
+    }
+
+    public function setCurrency(Request $request)
+    {
+        $validator = Validator::make($request->only(['currency']), [
+            'currency' => 'in:usd,azn'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back();
+        }
+        Session::put('currency', $request->currency);
+        return redirect()->back();
     }
 
 }

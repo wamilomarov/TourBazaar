@@ -24,10 +24,9 @@ Route::get('/home', 'ToursController@search');
 
 Route::post('searchTour', 'ToursController@search');
 
-Route::get('setLocale/{lang}', function($lang){
-    App::setLocale($lang);
-    return redirect('tours');
-})->name('setLocale');
+Route::get('/setLocale', 'ToursController@setLocale');
+
+Route::get('/setCurrency', 'ToursController@setCurrency');
 
 Route::get('tours', 'HomeController@tours');
 
