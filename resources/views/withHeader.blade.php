@@ -29,15 +29,27 @@
                                 </div>
                             </li>
                             <li>
-                                <i class="fa fa-phone"></i> Phone: +44 123 456 789
+                                <div id="lang_sel">
+                                    <ul>
+                                        <li>
+                                            <a class="lang_sel_sel icl-en" id="currency_sel" href="#">AZN</a>
+                                            <ul>
+                                                <li class="icl-fr">
+                                                    <a href="#">AZN</a>
+                                                </li>
+                                                <li class="icl-de">
+                                                    <a href="#">USD</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
                             </li>
-                            <li>
-                                <i class="fa fa-envelope-o"></i> <a href="#">Email: Info@kodeforest.com</a>
-                            </li>
+
                         </ul>
                     </div>
                     <div class="col-md-5">
-                        <ul class="kd-userinfo">
+                        <ul class="kd-topinfo pull-right">
                             <!--<li>
                                 <div class="kd-social-network">
                                     <ul>
@@ -50,66 +62,13 @@
                                     </ul>
                                 </div>
                             </li>-->
-                            <li><a href="#" data-toggle="modal" data-target="#registerModalbox">Register</a>
-                                <!-- Modal -->
-                                <div class="modal fade kd-loginbox" id="registerModalbox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                <a href="#" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
-                                                <div class="kd-login-title">
-                                                    <h2>Register TO</h2>
-                                                    <span>Your Account</span>
-                                                    <div class="kd-login-network">
-                                                        <ul>
-                                                            <li><a href="#" data-original-title="Facebook"><i class="fa fa-facebook"></i> Login with Facebook</a></li>
-                                                            <li><a href="#" data-original-title="Twitter"><i class="fa fa-twitter"></i> Login with Twitter</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="kd-login-sepratore"><span>OR</span></div>
-
-                                                <form>
-                                                    <p><i class="fa fa-envelope-o"></i> <input type="text" placeholder="Email Address"></p>
-                                                    <p><i class="fa fa-lock"></i> <input type="password" placeholder="Your Password"></p>
-                                                    <p><input type="submit" value="Register now" class="thbg-color"> </p>
-                                                </form>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <li>
+                                <i class="fa fa-phone"></i> Phone: +44 123 456 789
                             </li>
-                            <li><a href="#" data-toggle="modal" data-target="#Modalbox">Login</a>
-                                <!-- Modal -->
-                                <div class="modal fade kd-loginbox" id="Modalbox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-body">
-                                                <a href="#" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
-                                                <div class="kd-login-title">
-                                                    <h2>LOGIN TO</h2>
-                                                    <span>Your Account</span>
-                                                    <div class="kd-login-network">
-                                                        <ul>
-                                                            <li><a href="#" data-original-title="Facebook"><i class="fa fa-facebook"></i> Login with Facebook</a></li>
-                                                            <li><a href="#" data-original-title="Twitter"><i class="fa fa-twitter"></i> Login with Twitter</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="kd-login-sepratore"><span>OR</span></div>
-
-                                                <form>
-                                                    <p><i class="fa fa-envelope-o"></i> <input type="text" placeholder="Email Address"></p>
-                                                    <p><i class="fa fa-lock"></i> <input type="password" placeholder="Your Password"></p>
-                                                    <p><input type="submit" value="Login now" class="thbg-color"> <a href="#">Forget Password?</a></p>
-                                                </form>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <li>
+                                <i class="fa fa-envelope-o"></i> <a href="#">Email: Info@kodeforest.com</a>
                             </li>
+
                         </ul>
                     </div>
                 </div>
@@ -408,6 +367,7 @@
     <script src="../js/waypoints-min.js"></script>
     <script src="../js/jquery.accordion.js"></script>
     <script src="../js/functions.js"></script>
+
 
 
 

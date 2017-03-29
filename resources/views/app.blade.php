@@ -40,6 +40,6 @@
 <script>
     $(".kd-searchbtn").click(function() {
         $(".kd-subheader").slideToggle("normal");
-        $(".kd-tourform").delay(100).slideToggle("normal");
+        $(".kd-tourform").delay(10).slideToggle("normal");
     });
 </script>

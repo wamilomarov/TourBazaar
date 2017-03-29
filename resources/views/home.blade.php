@@ -63,6 +63,7 @@
                                         </figcaption>
                                     </figure>
                                 </article>
+
                                 @endforeach
                                 <article class="col-md-3">
                                     <figure>

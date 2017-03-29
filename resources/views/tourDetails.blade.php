@@ -14,7 +14,7 @@
                     <div class="col-md-8">
                         <div class="col-md-12">
                             <div class="kd-modrentitle thememargin">
-                                <h3>Trip Title</h3>
+                                <h3>{{$tour->title_en}}</h3>
                             </div>
                         </div>
                         <div class="kd-package-detail">
@@ -48,10 +48,25 @@
                             </figure>
                             <div class="kd-pkg-info">
                                 <ul>
-                                    <li><i class="fa fa-map-marker"></i> <strong>Countries:</strong> Azerbaijan, Georgia, Russia</li>
-                                    <li><i class="fa fa-paper-plane"></i> <strong>Cities:</strong> Baku, Ganja, Tbilisi, Borjomi, Essentuki</li>
-                                    <li><i class="fa fa-calendar"></i> <strong>Expire Date:</strong> 21 April 2017</li>
-                                    <li><i class="fa fa-tag"></i> <strong>Price:</strong> $700</li>
+                                    <li><i class="fa fa-map-marker"></i> <strong>Countries:</strong>
+                                        @foreach($tour->countries as $country) {{$country->name}}
+                                            @if(!$loop->last)
+                                                ,
+                                            @endif
+                                        @endforeach
+                                    </li>
+                                    <li><i class="fa fa-paper-plane"></i> <strong>Cities:</strong>
+                                        @foreach($tour->cities as $city) {{$city->name}}
+                                            @if(!$loop->last)
+                                                ,
+                                            @endif
+                                        @endforeach
+                                    </li>
+                                    <li><i class="fa fa-calendar"></i> <strong>Expire Date:</strong>
+                                        {{date("d M Y", strtotime($tour->expire_date))}}
+                                    </li>
+                                    <li><i class="fa fa-tag"></i> <strong>Price:</strong> {{$tour->price}}
+                                    {{$tour->currency}}</li>
                                 </ul>
                                 <a href="#" class="kd-booking-btn thbg-color" data-toggle="modal" data-target="#searchmodalbox">bOOK nOW</a>
                                 <!-- Modal -->
