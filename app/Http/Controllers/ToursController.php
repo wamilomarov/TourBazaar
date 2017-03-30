@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Tour;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -283,6 +285,14 @@ class ToursController extends Controller
 
     public function getTour(Request $request)
     {
+        if (Session::has('lang')){
+
+        }
+        else
+        {
+            Session::put('lang', 'en');
+        }
+
         //$tour = Tour::find($request->tour_id);
         $tour = DB::select("SELECT tours.id,
                             tours.title_" . App::getLocale() . " AS title,
@@ -297,6 +307,7 @@ class ToursController extends Controller
                             FROM tours
                             LEFT JOIN users ON users.id = tours.user_id
                             WHERE tours.id = $request->tour_id AND tours.status = 1")[0];
+        var_dump(App::getLocale());
 
         $tour->photos = DB::table('tours_photos')->select('photo')->where('tour_id', $tour->id)->get();
 
@@ -310,7 +321,7 @@ class ToursController extends Controller
 
         $tour->tours = DB::select("SELECT 
                             tours.id,
-                            tours.title_" . App::getLocale() . " AS title,
+                            tours.title_" . session('lang') . " AS title,
                             tours_photos.photo,
                             tours.expire_date
                             FROM tours
@@ -320,6 +331,7 @@ class ToursController extends Controller
                             ORDER BY tours.is_hot desc LIMIT 3");
 
         //return $tour;
+
         return view('tourDetails')->with('tour', $tour);
     }
 
@@ -333,6 +345,7 @@ class ToursController extends Controller
             return redirect()->back();
         }
         App::setLocale($request->lang);
+        Session::put('lang', $request->lang);
         return redirect()->back();
     }
 

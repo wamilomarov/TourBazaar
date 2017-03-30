@@ -12,16 +12,10 @@
                                 <div id="lang_sel">
                                     <ul>
                                         <li>
-                                            <a class="lang_sel_sel icl-en" href="#">EN</a>
+                                            <a class="lang_sel_sel icl-en" href="{{url('setLocale?lang=en')}}">EN</a>
                                             <ul>
                                                 <li class="icl-fr">
-                                                    <a href="#">FR</a>
-                                                </li>
-                                                <li class="icl-de">
-                                                    <a href="#">DE</a>
-                                                </li>
-                                                <li class="icl-nl">
-                                                    <a href="#">NL</a>
+                                                    <a href="{{url('setLocale?lang=az')}}">AZ</a>
                                                 </li>
                                             </ul>
                                         </li>
