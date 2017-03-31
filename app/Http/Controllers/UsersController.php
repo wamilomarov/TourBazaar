@@ -31,7 +31,7 @@ class UsersController extends Controller
                                 (SELECT COUNT(requests.id) FROM requests WHERE requests.user_id = users.id AND requests.status = 1) AS requests_count
                                 FROM users
                                 WHERE users.status = 1");
-        return $agencies;
+        return view('admin.agencies', compact('agencies'));
     }
 
     public function getRegisterForm()

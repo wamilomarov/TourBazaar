@@ -61,29 +61,30 @@
 
                                             <tfoot>
                                             <tr>
-                                                <th rowspan="1" colspan="1"><input type="text" name="search_engine"
-                                                                                   value="Search engines"
-                                                                                   class="search_init"></th>
-                                                <th rowspan="1" colspan="1"><input type="text" name="search_browser"
-                                                                                   value="Search browsers"
-                                                                                   class="search_init"></th>
+                                                <th rowspan="1" colspan="1"></th>
                                                 <th rowspan="1" colspan="1"><input type="text" name="search_platform"
-                                                                                   value="Search platforms"
+                                                                                   value="Search names"
                                                                                    class="search_init"></th>
                                                 <th rowspan="1" colspan="1"><input type="text" name="search_version"
-                                                                                   value="Search versions"
+                                                                                   value="Search emails"
                                                                                    class="search_init"></th>
                                                 <th rowspan="1" colspan="1"><input type="text" name="search_grade"
-                                                                                   value="Search grades"
+                                                                                   value="Search phones"
+                                                                                   class="search_init"></th>
+                                                <th rowspan="1" colspan="1"><input type="text" name="search_grade"
+                                                                                   value="Search tour counts"
+                                                                                   class="search_init"></th>
+                                                <th rowspan="1" colspan="1"><input type="text" name="search_browser"
+                                                                                   value="Search request counts"
                                                                                    class="search_init"></th>
                                             </tr>
                                             </tfoot>
                                             <tbody role="alert" aria-live="polite" aria-relevant="all">
                                             @foreach($agencies as $agency)
                                                 <tr class="gradeA odd">
-                                                    <td class=""><img src="{{$agency->cover_photo}}"></td>
-                                                    <td class="">{{$agency->name}}</td>
-                                                    <td class=" ">{{$agency->email}}</td>
+                                                    <td class="center "><img src="../uploads/cover_images/{{$agency->cover_image}}" width="50px" height="50px"></td>
+                                                    <td class="center ">{{$agency->name}}</td>
+                                                    <td class="center ">{{$agency->email}}</td>
                                                     <td class="  sorting_1">{{$agency->phone}}</td>
                                                     <td class="center ">{{$agency->tours_count}}</td>
                                                     <td class="center ">{{$agency->requests_count}}</td>
