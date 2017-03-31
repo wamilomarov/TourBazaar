@@ -12,10 +12,10 @@
                                 <div id="lang_sel">
                                     <ul>
                                         <li>
-                                            <a class="lang_sel_sel icl-en" href="{{url('setLocale?lang=en')}}">EN</a>
+                                            @if(\Illuminate\Support\Facades\Session::get('locale') == 'en')<a class="lang_sel_sel icl-en" href="{{url('setLocale?lang=en')}}">EN</a> @else <a class="lang_sel_sel icl-en" href="{{url('setLocale?lang=az')}}"> AZ</a> @endif
                                             <ul>
                                                 <li class="icl-fr">
-                                                    <a href="{{url('setLocale?lang=az')}}">AZ</a>
+                                                    @if(\Illuminate\Support\Facades\Session::get('locale') == 'en')<a href="{{url('setLocale?lang=az')}}"> AZ </a> @else <a href="{{url('setLocale?lang=en')}}"> EN </a>@endif
                                                 </li>
                                             </ul>
                                         </li>
@@ -26,13 +26,10 @@
                                 <div id="lang_sel">
                                     <ul>
                                         <li>
-                                            <a class="lang_sel_sel icl-en" id="currency_sel" href="#">AZN</a>
+                                            @if(\Illuminate\Support\Facades\Session::get('currency') == 'azn')<a class="lang_sel_sel icl-en" id="currency_sel" href="{{url('setCurrency?currency=azn')}}"> AZN </a> @else <a class="lang_sel_sel icl-en" id="currency_sel" href="{{url('setCurrency?currency=usd')}}">USD</a> @endif
                                             <ul>
-                                                <li class="icl-fr">
-                                                    <a href="#">AZN</a>
-                                                </li>
                                                 <li class="icl-de">
-                                                    <a href="#">USD</a>
+                                                    @if(\Illuminate\Support\Facades\Session::get('currency') == 'usd') <a href="{{url('setCurrency?currency=azn')}}">AZN</a> @else <a href="{{url('setCurrency?currency=usd')}}">USD</a> @endif
                                                 </li>
                                             </ul>
                                         </li>

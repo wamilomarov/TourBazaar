@@ -74,11 +74,13 @@ class ToursController extends Controller
 
     public function getTours()
     {
+        $this->setLocaleAndCurrency();
+
         if (Auth::user()->status == 1){
             $tours = DB::select("SELECT 
         tours.id,
         tours.status,
-        tours.title_" . App::getLocale() . " AS title,
+        tours.title_" . Session::get('locale') . " AS title,
         tours.price,
         tours.currency,
         tours.is_hot,
@@ -90,7 +92,7 @@ class ToursController extends Controller
             $tours = DB::select("SELECT 
         tours.id,
         tours.status,
-        tours.title_". App::getLocale() ." AS title,
+        tours.title_". Session::get('locale') ." AS title,
         tours.price,
         tours.currency,
         tours.is_hot,
@@ -100,18 +102,23 @@ class ToursController extends Controller
         LEFT JOIN users ON users.id = tours.user_id
         WHERE tours.status = 1");
         }
+        foreach ($tours as $tour) {
+            $this->getPrice($tour);
+        }
 
         return view('admin.tours')->with('tours', $tours);
     }
 
     public function search(Request $request)
     {
+        $this->setLocaleAndCurrency();
+
         $order = " ORDER BY is_hot DESC";
 
         $query = "select 
                               tours.id,
                               tours.title_az,
-                              tours.title_". App::getLocale() ." AS title,
+                              tours.title_". Session::get('locale') ." AS title,
                               tours.price,
                               tours.currency,
                               tours.expire_date,
@@ -166,6 +173,7 @@ class ToursController extends Controller
 
         foreach ($tours as $tour) {
             $tour->photos = DB::table('tours_photos')->select('photo')->where('tour_id', $tour->id)->get();
+            $this->getPrice($tour);
         }
 
         //return $tours;
@@ -202,12 +210,15 @@ class ToursController extends Controller
 
     public function dashboard()
     {
+        $this->setLocaleAndCurrency();
+
         if (Auth::user()->status == 5){
             $tours['tours'] = DB::select("SELECT 
         tours.id,
         tours.status,
-        tours.title_". App::getLocale() ." AS title,
+        tours.title_". Session::get('locale') ." AS title,
         tours.price,
+        tours.currency,
         tours.is_hot,
         tours.expire_date,
         users.name AS agency
@@ -220,8 +231,9 @@ class ToursController extends Controller
             $tours['tours'] = DB::select("SELECT 
         tours.id,
         tours.status,
-        tours.title_". App::getLocale() ." AS title,
+        tours.title_". Session::get('locale') ." AS title,
         tours.price,
+        tours.currency,
         tours.is_hot,
         tours.expire_date
         FROM tours
@@ -229,6 +241,9 @@ class ToursController extends Controller
             $tours['count'] = DB::select("SELECT COUNT(id) as `count` FROM tours WHERE status = 1 AND user_id = ".Auth::user()->id);
         }
 
+        foreach ($tours['tours'] as $tour) {
+            $this->getPrice($tour);
+        }
 
         $user = \Illuminate\Support\Facades\Auth::user();
 
@@ -258,11 +273,13 @@ class ToursController extends Controller
 
     public function allTours()
     {
+        $this->setLocaleAndCurrency();
+
         if (Auth::user()->status == 5)
         $tours = DB::select("select 
                               tours.id as id,
                               tours.title_az,
-                              tours.title_". App::getLocale() ." AS `title`,
+                              tours.title_". Session::get('locale') ." AS `title`,
                               users.`name`,
                               GROUP_CONCAT( DISTINCT (SELECT `name` FROM countries WHERE countries.`id` = cnt.`country_id`) ) as countries,
                               GROUP_CONCAT( DISTINCT (SELECT  `name` FROM cities WHERE cities.`id` = ct.`id`)) as cities
@@ -278,6 +295,7 @@ class ToursController extends Controller
                             ");
         foreach ($tours as $tour) {
             $tour->photos = DB::table('tours_photos')->select('photo')->where('tour_id', $tour->id)->get();
+            $this->getPrice($tour);
         }
 
         return $tours;
@@ -285,17 +303,10 @@ class ToursController extends Controller
 
     public function getTour(Request $request)
     {
-        if (Session::has('lang')){
+        $this->setLocaleAndCurrency();
 
-        }
-        else
-        {
-            Session::put('lang', 'en');
-        }
-
-        //$tour = Tour::find($request->tour_id);
         $tour = DB::select("SELECT tours.id,
-                            tours.title_" . App::getLocale() . " AS title,
+                            tours.title_" . Session::get('locale') . " AS title,
                             users.name AS user_name,
                             users.id AS user_id,
                             users.cover_image AS user_cover,
@@ -303,11 +314,10 @@ class ToursController extends Controller
                             tours.price,
                             tours.currency,
                             tours.is_hot,
-                            tours.description_" . App::getLocale() . " AS description
+                            tours.description_" . Session::get('locale') . " AS description
                             FROM tours
                             LEFT JOIN users ON users.id = tours.user_id
                             WHERE tours.id = $request->tour_id AND tours.status = 1")[0];
-        var_dump(App::getLocale());
 
         $tour->photos = DB::table('tours_photos')->select('photo')->where('tour_id', $tour->id)->get();
 
@@ -321,7 +331,7 @@ class ToursController extends Controller
 
         $tour->tours = DB::select("SELECT 
                             tours.id,
-                            tours.title_" . session('lang') . " AS title,
+                            tours.title_" . Session::get('locale') . " AS title,
                             tours_photos.photo,
                             tours.expire_date
                             FROM tours
@@ -331,6 +341,8 @@ class ToursController extends Controller
                             ORDER BY tours.is_hot desc LIMIT 3");
 
         //return $tour;
+
+        $this->getPrice($tour);
 
         return view('tourDetails')->with('tour', $tour);
     }
@@ -344,9 +356,9 @@ class ToursController extends Controller
         if ($validator->fails()) {
             return redirect()->back();
         }
-        App::setLocale($request->lang);
-        Session::put('lang', $request->lang);
-        return redirect()->back();
+        //App::setLocale($request->lang);
+        Session::put('locale', $request->lang);
+        return redirect(URL::previous());
     }
 
     public function setCurrency(Request $request)
@@ -360,6 +372,33 @@ class ToursController extends Controller
         }
         Session::put('currency', $request->currency);
         return redirect()->back();
+    }
+
+    public function setLocaleAndCurrency()
+    {
+        if (Session::has('locale') && Session::has('currency')){
+
+        }
+        else
+        {
+            Session::put('locale', 'en');
+            Session::put('currency', 'usd');
+        }
+
+    }
+
+    public function getPrice($tour)
+    {
+        if (Session::get('currency') != strtolower($tour->currency)){
+            $rate = DB::table('users')->select('UsdToAzn')->where('status', 5)->first()->UsdToAzn;
+            if ($tour->currency == 'AZN'){
+                $tour->price = ceil($tour->price / $rate);
+            }
+            elseif($tour->currency == 'USD'){
+                $tour->price = ceil($tour->price * $rate);
+            }
+            $tour->currency = strtoupper(Session::get('currency'));
+        }
     }
 
 }

@@ -79,6 +79,8 @@ return [
 
     'locale' => 'en',
 
+    'locales' => ['en' => 'English', 'az' => 'Azerbaijani'],
+
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale

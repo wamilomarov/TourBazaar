@@ -54,7 +54,7 @@
                                         <figcaption>
                                             <span class="package-price thbg-color">{{$tour->price ." ". $tour->currency}}</span>
                                             <div class="kd-bottomelement">
-                                                <h5><a href="{{url('getTour', $tour->id)}}">{{$tour->title_en}}</a></h5>
+                                                <h5><a href="{{url('getTour', $tour->id)}}">{{$tour->title}}</a></h5>
                                                 <div class="days-counter"> Until {{date("d M Y", strtotime($tour->expire_date))}}</div>
                                             </div>
                                             @if($tour->is_hot)

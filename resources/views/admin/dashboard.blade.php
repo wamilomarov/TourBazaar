@@ -18,6 +18,7 @@
                         <h1>{{\Illuminate\Support\Facades\Auth::user()->requests()['0']->all_requests}}</h1>
                     </div>
                 </div>
+
                 <div class="col-xs-2">
                     <div class="stat-box colorthree">
                         <i class="pages">&nbsp;</i>
@@ -27,6 +28,24 @@
                 </div>
 
                 @if(\Illuminate\Support\Facades\Auth::user()->status == 5)
+
+                    <div class="col-xs-12">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('changeCurrencyRate') }}">
+                            {{ csrf_field() }}
+
+                            <label for="email" class="col-md-3 control-label">1 USD = </label>
+
+
+                            <div class="col-md-4 input-group">
+                                <input id="email" type="number" class="form-control" name="UsdToAzn" step="any" value="{{ \Illuminate\Support\Facades\Auth::user()->UsdToAzn}}" required>
+                                <span class="input-group-addon btn-default">AZN</span>
+                                <button type="submit" class="btn btn-success btn-group">Set</button>
+                            </div>
+
+
+                        </form>
+                    </div>
+
                 <div class="col-xs-12">
                     <div class="sec-box">
                         <a class="closethis">Close</a>

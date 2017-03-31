@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 
 class UsersController extends Controller
@@ -83,6 +84,8 @@ class UsersController extends Controller
 
     public function getRequests()
     {
+        $this->setLocaleAndCurrency();
+
         if (Auth::user()->status == 1){
             $requests = DB::select("SELECT requests.id,
                                            requests.status,
@@ -90,7 +93,7 @@ class UsersController extends Controller
                                            requests.client_email,
                                            requests.client_phone,
                                            requests.created_at AS `date`,
-                                           tours.title_" . App::getLocale() . " AS tour_name
+                                           tours.title_" . Session::get('locale') . " AS tour_name
                                     FROM requests
                                     LEFT JOIN tours ON tours.id = requests.tour_id
                                     WHERE requests.user_id = ".Auth::user()->id." AND requests.status = 1 
@@ -105,7 +108,7 @@ class UsersController extends Controller
                                            requests.client_email,
                                            requests.client_phone,
                                            requests.created_at AS `date`,
-                                           tours.title_" . App::getLocale() . " AS tour_name,
+                                           tours.title_" . Session::get('locale') . " AS tour_name,
                                            users.name AS user_name 
                                     FROM requests
                                     LEFT JOIN tours ON tours.id = requests.tour_id 
@@ -119,6 +122,42 @@ class UsersController extends Controller
         return view('admin.requests')->with('requests', $requests);
 
     }
+
+    public function setLocaleAndCurrency()
+    {
+        if (Session::has('locale') && Session::has('currency')){
+
+        }
+        else
+        {
+            Session::put('locale', 'en');
+            Session::put('currency', 'usd');
+        }
+
+    }
+
+    public function getPrice($tour)
+    {
+        if (Session::get('currency') != strtolower($tour->currency)){
+            $rate = DB::table('users')->select('UsdToAzn')->where('status', 5)->first()->UsdToAzn;
+            if ($tour->currency == 'AZN'){
+                $tour->price = ceil($tour->price / $rate);
+            }
+            elseif($tour->currency == 'USD'){
+                $tour->price = ceil($tour->price * $rate);
+            }
+            $tour->currency = strtoupper(Session::get('currency'));
+        }
+    }
+
+    public function changeCurrencyRate(Request $request)
+    {
+        $user = Auth::user();
+        $user->UsdToAzn = $request->UsdToAzn;
+        $user->save();
+        return redirect()->back();
+    }
+
 
 
 }
