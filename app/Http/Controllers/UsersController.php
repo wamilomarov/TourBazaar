@@ -19,6 +19,21 @@ class UsersController extends Controller
         return $agencies;
     }
 
+    public function getAgencies()
+    {
+        $agencies = DB::select("SELECT 
+                                users.id,
+                                users.name,
+                                users.email,
+                                users.phone,
+                                users.cover_image,
+                                (SELECT COUNT(tours.id) FROM tours WHERE tours.user_id = users.id AND tours.status = 1) AS tours_count,
+                                (SELECT COUNT(requests.id) FROM requests WHERE requests.user_id = users.id AND requests.status = 1) AS requests_count
+                                FROM users
+                                WHERE users.status = 1");
+        return $agencies;
+    }
+
     public function getRegisterForm()
     {
         return view('auth.register');

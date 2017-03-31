@@ -10,7 +10,7 @@
                         <div class="sec-box">
                             <a class="closethis">Close</a>
                             <header>
-                                <h2 class="heading">New tours</h2>
+                                <h2 class="heading">Tours</h2>
                             </header>
                             <div class="contents">
                                 <a class="togglethis">Toggle</a>
@@ -74,11 +74,11 @@
                                             </tr>
                                             </tfoot>
                                             <tbody role="alert" aria-live="polite" aria-relevant="all">
-                                            @foreach($tours['tours'] as $tour)
+                                            @foreach($tours as $tour)
                                                 <tr class="gradeA odd">
                                                     <td class="">{{$tour->title}}</td>
                                                     <td class=" ">{{$tour->agency}}</td>
-                                                    <td class="  sorting_1">{{$tour->price}}</td>
+                                                    <td class="  sorting_1">{{$tour->price ." ". $tour->currency}}</td>
                                                     <td class="center ">
                                                         @if($tour->is_hot)
                                                             Yes
@@ -86,14 +86,9 @@
                                                             No
                                                         @endif
                                                     </td>
-                                                    <td class="center ">{{$tour->expire_date}}</td>
+                                                    <td class="center ">{{date("d M Y", strtotime($tour->expire_date))}}</td>
                                                     <td class="center ">
-                                                        <a href="{{url('acceptTour', $tour->id)}}">
-                                                            <button type="button" class="btn btn-success " aria-label="Left Align">
-                                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                                            </button>
-                                                        </a>
-                                                        <a  href="{{url('declineTour', $tour->id)}}">
+                                                        <a  href="{{url('removeTour', $tour->id)}}">
                                                             <button type="button" class="btn btn-danger ">
                                                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                                             </button>

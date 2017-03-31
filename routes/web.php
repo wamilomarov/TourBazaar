@@ -57,7 +57,7 @@ Route::group(['middleware' => ['auth', 'admin', 'web']], function(){
 
     Route::post('addAgency', 'UsersController@create')->name('addAgency');
 
-    Route::get('getAgencies', 'UsersController@index');
+    Route::get('getAgencies', 'UsersController@getAgencies');
 
     Route::post('changeCurrencyRate', 'UsersController@changeCurrencyRate');
 

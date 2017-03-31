@@ -36,7 +36,7 @@
                             <label for="email" class="col-md-3 control-label">1 USD = </label>
 
 
-                            <div class="col-md-4 input-group">
+                            <div class="col-md-5 input-group">
                                 <input id="email" type="number" class="form-control" name="UsdToAzn" step="any" value="{{ \Illuminate\Support\Facades\Auth::user()->UsdToAzn}}" required>
                                 <span class="input-group-addon btn-default">AZN</span>
                                 <button type="submit" class="btn btn-success btn-group">Set</button>
