@@ -401,4 +401,18 @@ class ToursController extends Controller
         }
     }
 
+    public function sendRequest(Request $request)
+    {
+        DB::table('requests')->insert([
+            'tour_id' => $request->tour_id,
+            'user_id' => $request->user_id,
+            'client_full_name' => $request->client_full_name,
+            'client_phone' => $request->client_phone,
+            'client_email' => $request->client_email
+            ]);
+
+        return redirect()->back();
+
+    }
+
 }

@@ -37,6 +37,8 @@ Route::get('admin', function (){
    return view('admin.dashboard')->with('user', $user);
 });
 
+Route::post('sendRequest', 'ToursController@sendRequest');
+
 Route::get('getCountriesList/{input}', 'ToursController@getCountriesList');
 
 Route::get('getCitiesList/{country}', 'ToursController@getCitiesList');

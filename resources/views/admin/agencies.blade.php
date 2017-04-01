@@ -89,7 +89,7 @@
                                                     <td class="center ">{{$agency->tours_count}}</td>
                                                     <td class="center ">{{$agency->requests_count}}</td>
                                                     <td class="center ">
-                                                        <a  href="{{url('removeAgency', $agency->id)}}">
+                                                        <a  href="{{url('deleteAgency', $agency->id)}}">
                                                             <button type="button" class="btn btn-danger ">
                                                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                                             </button>

@@ -79,10 +79,12 @@
                                                     <h2>Enter Your Details</h2>
                                                 </div>
                                                 <form method="post" action="{{url('sendRequest')}}">
+                                                    {{csrf_field()}}
                                                     <p><i class="fa fa-user"></i><input type="text" name="client_full_name" placeholder="Enter Your Full Name"></p>
                                                     <p><i class="fa fa-phone"></i><input type="tel" name="client_phone" placeholder="Enter Your Phone Number"></p>
                                                     <p><i class="fa fa-envelope-o"></i><input type="email" name="client_email" placeholder="Enter Your e-Mail"></p>
-                                                    <input type="hidden" value="{{$tour->id}}">
+                                                    <input type="hidden" name="tour_id" value="{{$tour->id}}">
+                                                    <input type="hidden" name="user_id" value="{{$tour->user_id}}">
                                                     <p><input type="submit" value="Book" class="thbg-color">
                                                 </form>
                                             </div>

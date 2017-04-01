@@ -94,7 +94,7 @@ class UsersController extends Controller
         $user = User::find($request->id);
         $user->status = 0;
         $user->save();
-        return $user;
+        return redirect()->back();
     }
 
     public function getRequests()
@@ -114,7 +114,10 @@ class UsersController extends Controller
                                     WHERE requests.user_id = ".Auth::user()->id." AND requests.status = 1 
                                     ORDER BY requests.created_at DESC
                                     LIMIT 150");
-            DB::table('requests')->where('user_id', Auth::user()->id)->where('user_seen', 0)->update(['user_seen' => 1]);
+            foreach ($requests as $req) {
+                DB::update("UPDATE requests SET user_seen = 1 WHERE id = $req->id");
+            }
+           // DB::table('requests')->where('user_id', Auth::user()->id)->where('user_seen', 0)->update(['user_seen' => 1]);
         }
         elseif (Auth::user()->status == 5){
             $requests = DB::select("SELECT requests.id,
@@ -131,7 +134,11 @@ class UsersController extends Controller
                                     WHERE requests.status = 1
                                     ORDER BY requests.created_at DESC
                                     LIMIT 150");
-            DB::table('requests')->where('user_id', Auth::user()->id)->where('admin_seen', 0)->update(['admin_seen' => 1]);
+
+            foreach ($requests as $req) {
+                DB::update("UPDATE requests SET admin_seen = 1 WHERE id = $req->id");
+            }
+            //DB::table('requests')->where('user_id', Auth::user()->id)->where('admin_seen', 0)->update(['admin_seen' => 1]);
         }
 
         return view('admin.requests')->with('requests', $requests);
