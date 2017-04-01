@@ -23,7 +23,7 @@ class CreateToursTable extends Migration
             $table->dateTime('expire_date');
             $table->integer('price');
             $table->string('currency');
-            $table->boolean('is_hot')->default(0);
+            $table->integer('is_hot')->default(0);
             $table->text('description_az');
             $table->text('description_en');
             $table->timestamps();
@@ -39,15 +39,27 @@ class CreateToursTable extends Migration
 
         Schema::create('countries', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('sortname');
+            $table->integer('phonecode');
             $table->integer('status')->default(1);
-            $table->integer('name');
+            $table->string('name');
+            $table->timestamps();
+        });
+
+        Schema::create('states', function (Blueprint $table) {
+            $table->increments('id');
+            //$table->integer('status')->default(1);
+            $table->string('name');
+            $table->integer('country_id');
             $table->timestamps();
         });
 
         Schema::create('cities', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('status')->default(1);
-            $table->integer('name');
+            $table->string('name');
+            $table->integer('state_id');
+            $table->integer('country_id');
             $table->timestamps();
         });
 
@@ -60,10 +72,18 @@ class CreateToursTable extends Migration
         });
 
         Schema::create('tours_cities', function (Blueprint $table) {
+        $table->increments('id');
+        $table->integer('status')->default(1);
+        $table->integer('city_id')->unsigned();
+        $table->integer('tour_id')->unsigned();
+        $table->timestamps();
+    });
+
+        Schema::create('tours_photos', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('status')->default(1);
-            $table->integer('city_id')->unsigned();
             $table->integer('tour_id')->unsigned();
+            $table->string('photo');
             $table->timestamps();
         });
     }

@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('phone');
             $table->string('password');
             $table->string('cover_image')->default('default.png');
+            $table->float('UsdToAzn')->nullable()->default(NULL);
             $table->rememberToken();
             $table->timestamps();
         });

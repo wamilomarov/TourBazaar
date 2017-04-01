@@ -32,10 +32,10 @@ Route::get('tours', 'HomeController@tours');
 
 Route::post('searchTours', 'ToursController@search');
 
-Route::get('admin', function (){
-    $user = new \App\User();
-   return view('admin.dashboard')->with('user', $user);
-});
+//Route::get('admin', function (){
+//    $user = new \App\User();
+//   return view('admin.dashboard')->with('user', $user);
+//});
 
 Route::post('sendRequest', 'ToursController@sendRequest');
 
