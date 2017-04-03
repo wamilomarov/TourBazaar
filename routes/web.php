@@ -15,12 +15,16 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('startPage');
 });
 
 Auth::routes();
 
 Route::get('/home', 'ToursController@search');
+
+Route::get('/worldTours', 'ToursController@worldTours');
+
+Route::get('/localTours', 'ToursController@localTours');
 
 Route::post('searchTour', 'ToursController@search');
 
@@ -69,8 +73,6 @@ Route::group(['middleware' => ['auth', 'admin', 'web']], function(){
 
     Route::get('declineTour/{tour_id}', 'ToursController@decline');
 
-
-
 });
 
 //------------------------------------------FOR USER------------------------------------
@@ -95,7 +97,5 @@ Route::group(['middleware' => ['auth', 'web']], function (){
     Route::get('removeTour/{tour_id}', 'ToursController@remove');
 
     Route::get('getRequests', 'UsersController@getRequests');
-
-
 
 });

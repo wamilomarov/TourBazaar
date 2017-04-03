@@ -1,0 +1,94 @@
+@font-face {
+    font-family: RobotoSlab-Bold;
+    src: url('../fonts/RobotoSlab-Bold.ttf');
+}
+
+body {
+    background-color: #e8e8e8;
+}
+
+a {
+    text-decoration: none;
+}
+
+#main {
+    font-family: RobotoSlab-Bold;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+}
+
+.exp {
+    position: relative;
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.backgroundImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: 50% 50%;
+    -webkit-transition: all 250ms ease-in;
+    -moz-transition: all 250ms ease-in;
+    transition: all 250ms ease-in;
+}
+
+.aze .backgroundImage {
+    background-image: url("../images/baku.jpg");
+}
+
+.world .backgroundImage {
+    background-image: url("../images/world.jpg");
+}
+
+.backgroundOverLay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7)
+}
+
+.aze:hover .backgroundImage {
+    transform: scale(1.1);
+}
+
+.world:hover .backgroundImage {
+    transform: scale(1.1);
+}
+
+.expLinkContent {
+    border-radius: 4px;
+    color: white;
+    font-weight: 900;
+    font-size: 30px;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+}
+
+.extraBtn {
+    position: absolute;
+    z-index: 2;
+    bottom: 80px;
+    border-radius: 4px;
+    color: white;
+    font-weight: 900;
+    font-size: 30px;
+}

@@ -99,7 +99,7 @@ class UsersController extends Controller
 
     public function getRequests()
     {
-        $this->setLocaleAndCurrency();
+        $this->setLocaleAndCurrency('en', 'usd');
 
         if (Auth::user()->status == 1){
             $requests = DB::select("SELECT requests.id,
@@ -145,17 +145,18 @@ class UsersController extends Controller
 
     }
 
-    public function setLocaleAndCurrency()
+    public function setLocaleAndCurrency($locale, $currency)
     {
         if (Session::has('locale') && Session::has('currency')){
 
         }
         else
         {
-            Session::put('locale', 'en');
-            Session::put('currency', 'usd');
+            Session::put('locale', $locale);
+            Session::put('currency', $currency);
         }
 
+        App::setLocale(Session::get('locale'));
     }
 
     public function getPrice($tour)

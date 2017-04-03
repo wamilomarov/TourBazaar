@@ -54,10 +54,10 @@
                                 </div>
                             </li>-->
                             <li>
-                                <i class="fa fa-phone"></i> Phone: +44 123 456 789
+                                <i class="fa fa-phone"></i> {{__('messages.phone')}}
                             </li>
                             <li>
-                                <i class="fa fa-envelope-o"></i> <a href="#">Email: Info@kodeforest.com</a>
+                                <i class="fa fa-envelope-o"></i> <a href="#">{{__('messages.email')}}</a>
                             </li>
 
                         </ul>
@@ -72,7 +72,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-3">
-                        <a href="index-2.html" class="logo"><img src="images/logo.png" alt=""></a>
+                        <a href="index-2.html" class="logo"><img src="../images/logo.png" alt=""></a>
                     </div>
                     <div class="col-md-9">
                         <div class="kd-rightside">
@@ -87,16 +87,16 @@
 
                                 <div class="collapse navbar-collapse" id="navbar-collapse-1">
                                     <ul class="nav navbar-nav">
-                                        <li><a href="index-2.html">Home</a>
+                                        <li><a href="index-2.html">{{__('messages.homePage')}}</a>
                                         </li>
-                                        <li><a href="index-2.html">About Azerbaijan</a>
+                                        <li><a href="index-2.html">{{__('messages.aboutAzerbaijanPage')}}</a>
                                         </li>
-                                        <li><a href="index-2.html">Hot offers</a>
+                                        <li><a href="index-2.html">{{__('messages.hotOffersPage')}}</a>
                                         </li>
-                                        <li><a href="about-us.html">About Us</a></li>
-                                        <li><a href="package-list.html">Be our partner</a>
+                                        <li><a href="about-us.html">{{__('messages.aboutUsPage')}}</a></li>
+                                        <li><a href="package-list.html">{{__('messages.beOurPartnerPage')}}</a>
                                         </li>
-                                        <li><a href="contact-us.html">contact us</a></li>
+                                        <li><a href="contact-us.html">{{__('messages.contactUsPage')}}</a></li>
                                     </ul>
                                 </div>
                                 <!-- /.navbar-collapse -->
@@ -140,51 +140,33 @@
                 <div class="col-md-12">
                     <div class="kd-tourform ">
                         <div class="container">
-                            <a href="#" class="formbtn">Find the tour</a>
-                            <form action="" method="POST">
+                            <a href="#" class="formbtn">{{__('messages.findTheTour')}}</a>
+                            <form action="{{url('search')}}" method="POST">
                                 <ul>
                                     <li>
-                                        <span>Country</span>
+                                        <span>{{__('messages.country')}}</span>
                                         <label>
-                                            <select>
-                                                <option>France</option>
-                                                <option>Germany</option>
-                                                <option>UK</option>
-                                                <option>Cyprus</option>
-                                            </select>
+                                            <input name="country" type="text" list="country">
+                                            <datalist id="country"></datalist>
                                         </label>
                                     </li>
                                     <li>
-                                        <span>City</span>
+                                        <span>{{__('messages.city')}}</span>
                                         <label>
-                                            <select>
-                                                <option>Paris</option>
-                                                <option>Berlin</option>
-                                                <option>London</option>
-                                                <option>Nicosia</option>
-                                            </select>
+                                            <input name="city" type="text" list="city">
+                                            <datalist id="city"></datalist>
                                         </label>
                                     </li>
                                     <li>
-                                        <span>Min price</span>
+                                        <span>{{__('messages.minPrice')}}</span>
                                         <label>
-                                            <select>
-                                                <option>$ 1000</option>
-                                                <option>$ 10000</option>
-                                                <option>$ 20000</option>
-                                                <option>$ 50000</option>
-                                            </select>
+                                            <input name="price_from" type="number" placeholder="{{strtoupper(\Illuminate\Support\Facades\Session::get('currency'))}}">
                                         </label>
                                     </li>
                                     <li>
-                                        <span>Max price</span>
+                                        <span>{{__('messages.maxPrice')}}</span>
                                         <label>
-                                            <select>
-                                                <option>$ 1000</option>
-                                                <option>$ 10000</option>
-                                                <option>$ 20000</option>
-                                                <option>$ 50000</option>
-                                            </select>
+                                            <input name="price_to" type="number" placeholder="{{strtoupper(\Illuminate\Support\Facades\Session::get('currency'))}}">
                                         </label>
                                     </li>
                                     <li>

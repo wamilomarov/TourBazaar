@@ -76,7 +76,7 @@
                                             <div class="modal-body">
                                                 <a href="#" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                                                 <div class="kd-login-title">
-                                                    <h2>Enter Your Details</h2>
+                                                    <h2>{{__('messages.enter_your_details')}}</h2>
                                                 </div>
                                                 <form method="post" action="{{url('sendRequest')}}">
                                                     {{csrf_field()}}

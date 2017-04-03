@@ -74,7 +74,7 @@ class ToursController extends Controller
 
     public function getTours()
     {
-        $this->setLocaleAndCurrency();
+        $this->setLocaleAndCurrency('en', 'usd');
 
         if (Auth::user()->status == 1){
             $tours = DB::select("SELECT 
@@ -111,7 +111,7 @@ class ToursController extends Controller
 
     public function search(Request $request)
     {
-        $this->setLocaleAndCurrency();
+        $this->setLocaleAndCurrency('en', 'usd');
 
         $order = " ORDER BY is_hot DESC";
 
@@ -182,6 +182,11 @@ class ToursController extends Controller
         
     }
 
+    public function localTours()
+    {
+        $this->search();
+    }
+
     public function getCountriesList(Request $request)
     {
         $result = "";
@@ -210,7 +215,7 @@ class ToursController extends Controller
 
     public function dashboard()
     {
-        $this->setLocaleAndCurrency();
+        $this->setLocaleAndCurrency('en', 'usd');
 
         if (Auth::user()->status == 5){
             $tours['tours'] = DB::select("SELECT 
@@ -273,7 +278,7 @@ class ToursController extends Controller
 
     public function allTours()
     {
-        $this->setLocaleAndCurrency();
+        $this->setLocaleAndCurrency('en', 'usd');
 
         if (Auth::user()->status == 5)
         $tours = DB::select("select 
@@ -303,7 +308,7 @@ class ToursController extends Controller
 
     public function getTour(Request $request)
     {
-        $this->setLocaleAndCurrency();
+        $this->setLocaleAndCurrency('en', 'usd');
 
         $tour = DB::select("SELECT tours.id,
                             tours.title_" . Session::get('locale') . " AS title,
@@ -374,16 +379,17 @@ class ToursController extends Controller
         return redirect()->back();
     }
 
-    public function setLocaleAndCurrency()
+    public function setLocaleAndCurrency($locale, $currency)
     {
         if (Session::has('locale') && Session::has('currency')){
 
         }
         else
         {
-            Session::put('locale', 'en');
-            Session::put('currency', 'usd');
+            Session::put('locale', $locale);
+            Session::put('currency', $currency);
         }
+
 
     }
 
