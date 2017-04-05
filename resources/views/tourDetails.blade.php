@@ -20,7 +20,7 @@
                         <div class="kd-package-detail">
 
                             <figure class="detail-thumb">
-                                <!--<a href="#"><img src="extraimages/package-detail1.jpg" alt=""></a>-->
+                                <!--<a href="#"><img src="" alt=""></a>-->
                                 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="4000">
                                     <!-- Indicators -->
                                     <ol class="carousel-indicators">

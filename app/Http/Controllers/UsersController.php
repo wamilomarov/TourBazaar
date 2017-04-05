@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -45,6 +46,8 @@ class UsersController extends Controller
             $image = $request->file('cover_image');
 
             $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
+
+            var_dump($image);
 
             Image::make($image)->resize(300, 300)->save(public_path('/uploads/cover_images/' . $fileName));
 
@@ -108,7 +111,7 @@ class UsersController extends Controller
                                            requests.client_email,
                                            requests.client_phone,
                                            requests.created_at AS `date`,
-                                           tours.title_" . Session::get('locale') . " AS tour_name
+                                           tours.title_" . Session::get('db_locale') . " AS tour_name
                                     FROM requests
                                     LEFT JOIN tours ON tours.id = requests.tour_id
                                     WHERE requests.user_id = ".Auth::user()->id." AND requests.status = 1 
@@ -126,7 +129,7 @@ class UsersController extends Controller
                                            requests.client_email,
                                            requests.client_phone,
                                            requests.created_at AS `date`,
-                                           tours.title_" . Session::get('locale') . " AS tour_name,
+                                           tours.title_" . Session::get('db_locale') . " AS tour_name,
                                            users.name AS user_name 
                                     FROM requests
                                     LEFT JOIN tours ON tours.id = requests.tour_id 
@@ -147,13 +150,20 @@ class UsersController extends Controller
 
     public function setLocaleAndCurrency($locale, $currency)
     {
-        if (Session::has('locale') && Session::has('currency')){
+        if (Session::has('locale') && Session::has('currency') && Session::has('db_locale')){
 
         }
         else
         {
             Session::put('locale', $locale);
             Session::put('currency', $currency);
+
+            if ($locale == 'ar'){
+                Session::put('db_locale', 'en');
+            }
+            else{
+                Session::put('db_locale', $locale);
+            }
         }
 
         App::setLocale(Session::get('locale'));

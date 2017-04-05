@@ -12,11 +12,38 @@
                                 <div id="lang_sel">
                                     <ul>
                                         <li>
-                                            @if(\Illuminate\Support\Facades\Session::get('locale') == 'en')<a class="lang_sel_sel icl-en" href="{{url('setLocale?lang=en')}}">EN</a> @else <a class="lang_sel_sel icl-en" href="{{url('setLocale?lang=az')}}"> AZ</a> @endif
+                                            @if(\Illuminate\Support\Facades\Session::get('locale') == 'en')
+                                                <a class="lang_sel_sel icl-en" href="{{url('setLocale?lang=en')}}">EN</a>
+                                            @elseif(\Illuminate\Support\Facades\Session::get('locale') == 'az')
+                                                <a class="lang_sel_sel icl-en" href="{{url('setLocale?lang=az')}}"> AZ</a>
+                                            @else
+                                                <a class="lang_sel_sel icl-en" href="{{url('setLocale?lang=ar')}}"> AR</a>
+                                            @endif
                                             <ul>
-                                                <li class="icl-fr">
-                                                    @if(\Illuminate\Support\Facades\Session::get('locale') == 'en')<a href="{{url('setLocale?lang=az')}}"> AZ </a> @else <a href="{{url('setLocale?lang=en')}}"> EN </a>@endif
-                                                </li>
+
+                                                    @if(\Illuminate\Support\Facades\Session::get('locale') == 'en')
+                                                    <li class="icl-fr">
+                                                        <a href="{{url('setLocale?lang=az')}}"> AZ </a>
+                                                    </li>
+                                                    <li class="icl-fr">
+                                                        <a href="{{url('setLocale?lang=ar')}}"> AR </a>
+                                                    </li>
+                                                    @elseif(\Illuminate\Support\Facades\Session::get('locale') == 'ar')
+                                                    <li class="icl-fr">
+                                                        <a href="{{url('setLocale?lang=en')}}"> EN </a>
+                                                    </li>
+                                                    <li class="icl-fr">
+                                                        <a href="{{url('setLocale?lang=az')}}"> AZ </a>
+                                                    </li>
+                                                    @else
+                                                    <li class="icl-fr">
+                                                        <a href="{{url('setLocale?lang=en')}}"> EN </a>
+                                                    </li>
+                                                    <li class="icl-fr">
+                                                        <a href="{{url('setLocale?lang=ar')}}"> AR </a>
+                                                    </li>
+                                                    @endif
+
                                             </ul>
                                         </li>
                                     </ul>

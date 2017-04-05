@@ -96,6 +96,8 @@ Route::group(['middleware' => ['auth', 'web']], function (){
 
     Route::get('removeTour/{tour_id}', 'ToursController@remove');
 
+    Route::get('deleteTour/{tour_id}', 'ToursController@delete');
+
     Route::get('getRequests', 'UsersController@getRequests');
 
 });

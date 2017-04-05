@@ -30,11 +30,15 @@
                                 </div>
                             </div>
                             <div class="row">
+
                                 @foreach($tours as $tour)
                                 <article class="col-md-3">
                                     <figure>
                                         <a href="{{url('getTour', $tour->id)}}">
-                                            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
+                                            <div id="defaultPicture">
+                                                <img src="extraimages/pakege4.jpg" alt="">
+                                            </div>
+                                            <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3000" style="display:none">
                                                 <!-- Wrapper for slides -->
                                                 <div class="carousel-inner" role="listbox">
                                                     @foreach($tour->photos as $photo)

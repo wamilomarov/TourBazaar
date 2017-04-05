@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Tour;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -28,6 +29,7 @@ class ToursController extends Controller
         }
         if ($request->hasFile('photos')){
             $images = $request->allFiles();
+
             foreach ($images['photos'] as $photo) {
                 if ($photo->getClientSize() > 2000000){
                     return redirect('addTour')->withErrors(['photos'=>['File size of one picture must be lower than 2MB.']]);
@@ -37,33 +39,35 @@ class ToursController extends Controller
             $tour = new Tour($request->all());
             $tour->user_id = Auth::user()->id;
 
-            return $tour;
+            $tour->save();
 
-            //$tour->save();
+            foreach ($images['photos'] as $image) {
+                $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
 
-//            foreach ($images['photos'] as $image) {
-//                $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
-//
-//                Image::make($image)->resize(368, 278)->save(public_path('/uploads/tour_images/'. $fileName));
-//
-//                DB::select("INSERT INTO tours_photos (tour_id, photo) VALUES (".$tour->id.", '$fileName')");
-//            }
-//
-//            foreach ($request->countries as $country) {
-//                DB::select("INSERT INTO tours_countries (tour_id, country_id) VALUES (
-//                            $tour->id,
-//                            (SELECT id FROM countries WHERE name = '$country'))");
-//            }
-//
-//            foreach ($request->cities as $city) {
-//                DB::select("INSERT INTO tours_cities (tour_id, city_id) VALUES (
-//                            $tour->id,
-//                            (SELECT id FROM cities WHERE name = '$city'))");
-//            }
+                echo $fileName." ";
+
+                Image::make($image)->fit(800, 600, function ($constraint) {
+                    $constraint->upsize();
+                })->save(public_path('/uploads/tour_images/'. $fileName));
+
+                DB::select("INSERT INTO tours_photos (tour_id, photo) VALUES (".$tour->id.", '$fileName')");
+            }
+
+            foreach ($request->countries as $country) {
+                DB::select("INSERT INTO tours_countries (tour_id, country_id) VALUES (
+                            $tour->id,
+                            (SELECT id FROM countries WHERE name = '$country' LIMIT 1))");
+            }
+
+            foreach ($request->cities as $city) {
+                DB::select("INSERT INTO tours_cities (tour_id, city_id) VALUES (
+                            $tour->id,
+                            (SELECT id FROM cities WHERE name = '$city' LIMIT 1))");
+            }
 
         }
 
-        //return redirect('addTour');
+//        return redirect('addTour');
     }
 
 
@@ -80,7 +84,7 @@ class ToursController extends Controller
             $tours = DB::select("SELECT 
         tours.id,
         tours.status,
-        tours.title_" . Session::get('locale') . " AS title,
+        tours.title_" . Session::get('db_locale') . " AS title,
         tours.price,
         tours.currency,
         tours.is_hot,
@@ -92,7 +96,7 @@ class ToursController extends Controller
             $tours = DB::select("SELECT 
         tours.id,
         tours.status,
-        tours.title_". Session::get('locale') ." AS title,
+        tours.title_". Session::get('db_locale') ." AS title,
         tours.price,
         tours.currency,
         tours.is_hot,
@@ -118,7 +122,7 @@ class ToursController extends Controller
         $query = "select 
                               tours.id,
                               tours.title_az,
-                              tours.title_". Session::get('locale') ." AS title,
+                              tours.title_". Session::get('db_locale') ." AS title,
                               tours.price,
                               tours.currency,
                               tours.expire_date,
@@ -221,7 +225,7 @@ class ToursController extends Controller
             $tours['tours'] = DB::select("SELECT 
         tours.id,
         tours.status,
-        tours.title_". Session::get('locale') ." AS title,
+        tours.title_". Session::get('db_locale') ." AS title,
         tours.price,
         tours.currency,
         tours.is_hot,
@@ -236,7 +240,7 @@ class ToursController extends Controller
             $tours['tours'] = DB::select("SELECT 
         tours.id,
         tours.status,
-        tours.title_". Session::get('locale') ." AS title,
+        tours.title_". Session::get('db_locale') ." AS title,
         tours.price,
         tours.currency,
         tours.is_hot,
@@ -276,6 +280,17 @@ class ToursController extends Controller
         return back();
     }
 
+    public function delete(Request $request)
+    {
+        $photos = DB::select("SELECT photo FROM tours_photos WHERE tour_id = $request->tour_id");
+        foreach ($photos as $photo) {
+            unlink(public_path('/uploads/tour_images/'. $photo->photo));
+        }
+        DB::delete("DELETE FROM tours WHERE id = $request->tour_id");
+        DB::delete("DELETE FROM tours_photos WHERE tour_id = $request->tour_id");
+
+    }
+
     public function allTours()
     {
         $this->setLocaleAndCurrency('en', 'usd');
@@ -284,7 +299,7 @@ class ToursController extends Controller
         $tours = DB::select("select 
                               tours.id as id,
                               tours.title_az,
-                              tours.title_". Session::get('locale') ." AS `title`,
+                              tours.title_". Session::get('db_locale') ." AS `title`,
                               users.`name`,
                               GROUP_CONCAT( DISTINCT (SELECT `name` FROM countries WHERE countries.`id` = cnt.`country_id`) ) as countries,
                               GROUP_CONCAT( DISTINCT (SELECT  `name` FROM cities WHERE cities.`id` = ct.`id`)) as cities
@@ -311,7 +326,7 @@ class ToursController extends Controller
         $this->setLocaleAndCurrency('en', 'usd');
 
         $tour = DB::select("SELECT tours.id,
-                            tours.title_" . Session::get('locale') . " AS title,
+                            tours.title_" . Session::get('db_locale') . " AS title,
                             users.name AS user_name,
                             users.id AS user_id,
                             users.cover_image AS user_cover,
@@ -319,7 +334,7 @@ class ToursController extends Controller
                             tours.price,
                             tours.currency,
                             tours.is_hot,
-                            tours.description_" . Session::get('locale') . " AS description
+                            tours.description_" . Session::get('db_locale') . " AS description
                             FROM tours
                             LEFT JOIN users ON users.id = tours.user_id
                             WHERE tours.id = $request->tour_id AND tours.status = 1")[0];
@@ -336,7 +351,7 @@ class ToursController extends Controller
 
         $tour->tours = DB::select("SELECT 
                             tours.id,
-                            tours.title_" . Session::get('locale') . " AS title,
+                            tours.title_" . Session::get('db_locale') . " AS title,
                             tours_photos.photo,
                             tours.expire_date
                             FROM tours
@@ -355,7 +370,7 @@ class ToursController extends Controller
     public function setLocale(Request $request)
     {
         $validator = Validator::make($request->only(['lang']), [
-            'lang' => 'in:en,az'
+            'lang' => 'in:en,az,ar'
         ]);
 
         if ($validator->fails()) {
@@ -381,13 +396,20 @@ class ToursController extends Controller
 
     public function setLocaleAndCurrency($locale, $currency)
     {
-        if (Session::has('locale') && Session::has('currency')){
+        if (Session::has('locale') && Session::has('currency') && Session::has('db_locale')){
 
         }
         else
         {
             Session::put('locale', $locale);
             Session::put('currency', $currency);
+
+            if ($locale == 'ar'){
+                Session::put('db_locale', 'en');
+            }
+            else{
+                Session::put('db_locale', $locale);
+            }
         }
 
 
