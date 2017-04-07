@@ -18,7 +18,8 @@ class CreateUsersTable extends Migration
             $table->integer('status')->default(0); //0: disabled, 1: active(verified), 5: admin
             $table->string('name');
             $table->string('email', 100)->unique();
-            $table->string('phone');
+            $table->string('mobile_phone');
+            $table->string('work_phone');
             $table->string('password');
             $table->string('cover_image')->default('default.png');
             $table->float('UsdToAzn')->nullable()->default(NULL);

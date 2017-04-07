@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Tour;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
@@ -115,6 +116,10 @@ class ToursController extends Controller
 
     public function search(Request $request)
     {
+        if (!Session::has('tourType')){
+            return redirect('/');
+        }
+
         $this->setLocaleAndCurrency('en', 'usd');
 
         $order = " ORDER BY is_hot DESC";
@@ -158,6 +163,7 @@ class ToursController extends Controller
              $query .= " AND tours.`expire_date` < $request->date_to";
          }
 
+
          $query .= " GROUP BY tours.id HAVING 1 ";
 
         if (isset($request->city)){
@@ -168,6 +174,15 @@ class ToursController extends Controller
         if (isset($request->country)){
             $query .= " AND countries_list LIKE '%$request->country%'";
             $order .= ", countries_number ASC";
+        }
+
+
+        if (Session::get('tourType') == 'local'){
+            $query .= " AND countries_number = 1 AND countries_list LIKE '%Azerbaijan%' ";
+        }
+
+        elseif (Session::get('tourType') == 'world'){
+            $query .= " AND countries_number <> 1 OR countries_list NOT LIKE '%Azerbaijan%'";
         }
 
         $query .= $order;
@@ -186,10 +201,6 @@ class ToursController extends Controller
         
     }
 
-    public function localTours()
-    {
-        $this->search();
-    }
 
     public function getCountriesList(Request $request)
     {
@@ -323,6 +334,10 @@ class ToursController extends Controller
 
     public function getTour(Request $request)
     {
+        if (!Session::has('tourType')){
+            return redirect('/');
+        }
+
         $this->setLocaleAndCurrency('en', 'usd');
 
         $tour = DB::select("SELECT tours.id,
@@ -330,6 +345,8 @@ class ToursController extends Controller
                             users.name AS user_name,
                             users.id AS user_id,
                             users.cover_image AS user_cover,
+                            users.email AS user_email,
+                            users.phone AS user_phone,
                             tours.expire_date,
                             tours.price,
                             tours.currency,
@@ -337,7 +354,13 @@ class ToursController extends Controller
                             tours.description_" . Session::get('db_locale') . " AS description
                             FROM tours
                             LEFT JOIN users ON users.id = tours.user_id
-                            WHERE tours.id = $request->tour_id AND tours.status = 1")[0];
+                            WHERE tours.id = $request->tour_id AND tours.status = 1");
+        if (count($tour) > 0){
+            $tour = $tour[0];
+        }
+        else{
+            return redirect()->back();
+        }
 
         $tour->photos = DB::table('tours_photos')->select('photo')->where('tour_id', $tour->id)->get();
 
@@ -360,7 +383,6 @@ class ToursController extends Controller
                             WHERE tours.user_id = $tour->user_id AND tours.status = 1 AND tours.id <> $tour->id
                             ORDER BY tours.is_hot desc LIMIT 3");
 
-        //return $tour;
 
         $this->getPrice($tour);
 
@@ -396,13 +418,8 @@ class ToursController extends Controller
 
     public function setLocaleAndCurrency($locale, $currency)
     {
-        if (Session::has('locale') && Session::has('currency') && Session::has('db_locale')){
-
-        }
-        else
-        {
+        if (!Session::has('locale')){
             Session::put('locale', $locale);
-            Session::put('currency', $currency);
 
             if ($locale == 'ar'){
                 Session::put('db_locale', 'en');
@@ -412,6 +429,9 @@ class ToursController extends Controller
             }
         }
 
+        if (!Session::has('currency')){
+            Session::put('currency', $currency);
+        }
 
     }
 
@@ -427,6 +447,20 @@ class ToursController extends Controller
             }
             $tour->currency = strtoupper(Session::get('currency'));
         }
+    }
+
+    public function setToursType(Request $request)
+    {
+        $validator = Validator::make($request->only(['tourType']), [
+            'tourType' => 'in:world,local,all'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back();
+        }
+        //App::setLocale($request->lang);
+        Session::put('tourType', $request->tourType);
+        return redirect('tours');
     }
 
     public function sendRequest(Request $request)

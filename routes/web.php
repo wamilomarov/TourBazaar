@@ -20,19 +20,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'ToursController@search');
-
-Route::get('/worldTours', 'ToursController@worldTours');
-
-Route::get('/localTours', 'ToursController@localTours');
-
 Route::post('searchTour', 'ToursController@search');
 
 Route::get('/setLocale', 'ToursController@setLocale');
 
 Route::get('/setCurrency', 'ToursController@setCurrency');
 
-Route::get('tours', 'HomeController@tours');
+Route::get('/setToursType', 'ToursController@setToursType');
+
+//Route::get('tours', 'HomeController@tours');
 
 Route::post('searchTours', 'ToursController@search');
 

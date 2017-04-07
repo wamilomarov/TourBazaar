@@ -132,13 +132,17 @@
                     <aside class="col-md-4">
                         <div class="about-agency">
                             <figure>
-                                <img src="../uploads/cover_images/{{$tour->user_cover}}" alt="" style="border-radius: 50%" draggable="false">
+                                <img src="../uploads/cover_images/{{$tour->user_cover}}" alt="" width="50%" style="border-radius: 50%" draggable="false">
                             </figure>
                             <div class="agency-details">
                                 <h2>{{$tour->user_name}}</h2>
                                 <small>
-                                    <i class="fa fa-map-marker"></i>
-                                    <span>Baku, Azerbaijan</span>
+                                    <i class="fa fa-phone"></i>
+                                    <span>{{$tour->user_phone}}</span>
+                                </small><br><br>
+                                <small>
+                                    <i class="fa fa-envelope-o"></i>
+                                    <span>{{$tour->user_email}}</span>
                                 </small>
                             </div>
                             <hr>

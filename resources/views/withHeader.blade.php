@@ -63,7 +63,47 @@
                                     </ul>
                                 </div>
                             </li>
+                            <li>
+                                <div id="lang_sel">
+                                    <ul>
+                                        <li>
+                                            @if(\Illuminate\Support\Facades\Session::get('tourType') == 'local')
+                                                <a class="lang_sel_sel icl-en" href="{{url('setToursType?tourType=local')}}">Azerbaijan</a>
+                                            @elseif(\Illuminate\Support\Facades\Session::get('tourType') == 'world')
+                                                <a class="lang_sel_sel icl-en" href="{{url('setToursType?tourType=world')}}"> World</a>
+                                            @else
+                                                <a class="lang_sel_sel icl-en" href="{{url('setToursType?tourType=all')}}"> All tours</a>
+                                            @endif
+                                            <ul>
 
+                                                @if(\Illuminate\Support\Facades\Session::get('tourType') == 'local')
+                                                    <li class="icl-fr">
+                                                        <a href="{{url('setToursType?tourType=world')}}"> World </a>
+                                                    </li>
+                                                    <li class="icl-fr">
+                                                        <a href="{{url('setToursType?tourType=all')}}"> All tours </a>
+                                                    </li>
+                                                @elseif(\Illuminate\Support\Facades\Session::get('tourType') == 'world')
+                                                    <li class="icl-fr">
+                                                        <a href="{{url('setToursType?tourType=local')}}"> Azerbaijan </a>
+                                                    </li>
+                                                    <li class="icl-fr">
+                                                        <a href="{{url('setToursType?tourType=all')}}"> All tours </a>
+                                                    </li>
+                                                @else
+                                                    <li class="icl-fr">
+                                                        <a href="{{url('setToursType?tourType=local')}}"> Azerbaijan </a>
+                                                    </li>
+                                                    <li class="icl-fr">
+                                                        <a href="{{url('setToursType?tourType=world')}}"> World </a>
+                                                    </li>
+                                                @endif
+
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
                         </ul>
                     </div>
                     <div class="col-md-5">
@@ -116,8 +156,10 @@
                                     <ul class="nav navbar-nav">
                                         <li><a href="index-2.html">{{__('messages.homePage')}}</a>
                                         </li>
+                                        @if(\Illuminate\Support\Facades\Session::get('tourType') == 'local')
                                         <li><a href="index-2.html">{{__('messages.aboutAzerbaijanPage')}}</a>
                                         </li>
+                                        @endif
                                         <li><a href="index-2.html">{{__('messages.hotOffersPage')}}</a>
                                         </li>
                                         <li><a href="about-us.html">{{__('messages.aboutUsPage')}}</a></li>

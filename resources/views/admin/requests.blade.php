@@ -44,6 +44,11 @@
                                                 </th>
                                                 <th class="center sorting" role="columnheader" tabindex="0"
                                                     aria-controls="example" rowspan="1" colspan="1" style="width: 164px;"
+                                                    aria-label="Engine version: activate to sort column ascending">
+                                                    Have Seen
+                                                </th>
+                                                <th class="center sorting" role="columnheader" tabindex="0"
+                                                    aria-controls="example" rowspan="1" colspan="1" style="width: 164px;"
                                                     aria-label="CSS grade: activate to sort column ascending">
                                                     Tour
                                                 </th>
@@ -74,6 +79,9 @@
                                                 <th rowspan="1" colspan="1"><input type="text" name="search_version"
                                                                                    value="Search"
                                                                                    class="search_init"></th>
+                                                <th rowspan="1" colspan="1"><input type="text" name="search_version"
+                                                                                   value="Search"
+                                                                                   class="search_init"></th>
                                                 <th rowspan="1" colspan="1"><input type="text" name="search_grade"
                                                                                    value="Search"
                                                                                    class="search_init"></th>
@@ -89,6 +97,7 @@
                                                     <td class="  sorting_1">{{$req->client_email}} </td>
                                                     <td class="center ">{{$req->client_phone}}</td>
                                                     <td class="center ">{{$req->user_name}}</td>
+                                                    <td class="center ">@if($req->user_seen == 1) YES @else NO @endif</td>
                                                     <td class="center ">{{$req->tour_name}}</td>
                                                     <td class="center ">{{date("d M Y",strtotime($req->date))}}</td>
                                                     <td class="center ">

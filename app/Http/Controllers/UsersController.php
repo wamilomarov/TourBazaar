@@ -129,6 +129,7 @@ class UsersController extends Controller
                                            requests.client_email,
                                            requests.client_phone,
                                            requests.created_at AS `date`,
+                                           requests.user_seen,
                                            tours.title_" . Session::get('db_locale') . " AS tour_name,
                                            users.name AS user_name 
                                     FROM requests
@@ -150,13 +151,8 @@ class UsersController extends Controller
 
     public function setLocaleAndCurrency($locale, $currency)
     {
-        if (Session::has('locale') && Session::has('currency') && Session::has('db_locale')){
-
-        }
-        else
-        {
+        if (!Session::has('locale')){
             Session::put('locale', $locale);
-            Session::put('currency', $currency);
 
             if ($locale == 'ar'){
                 Session::put('db_locale', 'en');
@@ -166,7 +162,14 @@ class UsersController extends Controller
             }
         }
 
-        App::setLocale(Session::get('locale'));
+        if (!Session::has('currency')){
+            Session::put('currency', $currency);
+        }
+
+        if (!Session::has('tourType')){
+            return redirect('home');
+        }
+
     }
 
     public function getPrice($tour)
