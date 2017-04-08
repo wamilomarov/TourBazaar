@@ -44,15 +44,29 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                            <label for="phone" class="col-md-4 control-label">Phone Number</label>
+                        <div class="form-group{{ $errors->has('mobile_phone') ? ' has-error' : '' }}">
+                            <label for="mobile_phone" class="col-md-4 control-label">Mobile Phone Number</label>
 
                             <div class="col-md-6">
-                                <input id="phone" type="tel" class="form-control" name="phone" value="{{ old('email') }}" required>
+                                <input id="mobile_phone" type="tel" class="form-control" name="mobile_phone" value="{{ old('mobile_phone') }}" required>
 
-                                @if ($errors->has('phone'))
+                                @if ($errors->has('mobile_phone'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('phone') }}</strong>
+                                        <strong>{{ $errors->first('mobile_phone') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('work_phone') ? ' has-error' : '' }}">
+                            <label for="work_phone" class="col-md-4 control-label">Office Phone Number</label>
+
+                            <div class="col-md-6">
+                                <input id="mobile_phone" type="tel" class="form-control" name="work_phone" value="{{ old('work_phone') }}" required>
+
+                                @if ($errors->has('work_phone'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('work_phone') }}</strong>
                                     </span>
                                 @endif
                             </div>

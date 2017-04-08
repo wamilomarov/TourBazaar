@@ -68,34 +68,34 @@
                                     <ul>
                                         <li>
                                             @if(\Illuminate\Support\Facades\Session::get('tourType') == 'local')
-                                                <a class="lang_sel_sel icl-en" href="{{url('setToursType?tourType=local')}}">Azerbaijan</a>
+                                                <a class="lang_sel_sel icl-en" href="{{url('setToursType?tourType=local')}}">{{__('messages.exploreAzerbaijan')}}</a>
                                             @elseif(\Illuminate\Support\Facades\Session::get('tourType') == 'world')
-                                                <a class="lang_sel_sel icl-en" href="{{url('setToursType?tourType=world')}}"> World</a>
+                                                <a class="lang_sel_sel icl-en" href="{{url('setToursType?tourType=world')}}">{{__('messages.exploreWorld')}}</a>
                                             @else
-                                                <a class="lang_sel_sel icl-en" href="{{url('setToursType?tourType=all')}}"> All tours</a>
+                                                <a class="lang_sel_sel icl-en" href="{{url('setToursType?tourType=all')}}">{{__('messages.allTours')}}</a>
                                             @endif
                                             <ul>
 
                                                 @if(\Illuminate\Support\Facades\Session::get('tourType') == 'local')
                                                     <li class="icl-fr">
-                                                        <a href="{{url('setToursType?tourType=world')}}"> World </a>
+                                                        <a href="{{url('setToursType?tourType=world')}}"> {{__('messages.exploreWorld')}} </a>
                                                     </li>
                                                     <li class="icl-fr">
-                                                        <a href="{{url('setToursType?tourType=all')}}"> All tours </a>
+                                                        <a href="{{url('setToursType?tourType=all')}}">{{__('messages.allTours')}} </a>
                                                     </li>
                                                 @elseif(\Illuminate\Support\Facades\Session::get('tourType') == 'world')
                                                     <li class="icl-fr">
-                                                        <a href="{{url('setToursType?tourType=local')}}"> Azerbaijan </a>
+                                                        <a href="{{url('setToursType?tourType=local')}}"> {{__('messages.exploreAzerbaijan')}} </a>
                                                     </li>
                                                     <li class="icl-fr">
-                                                        <a href="{{url('setToursType?tourType=all')}}"> All tours </a>
+                                                        <a href="{{url('setToursType?tourType=all')}}"> {{__('messages.allTours')}} </a>
                                                     </li>
                                                 @else
                                                     <li class="icl-fr">
-                                                        <a href="{{url('setToursType?tourType=local')}}"> Azerbaijan </a>
+                                                        <a href="{{url('setToursType?tourType=local')}}">{{__('messages.exploreAzerbaijan')}} </a>
                                                     </li>
                                                     <li class="icl-fr">
-                                                        <a href="{{url('setToursType?tourType=world')}}"> World </a>
+                                                        <a href="{{url('setToursType?tourType=world')}}">{{__('messages.exploreWorld')}} </a>
                                                     </li>
                                                 @endif
 
@@ -239,7 +239,7 @@
                                         </label>
                                     </li>
                                     <li>
-                                        <span>Expire Date</span>
+                                        <span>{{__('messages.expireDate')}}</span>
                                         <label>
                                             <select>
                                                 <option>00-00-2015</option>
@@ -248,7 +248,7 @@
                                             </select>
                                         </label>
                                     </li>
-                                    <li><input type="submit" class="thbg-color" value="search now"></li>
+                                    <li><input type="submit" class="thbg-color" value="{{__('messages.searchNow')}}"></li>
                                 </ul>
                             </form>
                         </div>
@@ -269,7 +269,7 @@
 
                 <div class="widget col-md-4 kd-textwidget">
                     <div class="kd-widget-title">
-                        <h2>About our Team</h2>
+                        <h2>{{__('messages.aboutOurTeam')}}</h2>
                     </div>
                     <div class="kd-contactinfo">
                         <p>One image life to and land, herb waters divided. Waters every let two, shall have divided face first us there spirit living beast the. Moving darkness deep morning unto them morning third you're behold.</p>
@@ -283,7 +283,7 @@
 
                 <div class="widget col-md-4 kd-followus-widget">
                     <div class="kd-widget-title">
-                        <h2>Follow Us</h2>
+                        <h2>{{__('messages.followUs')}}</h2>
                     </div>
                     <ul>
                         <li><a href="#" data-original-title="Facebook"><i class="fa fa-facebook"></i></a></li>
@@ -301,7 +301,7 @@
 
                 <div class="widget col-md-4 kd-userinfo-widget">
                     <div class="kd-widget-title">
-                        <h2>Contact</h2>
+                        <h2>{{__('messages.contact')}}</h2>
                     </div>
                     <ul>
                         <li><i class="fa fa-map-marker"></i> 15489 Vegas Drive, Las Vegas, Neveda</li>
@@ -323,18 +323,18 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p>© Copyright 2014 All Rights Reserved by KodeForest</p>
+                    <p>© Copyright {{date('Y')}} All Rights Reserved by TourBazaar</p>
                 </div>
                 <div class="col-md-6">
                     <nav class="footer-nav">
-                        <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li><a href="#">Shop</a></li>
-                            <li><a href="#">ShortCode</a></li>
-                            <li><a href="#">TypoGraphy</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
+                        {{--<ul>--}}
+                            {{--<li><a href="#">Home</a></li>--}}
+                            {{--<li><a href="#">Blog</a></li>--}}
+                            {{--<li><a href="#">Shop</a></li>--}}
+                            {{--<li><a href="#">ShortCode</a></li>--}}
+                            {{--<li><a href="#">TypoGraphy</a></li>--}}
+                            {{--<li><a href="#">Contact</a></li>--}}
+                        {{--</ul>--}}
                     </nav>
                 </div>
             </div>

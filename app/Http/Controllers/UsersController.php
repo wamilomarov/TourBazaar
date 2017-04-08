@@ -47,9 +47,8 @@ class UsersController extends Controller
 
             $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
 
-            var_dump($image);
 
-            Image::make($image)->resize(300, 300)->save(public_path('/uploads/cover_images/' . $fileName));
+            Image::make($image)->resize(800, 600)->save(public_path('/uploads/cover_images/' . $fileName));
 
 
             $user = new User($request->all());
@@ -102,6 +101,10 @@ class UsersController extends Controller
 
     public function getRequests()
     {
+        if (!Session::has('tourType')){
+            return redirect('/');
+        }
+
         $this->setLocaleAndCurrency('en', 'usd');
 
         if (Auth::user()->status == 1){
@@ -164,10 +167,6 @@ class UsersController extends Controller
 
         if (!Session::has('currency')){
             Session::put('currency', $currency);
-        }
-
-        if (!Session::has('tourType')){
-            return redirect('home');
         }
 
     }

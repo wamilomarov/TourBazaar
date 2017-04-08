@@ -20,6 +20,14 @@ return [
     'city' => "City",
     'minPrice' => "Min. Price",
     'maxPrice' => "Max. Price",
+    'exploreAzerbaijan' => "Azerbaijan",
+    'exploreWorld' => "World",
+    'allTours' => "All tours",
+    'expireDate' => "Expire date",
+    'searchNow' => "Search Now",
+    'aboutOurTeam' => "About Our Team",
+    'followUs' => "Follow Us",
+    'contact' => "Contact",
 
     'enter_your_details' => "Enter Your Details"
 ];

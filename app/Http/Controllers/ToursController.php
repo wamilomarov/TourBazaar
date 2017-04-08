@@ -400,6 +400,14 @@ class ToursController extends Controller
         }
         //App::setLocale($request->lang);
         Session::put('locale', $request->lang);
+
+        if (Session::get('locale') == 'ar'){
+            Session::put('db_locale', 'en');
+        }
+        else{
+            Session::put('db_locale', $request->lang);
+        }
+
         return redirect(URL::previous());
     }
 
@@ -421,7 +429,7 @@ class ToursController extends Controller
         if (!Session::has('locale')){
             Session::put('locale', $locale);
 
-            if ($locale == 'ar'){
+            if (Session::get('locale') == 'ar'){
                 Session::put('db_locale', 'en');
             }
             else{
