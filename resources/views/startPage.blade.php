@@ -9,7 +9,7 @@
                 <div class="backgroundOverLay"></div>
 
                 <a class="expLink" href="{{url('setToursType?tourType=local')}}">
-                    <div class="expLinkContent">Explore Azerbaijan</div>
+                    <div class="expLinkContent">{{__('messages.startPageExploreAzerbaijan')}}</div>
                 </a>
             </div>
             <div class="exp world">
@@ -17,11 +17,11 @@
                 <div class="backgroundOverLay"></div>
 
                 <a class="expLink" href="{{url('setToursType?tourType=world')}}">
-                    <div class="expLinkContent">Explore World</div>
+                    <div class="expLinkContent">{{__('messages.startPageExploreWorld')}}</div>
                 </a>
             </div>
             <a class="extraBtn" href="{{url('setToursType?tourType=all')}}">
-                <div class="">See All Tours</div>
+                <div class="">{{__('messages.startPageSeeAllTours')}}</div>
             </a>
 
         </div>

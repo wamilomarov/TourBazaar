@@ -26,7 +26,8 @@ class UsersController extends Controller
                                 users.id,
                                 users.name,
                                 users.email,
-                                users.phone,
+                                users.mobile_phone,
+                                users.work_phone,
                                 users.cover_image,
                                 (SELECT COUNT(tours.id) FROM tours WHERE tours.user_id = users.id AND tours.status = 1) AS tours_count,
                                 (SELECT COUNT(requests.id) FROM requests WHERE requests.user_id = users.id AND requests.status = 1) AS requests_count

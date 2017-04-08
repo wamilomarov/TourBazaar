@@ -21,7 +21,7 @@
 
                             <figure class="detail-thumb">
                                 <!--<a href="#"><img src="" alt=""></a>-->
-                                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="4000">
+                                <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
                                     <!-- Indicators -->
                                     <ol class="carousel-indicators">
                                         <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -35,11 +35,11 @@
                                         @foreach($tour->photos as $photo)
                                             @if($loop->first)
                                         <div class="item active">
-                                            <img src="../uploads/tour_images/{{$photo->photo}}" width="460" height="345">
+                                            <img src="../uploads/tour_images/{{$photo->photo}}" width="800" height="600">
                                         </div>
                                             @else
                                         <div class="item">
-                                            <img src="../uploads/tour_images/{{$photo->photo}}" width="460" height="345">
+                                            <img src="../uploads/tour_images/{{$photo->photo}}" width="800" height="600">
                                         </div>
                                             @endif
                                         @endforeach
@@ -48,27 +48,27 @@
                             </figure>
                             <div class="kd-pkg-info">
                                 <ul>
-                                    <li><i class="fa fa-map-marker"></i> <strong>Countries:</strong>
+                                    <li><i class="fa fa-map-marker"></i> <strong>{{__('messages.countries')}} : </strong>
                                         @foreach($tour->countries as $country) {{$country->name}}
                                             @if(!$loop->last)
                                                 ,
                                             @endif
                                         @endforeach
                                     </li>
-                                    <li><i class="fa fa-paper-plane"></i> <strong>Cities:</strong>
+                                    <li><i class="fa fa-paper-plane"></i> <strong>{{__('messages.cities')}} : </strong>
                                         @foreach($tour->cities as $city) {{$city->name}}
                                             @if(!$loop->last)
                                                 ,
                                             @endif
                                         @endforeach
                                     </li>
-                                    <li><i class="fa fa-calendar"></i> <strong>Expire Date:</strong>
+                                    <li><i class="fa fa-calendar"></i> <strong>{{__('messages.expireDate')}} : </strong>
                                         {{date("d M Y", strtotime($tour->expire_date))}}
                                     </li>
-                                    <li><i class="fa fa-tag"></i> <strong>Price:</strong> {{$tour->price}}
-                                    {{$tour->currency}}</li>
+                                    <li><i class="fa fa-tag"></i> <strong>{{__('messages.price')}} : </strong> @if($tour->currency == 'AZN') &#8380; @else &#36; @endif {{$tour->price}}
+                                    </li>
                                 </ul>
-                                <a href="#" class="kd-booking-btn thbg-color" data-toggle="modal" data-target="#searchmodalbox">bOOK nOW</a>
+                                <a href="#" class="kd-booking-btn thbg-color" data-toggle="modal" data-target="#searchmodalbox">{{__('messages.bookNow')}}</a>
                                 <!-- Modal -->
                                 <div class="modal fade kd-loginbox" id="searchmodalbox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -76,16 +76,16 @@
                                             <div class="modal-body">
                                                 <a href="#" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></a>
                                                 <div class="kd-login-title">
-                                                    <h2>{{__('messages.enter_your_details')}}</h2>
+                                                    <h2>{{__('messages.enterYourDetails')}}</h2>
                                                 </div>
                                                 <form method="post" action="{{url('sendRequest')}}">
                                                     {{csrf_field()}}
-                                                    <p><i class="fa fa-user"></i><input type="text" name="client_full_name" placeholder="Enter Your Full Name"></p>
-                                                    <p><i class="fa fa-phone"></i><input type="tel" name="client_phone" placeholder="Enter Your Phone Number"></p>
-                                                    <p><i class="fa fa-envelope-o"></i><input type="email" name="client_email" placeholder="Enter Your e-Mail"></p>
+                                                    <p><i class="fa fa-user"></i><input type="text" name="client_full_name" placeholder="{{__('messages.enterYourFullName')}}"></p>
+                                                    <p><i class="fa fa-phone"></i><input type="tel" name="client_phone" placeholder="{{__('messages.enterYourPhoneNumber')}}"></p>
+                                                    <p><i class="fa fa-envelope-o"></i><input type="email" name="client_email" placeholder="{{__('messages.enterYourEmail')}}"></p>
                                                     <input type="hidden" name="tour_id" value="{{$tour->id}}">
                                                     <input type="hidden" name="user_id" value="{{$tour->user_id}}">
-                                                    <p><input type="submit" value="Book" class="thbg-color">
+                                                    <p><input type="submit" value="{{__('messages.book')}}" class="thbg-color">
                                                 </form>
                                             </div>
                                         </div>
@@ -93,7 +93,7 @@
                                 </div>
                             </div>
                             <div class="kd-rich-editor">
-                                <h2>Description</h2>
+                                <h2>{{__('messages.description')}}</h2>
                                 <p>{{$tour->description}}</p>
                             </div>
 
@@ -137,11 +137,15 @@
                             <div class="agency-details">
                                 <h2>{{$tour->user_name}}</h2>
                                 <small>
-                                    <i class="fa fa-phone"></i>
-                                    <span>{{$tour->user_phone}}</span>
+                                    <i class="fa fa-mobile fa-2x fa-fw"></i>
+                                    <span>{{$tour->user_mobile_phone}}</span>
                                 </small><br><br>
                                 <small>
-                                    <i class="fa fa-envelope-o"></i>
+                                    <i class="fa fa-phone fa-2x fa-fw"></i>
+                                    <span>{{$tour->user_work_phone}}</span>
+                                </small><br><br>
+                                <small>
+                                    <i class="fa fa-envelope-o fa-2x fa-fw"></i>
                                     <span>{{$tour->user_email}}</span>
                                 </small>
                             </div>
@@ -161,7 +165,7 @@
 
                         <div class="widget widget-blogpost">
                             <div class="kd-widget-title">
-                                <h2>Other tours of {{$tour->user_name}}</h2>
+                                <h2>{{__('messages.otherToursOf')}} {{$tour->user_name}}</h2>
                             </div>
                             <ul>
                                 @foreach($tour->tours as $tour)
