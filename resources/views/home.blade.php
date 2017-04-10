@@ -71,6 +71,9 @@
                                 @endforeach
 
                             </div>
+
+
+
                             <div class="pagination-wrap">
                                 <div class="pagination">
                                     <a href="#"><i class="fa fa-angle-double-left"></i></a>

@@ -102,9 +102,6 @@ class UsersController extends Controller
 
     public function getRequests()
     {
-        if (!Session::has('tourType')){
-            return redirect('/');
-        }
 
         $this->setLocaleAndCurrency('en', 'usd');
 

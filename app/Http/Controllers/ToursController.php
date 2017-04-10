@@ -122,6 +122,8 @@ class ToursController extends Controller
 
         $this->setLocaleAndCurrency('en', 'usd');
 
+        DB::table('tours')->paginate(12);
+
         $order = " ORDER BY is_hot DESC";
 
         $query = "select 
@@ -132,6 +134,7 @@ class ToursController extends Controller
                               tours.currency,
                               tours.expire_date,
                               tours.is_hot,
+                              COUNT(tours.id) AS tours_count,
                               users.`name`,
                               GROUP_CONCAT( DISTINCT (SELECT `name` FROM countries WHERE countries.`id` = cnt.`country_id`) ) as countries_list,
                               GROUP_CONCAT( DISTINCT (SELECT  `name` FROM cities WHERE cities.`id` = ct.`id`)) as cities_list,
@@ -175,7 +178,6 @@ class ToursController extends Controller
             $query .= " AND countries_list LIKE '%$request->country%'";
             $order .= ", countries_number ASC";
         }
-
 
         if (Session::get('tourType') == 'local'){
             $query .= " AND countries_number = 1 AND countries_list LIKE '%Azerbaijan%' ";
