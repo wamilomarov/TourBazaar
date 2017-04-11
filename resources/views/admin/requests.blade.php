@@ -93,7 +93,7 @@
                                             <tbody role="alert" aria-live="polite" aria-relevant="all">
                                             @foreach($requests as $req)
                                                 <tr class="gradeA odd">
-                                                    <td class="">{{$req->client_full_name}}</td>
+                                                    <td class="">{{$req->client_full_name}} ({{$req->number_of_places}})</td>
                                                     <td class="  sorting_1">{{$req->client_email}} </td>
                                                     <td class="center ">{{$req->client_phone}}</td>
                                                     <td class="center ">{{$req->user_name}}</td>

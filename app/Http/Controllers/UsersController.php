@@ -111,6 +111,7 @@ class UsersController extends Controller
                                            requests.client_full_name,
                                            requests.client_email,
                                            requests.client_phone,
+                                           requests.number_of_places,
                                            requests.created_at AS `date`,
                                            tours.title_" . Session::get('db_locale') . " AS tour_name
                                     FROM requests
@@ -129,6 +130,7 @@ class UsersController extends Controller
                                            requests.client_full_name,
                                            requests.client_email,
                                            requests.client_phone,
+                                           requests.number_of_places,
                                            requests.created_at AS `date`,
                                            requests.user_seen,
                                            tours.title_" . Session::get('db_locale') . " AS tour_name,

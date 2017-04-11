@@ -83,6 +83,7 @@
                                                     <p><i class="fa fa-user"></i><input type="text" name="client_full_name" placeholder="{{__('messages.enterYourFullName')}}"></p>
                                                     <p><i class="fa fa-phone"></i><input type="tel" name="client_phone" placeholder="{{__('messages.enterYourPhoneNumber')}}"></p>
                                                     <p><i class="fa fa-envelope-o"></i><input type="email" name="client_email" placeholder="{{__('messages.enterYourEmail')}}"></p>
+                                                    <p><i class="fa fa-users"></i><input type="number" name="number_of_places" step="1" max="25" min="1" value="1" placeholder="{{__('messages.enterNumberOfPlaces')}}"></p>
                                                     <input type="hidden" name="tour_id" value="{{$tour->id}}">
                                                     <input type="hidden" name="user_id" value="{{$tour->user_id}}">
                                                     <p><input type="submit" value="{{__('messages.book')}}" class="thbg-color">

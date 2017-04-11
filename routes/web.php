@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::post('searchTour', 'ToursController@search');
+//Route::post('searchTour', 'ToursController@search');
 
 Route::get('/setLocale', 'ToursController@setLocale');
 
@@ -30,7 +30,7 @@ Route::get('/setToursType', 'ToursController@setToursType');
 
 //Route::get('tours', 'HomeController@tours');
 
-Route::post('searchTours', 'ToursController@search');
+Route::post('/searchTours', 'ToursController@search');
 
 //Route::get('admin', function (){
 //    $user = new \App\User();

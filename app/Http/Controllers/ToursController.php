@@ -122,7 +122,27 @@ class ToursController extends Controller
 
         $this->setLocaleAndCurrency('en', 'usd');
 
-        DB::table('tours')->paginate(12);
+        $test = DB::table('tours')->select(DB::raw("tours.id,
+                              tours.title_az,
+                              tours.title_". Session::get('db_locale') ." AS title,
+                              tours.price,
+                              tours.currency,
+                              tours.expire_date,
+                              tours.is_hot,
+                              COUNT(tours.id) AS tours_count,
+                              users.`name`,
+                              GROUP_CONCAT( DISTINCT (SELECT `name` FROM countries WHERE countries.`id` = cnt.`country_id`) ) as countries_list,
+                              GROUP_CONCAT( DISTINCT (SELECT  `name` FROM cities WHERE cities.`id` = ct.`id`)) as cities_list,
+                              (SELECT COUNT(id) FROM tours_countries cnt WHERE cnt.`tour_id` = tours.id) as countries_number,
+                              (SELECT COUNT(id) FROM tours_cities ct WHERE ct.`tour_id` = tours.id) as cities_number"))->
+        leftJoin('users', 'users.id', '=', 'tours.user_id')->
+        leftJoin('tours_countries as cnt', 'cnt.tour_id', '=', 'tours.id')->
+        leftJoin('tours_cities as ct', 'ct.tour_id', '=', 'tours.id');
+
+
+        $test->orderBy('is_hot', 'desc');
+
+        $test->where('tours.status', 1);
 
         $order = " ORDER BY is_hot DESC";
 
@@ -150,33 +170,42 @@ class ToursController extends Controller
                             WHERE tours.status = 1                             
                             ";
 
-         if (isset($request->price_from)){
+         if (isset($request->price_from) && !empty($request->price_from)){
              $query .= " AND tours.`price` >= $request->price_from";
+             $test->where('tours.price', '>=', $request->price_from);
          }
 
-         if (isset($request->price_to)){
+         if (isset($request->price_to) && !empty($request->price_to)){
              $query .= " AND tours.`price` <= $request->price_to";
+             $test->where('tours.price', '<=', $request->price_to);
          }
 
-         if (isset($request->date_from)){
+         if (isset($request->date_from) && !empty($request->date_from)){
              $query .= " AND tours.`expire_date` > $request->date_from";
+             $test->where('tours.expire_date', '>', $request->date_from);
          }
 
-         if (isset($request->date_to)){
+         if (isset($request->date_to) && !empty($request->date_to)){
              $query .= " AND tours.`expire_date` < $request->date_to";
+             $test->where('tours.expire_date', '<', $request->date_to);
          }
 
+         $test->groupBy('tours.id');
 
          $query .= " GROUP BY tours.id HAVING 1 ";
 
-        if (isset($request->city)){
+        if (isset($request->city) && !empty($request->city)){
             $query .= " AND cities_list LIKE '%$request->city%'";
+            $test->having('cities_list', 'LIKE', "%$request->city%");
             $order .= ", cities_number ASC";
+            $test->orderBy('cities_number', 'ASC');
         }
 
-        if (isset($request->country)){
+        if (isset($request->country) && !empty($request->country)){
             $query .= " AND countries_list LIKE '%$request->country%'";
+            $test->having('countries_list', 'LIKE', "%$request->country%");
             $order .= ", countries_number ASC";
+            $test->orderBy('countries_number', 'ASC');
         }
 
         if (Session::get('tourType') == 'local'){
@@ -190,8 +219,9 @@ class ToursController extends Controller
         $query .= $order;
 
         //return $query;
-        $tours = DB::select($query);
+//        $tours = DB::select($query);
 
+        $tours = $test->paginate(2);
         foreach ($tours as $tour) {
             $tour->photos = DB::table('tours_photos')->select('photo')->where('tour_id', $tour->id)->get();
             $this->getPrice($tour);
@@ -199,6 +229,8 @@ class ToursController extends Controller
 
         //return $tours;
 
+
+//       return $tours;
         return view('home')->with('tours', $tours);
         
     }
@@ -481,6 +513,7 @@ class ToursController extends Controller
             'user_id' => $request->user_id,
             'client_full_name' => $request->client_full_name,
             'client_phone' => $request->client_phone,
+            'number_of_places' => $request->number_of_places,
             'client_email' => $request->client_email
             ]);
 

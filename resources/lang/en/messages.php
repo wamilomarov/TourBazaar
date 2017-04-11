@@ -45,6 +45,7 @@ return [
     'enterYourFullName' => "Enter Your Full Name",
     'enterYourPhoneNumber' => "Enter Your Phone Number",
     'enterYourEmail' => "Enter Your Email",
+    'enterNumberOfPlaces' => "Enter Number Of Reserved Places",
     'book' => "Book",
     'description' => "Description",
     'otherToursOf' => "Other tours of ",
