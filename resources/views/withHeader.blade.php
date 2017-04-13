@@ -1,6 +1,8 @@
 @extends('app')
 
 @section('body')
+
+
     <header id="mainheader">
         <!--// Top Baar //-->
         <div class="kd-topbar">
@@ -207,46 +209,37 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="kd-tourform ">
+                    <div class="kd-tourform">
                         <div class="container">
                             <a href="#" class="formbtn">{{__('messages.findTheTour')}}</a>
                             <form action="{{url('search')}}" method="POST">
                                 <ul>
                                     <li>
                                         <span>{{__('messages.country')}}</span>
-                                        <label>
-                                            <input name="country" type="text" list="country">
-                                            <datalist id="country"></datalist>
-                                        </label>
+                                        <input name="country" type="text" class="form-control" list="country">
+                                        <datalist id="country"></datalist>
                                     </li>
                                     <li>
                                         <span>{{__('messages.city')}}</span>
-                                        <label>
-                                            <input name="city" type="text" list="city">
-                                            <datalist id="city"></datalist>
-                                        </label>
+                                        <input name="city" type="text" class="form-control" list="city">
+                                        <datalist id="city"></datalist>
                                     </li>
                                     <li>
                                         <span>{{__('messages.minPrice')}}</span>
-                                        <label>
-                                            <input name="price_from" type="number" placeholder="{{strtoupper(\Illuminate\Support\Facades\Session::get('currency'))}}">
-                                        </label>
+                                        <input name="price_from" type="number" class="form-control" placeholder="{{strtoupper(\Illuminate\Support\Facades\Session::get('currency'))}}">
                                     </li>
                                     <li>
                                         <span>{{__('messages.maxPrice')}}</span>
-                                        <label>
-                                            <input name="price_to" type="number" placeholder="{{strtoupper(\Illuminate\Support\Facades\Session::get('currency'))}}">
-                                        </label>
+                                        <input name="price_to" type="number" class="form-control" placeholder="{{strtoupper(\Illuminate\Support\Facades\Session::get('currency'))}}">
                                     </li>
                                     <li>
                                         <span>{{__('messages.expireDate')}}</span>
-                                        <label>
-                                            <select>
-                                                <option>00-00-2015</option>
-                                                <option>01-05-2015</option>
-                                                <option>01-06-2016</option>
-                                            </select>
-                                        </label>
+                                        <div class="input-group date">
+                                            <input id="expire_date" type="text" value="" name="expire_date" class="form-control datepicker">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar" aria-hidden="true" style="margin: 0px 4px 5px 0px;"></i>
+                                            </div>
+                                        </div>
                                     </li>
                                     <li><input type="submit" class="thbg-color" value="{{__('messages.searchNow')}}"></li>
                                 </ul>
@@ -345,8 +338,8 @@
     <!-- jQuery (Necessary For JavaScript Plugins) -->
     <script src="../js/jquery.js"></script>
     <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.bxslider.min.js"></script>
     <script src="../js/bootstrap-datepicker.js"></script>
+    <script src="../js/jquery.bxslider.min.js"></script>
     <script src="../js/waypoints-min.js"></script>
     <script src="../js/jquery.accordion.js"></script>
     <script src="../js/functions.js"></script>

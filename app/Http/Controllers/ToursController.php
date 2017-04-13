@@ -129,6 +129,7 @@ class ToursController extends Controller
                               tours.currency,
                               tours.expire_date,
                               tours.is_hot,
+                              tours.created_at,
                               COUNT(tours.id) AS tours_count,
                               users.`name`,
                               GROUP_CONCAT( DISTINCT (SELECT `name` FROM countries WHERE countries.`id` = cnt.`country_id`) ) as countries_list,
@@ -140,7 +141,7 @@ class ToursController extends Controller
         leftJoin('tours_cities as ct', 'ct.tour_id', '=', 'tours.id');
 
 
-        $test->orderBy('is_hot', 'desc');
+        //$test->orderBy('is_hot', 'desc');
 
         $test->where('tours.status', 1);
 
