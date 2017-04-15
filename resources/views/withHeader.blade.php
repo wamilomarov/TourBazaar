@@ -51,6 +51,7 @@
                                     </ul>
                                 </div>
                             </li>
+                            @if(\Illuminate\Support\Facades\Route::getFacadeRoot()->current()->uri() != '/')
                             <li>
                                 <div id="lang_sel">
                                     <ul>
@@ -106,6 +107,7 @@
                                     </ul>
                                 </div>
                             </li>
+                                @endif
                         </ul>
                     </div>
                     <div class="col-md-5">
@@ -156,6 +158,7 @@
 
                                 <div class="collapse navbar-collapse" id="navbar-collapse-1">
                                     <ul class="nav navbar-nav">
+                                        @if(\Illuminate\Support\Facades\Route::getFacadeRoot()->current()->uri() != '/')
                                         <li><a href="index-2.html">{{__('messages.homePage')}}</a>
                                         </li>
                                         @if(\Illuminate\Support\Facades\Session::get('tourType') == 'local')
@@ -164,6 +167,7 @@
                                         @endif
                                         <li><a href="index-2.html">{{__('messages.hotOffersPage')}}</a>
                                         </li>
+                                        @endif
                                         <li><a href="about-us.html">{{__('messages.aboutUsPage')}}</a></li>
                                         <li><a href="package-list.html">{{__('messages.beOurPartnerPage')}}</a>
                                         </li>
@@ -172,6 +176,7 @@
                                 </div>
                                 <!-- /.navbar-collapse -->
                             </nav>
+                            @if(\Illuminate\Support\Facades\Route::getFacadeRoot()->current()->uri() != '/')
                             <div class="kd-search">
                                 <a href="#" class="kd-searchbtn"><i class="fa fa-search"></i></a>
                                 <!--<a href="#" class="kd-searchbtn" data-toggle="modal" data-target="#searchmodalbox"><i class="fa fa-search"></i></a>-->
@@ -195,6 +200,7 @@
                                     </div>
                                 </div>-->
                             </div>
+                                @endif
                         </div>
                     </div>
                 </div>
@@ -280,15 +286,7 @@
                     </div>
                     <ul>
                         <li><a href="#" data-original-title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#" data-original-title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#" data-original-title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
                         <li><a href="#" data-original-title="instagram"><i class="fa fa-instagram"></i></a></li>
-                        <li><a href="#" data-original-title="Rss"><i class="fa fa-rss"></i></a></li>
-                        <li><a href="#" data-original-title="Youtube"><i class="fa fa-youtube"></i></a></li>
-                        <li><a href="#" data-original-title="Pinterest"><i class="fa fa-pinterest"></i></a></li>
-                        <li><a href="#" data-original-title="Dribbble"><i class="fa fa-dribbble"></i></a></li>
-                        <li><a href="#" data-original-title="Google-Plus"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="#" data-original-title="skype"><i class="fa fa-skype"></i></a></li>
                     </ul>
                 </div>
 
@@ -300,7 +298,6 @@
                         <li><i class="fa fa-map-marker"></i> 15489 Vegas Drive, Las Vegas, Neveda</li>
                         <li><i class="fa fa-phone-square"></i> +1 808 603 6035, +1 808 603 6035</li>
                         <li><i class="fa fa-envelope"></i> Kodeforest.Theme</li>
-                        <li><i class="fa fa-skype"></i> <a href="#">info@kodeforest.com</a></li>
                     </ul>
                 </div>
 
