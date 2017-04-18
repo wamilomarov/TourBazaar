@@ -222,7 +222,7 @@ class ToursController extends Controller
         //return $query;
 //        $tours = DB::select($query);
 
-        $tours = $test->paginate(2);
+        $tours = $test->paginate(12);
         foreach ($tours as $tour) {
             $tour->photos = DB::table('tours_photos')->select('photo')->where('tour_id', $tour->id)->get();
             $this->getPrice($tour);
@@ -230,9 +230,10 @@ class ToursController extends Controller
 
         //return $tours;
 
+        $images = $images = DB::table('users')->where('status', 1)->select('cover_image')->get(15);
 
 //       return $tours;
-        return view('home')->with('tours', $tours);
+        return view('home')->with('tours', $tours)->with('images', $images);
         
     }
 

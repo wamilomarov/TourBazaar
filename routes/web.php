@@ -12,10 +12,14 @@
 */
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('startPage');
+
+    $images = $images = DB::table('users')->where('status', 1)->select('cover_image')->get(15);
+    return view('startPage')->with('images', $images);
 });
 
 Auth::routes();

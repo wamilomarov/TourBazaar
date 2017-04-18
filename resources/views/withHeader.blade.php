@@ -304,6 +304,16 @@
 
 
             </div>
+
+            <div class="row">
+                <div class="owl-carousel owl-theme">
+                    @foreach($images as $image)
+                        <div class="item">
+                            <img src="{{public_path('uploads/cover_images/' . $image->cover_image)}}">
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </footer>
     <!--// Footer //-->
@@ -339,9 +349,12 @@
     <script src="../js/jquery.bxslider.min.js"></script>
     <script src="../js/waypoints-min.js"></script>
     <script src="../js/jquery.accordion.js"></script>
+    <script src="../js/owl.carousel.min.js"></script>
     <script src="../js/functions.js"></script>
 
 
 
 
-    @endsection
+
+
+@endsection

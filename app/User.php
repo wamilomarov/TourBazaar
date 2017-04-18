@@ -70,4 +70,10 @@ class User extends Authenticatable
             ");
         }
     }
+
+    public function getImagesOfUsers()
+    {
+        $images = DB::table('users')->where('status', 1)->select('cover_image')->get(15);
+        return $images;
+    }
 }
