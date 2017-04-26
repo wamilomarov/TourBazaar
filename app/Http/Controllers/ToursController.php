@@ -122,32 +122,43 @@ class ToursController extends Controller
 
         $this->setLocaleAndCurrency('en', 'usd');
 
-        $test = DB::table('tours')->select(DB::raw("tours.id,
-                              tours.title_az,
-                              tours.title_". Session::get('db_locale') ." AS title,
-                              tours.price,
-                              tours.currency,
-                              tours.expire_date,
-                              tours.is_hot,
-                              tours.created_at,
-                              COUNT(tours.id) AS tours_count,
-                              users.`name`,
-                              GROUP_CONCAT( DISTINCT (SELECT `name` FROM countries WHERE countries.`id` = cnt.`country_id`) ) as countries_list,
-                              GROUP_CONCAT( DISTINCT (SELECT  `name` FROM cities WHERE cities.`id` = ct.`id`)) as cities_list,
-                              (SELECT COUNT(id) FROM tours_countries cnt WHERE cnt.`tour_id` = tours.id) as countries_number,
-                              (SELECT COUNT(id) FROM tours_cities ct WHERE ct.`tour_id` = tours.id) as cities_number"))->
-        leftJoin('users', 'users.id', '=', 'tours.user_id')->
-        leftJoin('tours_countries as cnt', 'cnt.tour_id', '=', 'tours.id')->
-        leftJoin('tours_cities as ct', 'ct.tour_id', '=', 'tours.id');
+//        $test = DB::table('tours')->select(DB::raw("tours.id,
+//                              tours.title_az,
+//                              tours.title_". Session::get('db_locale') ." AS title,
+//                              tours.price,
+//                              tours.currency,
+//                              tours.expire_date,
+//                              tours.is_hot,
+//                              tours.created_at,
+//                              COUNT(tours.id) AS tours_count,
+//                              users.`name`,
+//                              GROUP_CONCAT( DISTINCT (SELECT `name` FROM countries WHERE countries.`id` = cnt.`country_id`) ) AS countries_list,
+//                              GROUP_CONCAT( DISTINCT (SELECT  `name` FROM cities WHERE cities.`id` = ct.`id`)) AS cities_list,
+//                              (SELECT COUNT(id) FROM tours_countries cnt WHERE cnt.`tour_id` = tours.id) AS countries_number,
+//                              (SELECT COUNT(id) FROM tours_cities ct WHERE ct.`tour_id` = tours.id) AS cities_number"))->
+//        leftJoin('users', 'users.id', '=', 'tours.user_id')->
+//        leftJoin('tours_countries as cnt', 'cnt.tour_id', '=', 'tours.id')->
+//        leftJoin('tours_cities as ct', 'ct.tour_id', '=', 'tours.id');
 
 
         //$test->orderBy('is_hot', 'desc');
 
-        $test->where('tours.status', 1);
+//        $test = $test->where('tours.status', 1);
 
-        $order = " ORDER BY is_hot DESC";
+        $order = " ORDER BY tours.is_hot DESC";
+        if (isset($request->order) && !empty($request->order)){
 
-        $query = "select 
+            switch ($request->order){
+                case 1: $order .= "tours.price asc"; break;
+                case 2: $order .= "tours.price desc"; break;
+                case 3: $order .= "tours.created_at desc"; break;
+                default: $order .= "";
+            }
+
+//             $test = $test->where('tours.price', '>=', $request->price_from);
+        }
+
+        $query = "select
                               tours.id,
                               tours.title_az,
                               tours.title_". Session::get('db_locale') ." AS title,
@@ -155,76 +166,109 @@ class ToursController extends Controller
                               tours.currency,
                               tours.expire_date,
                               tours.is_hot,
-                              COUNT(tours.id) AS tours_count,
                               users.`name`,
                               GROUP_CONCAT( DISTINCT (SELECT `name` FROM countries WHERE countries.`id` = cnt.`country_id`) ) as countries_list,
                               GROUP_CONCAT( DISTINCT (SELECT  `name` FROM cities WHERE cities.`id` = ct.`id`)) as cities_list,
                               (SELECT COUNT(id) FROM tours_countries cnt WHERE cnt.`tour_id` = tours.id) as countries_number,
                               (SELECT COUNT(id) FROM tours_cities ct WHERE ct.`tour_id` = tours.id) as cities_number
-                              
-                            from tours 
-                            
+
+                            from tours
+
                             LEFT JOIN users ON users.id = tours.user_id
                             LEFT JOIN tours_countries cnt ON cnt.`tour_id` = tours.id
                             LEFT JOIN tours_cities ct ON ct.`tour_id` = tours.id
-                            
-                            WHERE tours.status = 1                             
+
+                            WHERE tours.status = 1
                             ";
 
          if (isset($request->price_from) && !empty($request->price_from)){
              $query .= " AND tours.`price` >= $request->price_from";
-             $test->where('tours.price', '>=', $request->price_from);
+//             $test = $test->where('tours.price', '>=', $request->price_from);
          }
 
          if (isset($request->price_to) && !empty($request->price_to)){
              $query .= " AND tours.`price` <= $request->price_to";
-             $test->where('tours.price', '<=', $request->price_to);
+//             $test = $test->where('tours.price', '<=', $request->price_to);
          }
 
          if (isset($request->date_from) && !empty($request->date_from)){
              $query .= " AND tours.`expire_date` > $request->date_from";
-             $test->where('tours.expire_date', '>', $request->date_from);
+//             $test = $test->where('tours.expire_date', '>', $request->date_from);
          }
 
          if (isset($request->date_to) && !empty($request->date_to)){
              $query .= " AND tours.`expire_date` < $request->date_to";
-             $test->where('tours.expire_date', '<', $request->date_to);
+//             $test = $test->where('tours.expire_date', '<', $request->date_to);
          }
 
-         $test->groupBy('tours.id');
+        if (isset($request->page) && !empty($request->page)){
+             $page = $request->page;
+            $limit = " LIMIT 2 OFFSET $page";
+        }
+        else{
+            $page = 1;
+            $limit = " LIMIT 2";
+        }
+
+//        $test = $test->groupBy('tours.id');
 
          $query .= " GROUP BY tours.id HAVING 1 ";
 
         if (isset($request->city) && !empty($request->city)){
             $query .= " AND cities_list LIKE '%$request->city%'";
-            $test->having('cities_list', 'LIKE', "%$request->city%");
+//            $test = $test->havingRaw("GROUP_CONCAT( DISTINCT (SELECT  `name` FROM cities WHERE cities.`id` = ct.`id`)) LIKE '%$request->city%'");
             $order .= ", cities_number ASC";
-            $test->orderBy('cities_number', 'ASC');
+//            $test = $test->orderBy('(SELECT COUNT(id) FROM tours_cities ct WHERE ct.`tour_id` = tours.id)', 'ASC');
         }
 
         if (isset($request->country) && !empty($request->country)){
             $query .= " AND countries_list LIKE '%$request->country%'";
-            $test->having('countries_list', 'LIKE', "%$request->country%");
+//            $test = $test->havingRaw("GROUP_CONCAT( DISTINCT (SELECT  `name` FROM cities WHERE cities.`id` = ct.`id`)) LIKE '%$request->country%'");
             $order .= ", countries_number ASC";
-            $test->orderBy('countries_number', 'ASC');
+//            $test = $test->orderBy('(SELECT COUNT(id) FROM tours_countries cnt WHERE cnt.`tour_id` = tours.id)', 'ASC');
         }
 
         if (Session::get('tourType') == 'local'){
             $query .= " AND countries_number = 1 AND countries_list LIKE '%Azerbaijan%' ";
-        }
+//            $test = $test->having(DB::raw("(SELECT COUNT(id) FROM tours_countries cnt WHERE cnt.`tour_id` = tours.id)"), '=', 1)->having(DB::raw("GROUP_CONCAT( DISTINCT (SELECT  `name` FROM cities WHERE cities.`id` = ct.`id`))"), 'LIKE', '%Azerbaijan%');
+       }
 
         elseif (Session::get('tourType') == 'world'){
             $query .= " AND countries_number <> 1 OR countries_list NOT LIKE '%Azerbaijan%'";
+//            $test = $test->having(DB::raw('(SELECT COUNT(id) FROM tours_countries cnt WHERE cnt.`tour_id` = tours.id)'), '<>', 1)->having(DB::raw('GROUP_CONCAT( DISTINCT (SELECT  `name` FROM cities WHERE cities.`id` = ct.`id`))'),  'NOT LIKE',  '%Azerbaijan%');
         }
 
-        $query .= $order;
+        $query .= $order . $limit;
 
         //return $query;
-//        $tours = DB::select($query);
+        $tours['tours'] = DB::select($query);
 
-        $tours = $test->paginate(12);
-        foreach ($tours as $tour) {
-            $tour->photos = DB::table('tours_photos')->select('photo')->where('tour_id', $tour->id)->get();
+        $url = "searchTours?country=$request->country&city=$request->city&price_from=$request->price_from&price_to=$request->price_to&date_from=$request->date_from&date_to=$request->date_to";
+
+        if (count($tours['tours']) == 2){
+            $next_page = $page + 1;
+            $tours['next'] = url("$url&page=$next_page");
+        }
+        else
+            { $tours['next'] = "#";}
+
+        if ($page > 1){
+            $prev_page = $page - 1;
+            $tours['prev'] = url("$url&page=$prev_page");
+        }
+        else
+            { $tours['prev'] = "#";}
+
+        $sort['one'] = "$url&order=1";
+        $sort['two'] = "$url&order=2";
+        $sort['three'] = "$url&order=3";
+        $sort['four'] = "$url&order=4";
+
+//        $tours = $test->simplePaginate(12);
+
+        foreach ($tours['tours'] as $tour) {
+//            $tour->photos = DB::table('tours_photos')->select('photo')->where('tour_id', $tour->id)->get();
+            $tour->photos = DB::select("SELECT photo FROM tours_photos WHERE tour_id = $tour->id");
             $this->getPrice($tour);
         }
 
@@ -233,7 +277,7 @@ class ToursController extends Controller
         $images = $images = DB::table('users')->where('status', 1)->select('cover_image')->get(15);
 
 //       return $tours;
-        return view('home')->with('tours', $tours)->with('images', $images);
+        return view('home')->with('tours', $tours)->with('images', $images)->with('sort', $sort);
         
     }
 

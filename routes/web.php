@@ -34,7 +34,7 @@ Route::get('/setToursType', 'ToursController@setToursType');
 
 //Route::get('tours', 'HomeController@tours');
 
-Route::post('/searchTours', 'ToursController@search');
+Route::get('/searchTours', 'ToursController@search');
 
 //Route::get('admin', function (){
 //    $user = new \App\User();

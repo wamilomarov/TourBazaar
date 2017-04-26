@@ -3761,3 +3761,7 @@ pre {
     height: auto;
     max-height: 100%;
 }
+
+.tourTitle{
+    color: #d7ebf6;!important;
+}

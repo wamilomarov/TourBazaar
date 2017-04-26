@@ -218,7 +218,7 @@
                     <div class="kd-tourform">
                         <div class="container">
                             <a href="#" class="formbtn">{{__('messages.findTheTour')}}</a>
-                            <form action="{{url('search')}}" method="POST">
+                            <form action="{{url('searchTours')}}" method="GET">
                                 <ul>
                                     <li>
                                         <span>{{__('messages.country')}}</span>

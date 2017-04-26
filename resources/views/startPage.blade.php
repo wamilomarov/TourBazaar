@@ -1,6 +1,6 @@
-@extends('withHeader')
+@extends('app')
 
-@section('content')
+@section('body')
     <link rel="stylesheet" href="../assets/css/firstPage.css">
     <div id="firstPageMain">
 
@@ -29,5 +29,4 @@
         </div>
 
     </div>
-
-@endsection
+    @endsection

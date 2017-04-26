@@ -21,18 +21,19 @@
                                 <div class="col-md-3 sort-by text-left">
                                     <span></span>
                                     <label>{{__('messages.sortBy')}}</label>
-                                    <select>
-                                        <option>{{__('messages.relevance')}}</option>
-                                        <option>{{__('messages.priceLowToHigh')}}</option>
-                                        <option>{{__('messages.priceHighToLow')}}</option>
-                                        <option>{{__('messages.hotOffer')}}</option>
-                                        <option>{{__('messages.new')}}</option>
+                                    <select id="sorting">
+                                        <option> {{__('messages.selectSorting')}}</option>
+                                        <a href="{{$sort['one']}}"><option >{{__('messages.relevance')}}</option></a>
+                                        <a href="{{$sort['two']}}"><option>{{__('messages.priceLowToHigh')}}</option></a>
+                                        <a href="{{$sort['three']}}"><option>{{__('messages.priceHighToLow')}}</option></a>
+                                        {{--<option>{{__('messages.hotOffer')}}</option>--}}
+                                        <a href="{{$sort['four']}}"><option>{{__('messages.new')}}</option></a>
                                     </select>
                                 </div>
                             </div>
                             <div class="row">
 
-                                @foreach($tours as $tour)
+                                @foreach($tours['tours'] as $tour)
                                     <a href="{{url('getTour', $tour->id)}}">
 
                                     <article class="col-md-3">
@@ -86,17 +87,17 @@
 
 
                             <div class="pagination-wrap">
-                                {{$tours->links()}}
-                                {{--<div class="pagination">--}}
-                                {{--<a href="#"><i class="fa fa-angle-double-left"></i></a>--}}
+
+                                <div class="pagination">
+                                <a href="{{$tours['prev']}}"><i class="fa fa-angle-double-left"></i></a>
                                 {{--<a href="#">1</a>--}}
                                 {{--<a href="#">2</a>--}}
                                 {{--<span>3</span>--}}
                                 {{--<a href="#">4</a>--}}
                                 {{--<a href="#">5</a>--}}
                                 {{--<a href="#">6</a>--}}
-                                {{--<a href="#"><i class="fa fa-angle-double-right"></i></a>--}}
-                                {{--</div>--}}
+                                <a href="{{$tours['next']}}"><i class="fa fa-angle-double-right"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -49,4 +49,5 @@ return [
     'book' => "Book",
     'description' => "Description",
     'otherToursOf' => "Other tours of ",
+    'selectSorting' => "Select Sorting"
 ];
