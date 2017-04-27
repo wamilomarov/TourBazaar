@@ -34,7 +34,7 @@ Route::get('/setToursType', 'ToursController@setToursType');
 
 //Route::get('tours', 'HomeController@tours');
 
-Route::get('/searchTours', 'ToursController@search');
+Route::get('/searchTours', 'ToursController@searchTour');
 
 //Route::get('admin', function (){
 //    $user = new \App\User();
@@ -47,7 +47,7 @@ Route::get('getCountriesList/{input}', 'ToursController@getCountriesList');
 
 Route::get('getCitiesList/{country}', 'ToursController@getCitiesList');
 
-Route::get('/tours', 'ToursController@search');
+Route::get('/tours', 'ToursController@searchTour');
 
 Route::get('/getTour/{tour_id}', 'ToursController@getTour');
 

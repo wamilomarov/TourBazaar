@@ -21,14 +21,19 @@
                                 <div class="col-md-3 sort-by text-left">
                                     <span></span>
                                     <label>{{__('messages.sortBy')}}</label>
-                                    <select id="sorting">
-                                        <option> {{__('messages.selectSorting')}}</option>
-                                        <a href="{{$sort['one']}}"><option >{{__('messages.relevance')}}</option></a>
-                                        <a href="{{$sort['two']}}"><option>{{__('messages.priceLowToHigh')}}</option></a>
-                                        <a href="{{$sort['three']}}"><option>{{__('messages.priceHighToLow')}}</option></a>
-                                        {{--<option>{{__('messages.hotOffer')}}</option>--}}
-                                        <a href="{{$sort['four']}}"><option>{{__('messages.new')}}</option></a>
+                                    <form action="{{url('searchTours')}}" method="get">
+                                    <select name="order" onchange='this.form.submit()'>
+                                        <option value=1 @if($form['order'] == 1) selected @endif>{{__('messages.priceLowToHigh')}}</option>
+                                        <option value=2 @if($form['order'] == 2) selected @endif>{{__('messages.priceHighToLow')}}</option>
+                                        <option value=3 @if($form['order'] == 3) selected @endif>{{__('messages.new')}}</option>
+                                        <option value=4 @if($form['order'] == 4) selected @endif>{{__('messages.is_hot')}}</option>
                                     </select>
+                                        @foreach($form as $key => $value)
+                                            @if($key != 'order')
+                                                <input type="hidden" name="{{$key}}" value="{{$value}}">
+                                            @endif
+                                        @endforeach
+                                    </form>
                                 </div>
                             </div>
                             <div class="row">

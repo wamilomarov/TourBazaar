@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+ <html lang="{{ config('app.locale') }}">
 
 <!-- Mirrored from kodeforest.com/html/travel/html/package-list.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Feb 2017 11:48:04 GMT -->
 
@@ -10,15 +10,15 @@
     <title>Travel</title>
 
     <!-- Css Folder -->
-    <link href="../css/bootstrap.css" rel="stylesheet">
-    <link href="../css/bootstrap-theme.css" rel="stylesheet">
-    <link href="../css/font-awesome.css" rel="stylesheet">
-    <link href="../css/color.css" rel="stylesheet">
-    <link href="../style.css" rel="stylesheet">
-    <link href="../css/responsive.css" rel="stylesheet">
-    <link href="../css/themetypo.css" rel="stylesheet">
-    <link href="../css/bxslider.css" rel="stylesheet">
-    <link href="../css/datepicker.css" rel="stylesheet">
+    <link href="../assets/css/bootstrap.css" rel="stylesheet">
+    <link href="../assets/css/bootstrap-theme.css" rel="stylesheet">
+    <link href="../assets/css/font-awesome.css" rel="stylesheet">
+    <link href="../assets/css/color.css" rel="stylesheet">
+    <link href="../assets/css/custom.css" rel="stylesheet">
+    <link href="../assets/css/responsive.css" rel="stylesheet">
+    <link href="../assets/css/themetypo.css" rel="stylesheet">
+    <link href="../assets/css/bxslider.css" rel="stylesheet">
+    <link href="../assets/css/datepicker.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="../assets/css/owl.theme.default.min.css">
 

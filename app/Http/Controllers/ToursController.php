@@ -282,6 +282,162 @@ class ToursController extends Controller
     }
 
 
+    public function searchTour(Request $request)
+    {
+        if (!Session::has('tourType')){
+            return redirect('/');
+        }
+        DB::enableQueryLog();
+
+        $this->setLocaleAndCurrency('en', 'usd');
+
+        $order = " ORDER BY ";
+
+        $query = "select
+                              tours.id,
+                              tours.title_az,
+                              tours.title_". Session::get('db_locale') ." AS title,
+                              IF(tours.currency = 'USD', CEIL(tours.price/(SELECT UsdToAzn FROM users WHERE status = 5 LIMIT 1)), tours.price) AS order_by_price,
+                              tours.price,
+                              tours.currency,
+                              tours.expire_date,
+                              tours.is_hot,
+                              users.`name`,
+                              GROUP_CONCAT( DISTINCT (SELECT `name` FROM countries WHERE countries.`id` = cnt.`country_id`) ) as countries_list,
+                              GROUP_CONCAT( DISTINCT (SELECT  `name` FROM cities WHERE cities.`id` = ct.`id`)) as cities_list,
+                              (SELECT COUNT(id) FROM tours_countries cnt WHERE cnt.`tour_id` = tours.id) as countries_number,
+                              (SELECT COUNT(id) FROM tours_cities ct WHERE ct.`tour_id` = tours.id) as cities_number
+
+                            from tours
+
+                            LEFT JOIN users ON users.id = tours.user_id
+                            LEFT JOIN tours_countries cnt ON cnt.`tour_id` = tours.id
+                            LEFT JOIN tours_cities ct ON ct.`tour_id` = tours.id
+
+                            WHERE tours.status = 1
+                            ";
+
+        $form = [];
+
+        if (isset($request->price_from) && !empty($request->price_from)){
+            $query .= " AND tours.`price` >= $request->price_from";
+            $form['price_form'] = $request->price_from;
+        }
+
+        if (isset($request->price_to) && !empty($request->price_to)){
+            $query .= " AND tours.`price` <= $request->price_to";
+            $form['price_to'] = $request->price_to;
+        }
+
+        if (isset($request->date_from) && !empty($request->date_from)){
+            $query .= " AND tours.`expire_date` > $request->date_from";
+            $form['date_from'] = $request->date_from;
+        }
+
+        if (isset($request->date_to) && !empty($request->date_to)){
+            $query .= " AND tours.`expire_date` < $request->date_to";
+            $form['date_to'] = $request->date_to;
+        }
+
+        if (isset($request->page) && !empty($request->page)){
+            $page = $request->page;
+            if ($request->page == 1)
+                $offset = 0;
+            else
+                $offset = $request->page;
+            $limit = " LIMIT 2 OFFSET ".($offset);
+        }
+        else{
+            $page = 1;
+            $limit = " LIMIT 2";
+        }
+
+        $query .= " GROUP BY tours.id HAVING 1 ";
+
+        if (isset($request->city) && !empty($request->city)){
+            $query .= " AND cities_list LIKE '%$request->city%'";
+            $order .= ", cities_number ASC";
+            $form['city'] = $request->city;
+        }
+
+        if (isset($request->country) && !empty($request->country)){
+            $query .= " AND countries_list LIKE '%$request->country%'";
+            $order .= ", countries_number ASC";
+            $form['country'] = $request->country;
+        }
+
+        if (isset($request->order) && !empty($request->order)){
+
+            switch ($request->order){
+                case 1: $order .= " order_by_price ASC"; break;
+                case 2: $order .= " order_by_price DESC"; break;
+                case 3: $order .= " tours.created_at DESC"; break;
+                case 4: $order .= " tours.is_hot DESC"; break;
+                default: $order .= " tours.is_hot DESC"; break;
+            }
+
+            $order .= ", 1 ";
+
+            $form['order'] = $request->order;
+        }
+        else{
+            $order .= " tours.is_hot DESC ";
+            $form['order'] = 4;
+        }
+
+
+        if (Session::get('tourType') == 'local'){
+            $query .= " AND countries_number = 1 AND countries_list LIKE '%Azerbaijan%' ";
+        }
+        elseif (Session::get('tourType') == 'world'){
+            $query .= " AND countries_number <> 1 OR countries_list NOT LIKE '%Azerbaijan%'";
+        }
+
+
+
+
+
+        $query .= $order . $limit;
+
+        $tours['tours'] = DB::select($query);
+
+        $url = "searchTours?";
+        foreach ($form as $key => $value) {
+            $url .= $key."=".$value."&";
+        }
+
+        if (count($tours['tours']) == 2){
+            $next_page = $page + 1;
+            $tours['next'] = url($url."page=$next_page");
+        }
+        else
+        { $tours['next'] = "#";}
+
+        if ($page > 1){
+            $prev_page = $page - 1;
+            $tours['prev'] = url($url."&page=$prev_page");
+        }
+        else
+        { $tours['prev'] = "#";}
+
+//        $sort['one'] = "$url&order=1";
+//        $sort['two'] = "$url&order=2";
+//        $sort['three'] = "$url&order=3";
+//        $sort['four'] = "$url&order=4";
+
+
+        foreach ($tours['tours'] as $tour) {
+            $tour->photos = DB::select("SELECT photo FROM tours_photos WHERE tour_id = $tour->id");
+            $this->getPrice($tour);
+        }
+
+        $images = DB::table('users')->where('status', 1)->select('cover_image')->get(15);
+
+        var_dump(DB::getQueryLog());
+        return view('home')->with('tours', $tours)->with('images', $images)->with('form', $form);
+
+    }
+
     public function getCountriesList(Request $request)
     {
         $result = "";

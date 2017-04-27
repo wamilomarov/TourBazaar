@@ -343,14 +343,14 @@
     <!--// CopyRight //-->
 
     <!-- jQuery (Necessary For JavaScript Plugins) -->
-    <script src="../js/jquery.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/bootstrap-datepicker.js"></script>
-    <script src="../js/jquery.bxslider.min.js"></script>
-    <script src="../js/waypoints-min.js"></script>
-    <script src="../js/jquery.accordion.js"></script>
-    <script src="../js/owl.carousel.min.js"></script>
-    <script src="../js/functions.js"></script>
+    <script src="../assets/js/jquery.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/bootstrap-datepicker.js"></script>
+    <script src="../assets/js/jquery.bxslider.min.js"></script>
+    <script src="../assets/js/waypoints-min.js"></script>
+    <script src="../assets/js/jquery.accordion.js"></script>
+    <script src="../assets/js/owl.carousel.min.js"></script>
+    <script src="../assets/js/functions.js"></script>
 
 
 

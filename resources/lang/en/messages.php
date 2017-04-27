@@ -29,7 +29,7 @@ return [
     'followUs' => "Follow Us",
     'contact' => "Contact",
     'sortBy' => "Sort By",
-    'relevance' => "Relevance",
+    'is_hot' => "Hot Offers",
     'priceLowToHigh' => "Price: Low To High",
     'priceHighToLow' => "Price: High To Low",
     'hotOffer' => "Hot Offer",
