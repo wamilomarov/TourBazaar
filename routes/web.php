@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    $images = $images = DB::table('users')->where('status', 1)->select('cover_image')->get(15);
+    $images = DB::table('users')->where('status', 1)->select('cover_image')->get(15);
     return view('startPage')->with('images', $images);
 });
 

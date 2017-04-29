@@ -5,6 +5,7 @@ function getCitiesList(country_id, city_id) {
     var country = document.getElementById(country_id).value;
 
         $.ajax({url: "http://localhost:8000/getCitiesList/" + country, success: function(result){
+            console.log(result);
             $("#list_" + city_id +"").empty();
             $("#list_" + city_id +"").append(result);
         }});

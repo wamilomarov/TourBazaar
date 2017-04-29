@@ -85,7 +85,7 @@
                                                     <td class="center "><img src="../uploads/cover_images/{{$agency->cover_image}}" width="50px" height="50px"></td>
                                                     <td class="center ">{{$agency->name}}</td>
                                                     <td class="center ">{{$agency->email}}</td>
-                                                    <td class="  sorting_1">{{$agency->phone}}</td>
+                                                    <td class="  sorting_1">{{$agency->work_phone}}</td>
                                                     <td class="center ">{{$agency->tours_count}}</td>
                                                     <td class="center ">{{$agency->requests_count}}</td>
                                                     <td class="center ">

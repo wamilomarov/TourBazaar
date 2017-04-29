@@ -15,11 +15,11 @@
                                     <ul>
                                         <li>
                                             @if(\Illuminate\Support\Facades\Session::get('locale') == 'en')
-                                                <a class="lang_sel_sel icl-en" href="{{url('setLocale?lang=en')}}">EN</a>
+                                                <a class="lang_sel_sel icl-en" >EN</a>
                                             @elseif(\Illuminate\Support\Facades\Session::get('locale') == 'az')
-                                                <a class="lang_sel_sel icl-en" href="{{url('setLocale?lang=az')}}"> AZ</a>
+                                                <a class="lang_sel_sel icl-en" > AZ</a>
                                             @else
-                                                <a class="lang_sel_sel icl-en" href="{{url('setLocale?lang=ar')}}"> AR</a>
+                                                <a class="lang_sel_sel icl-en" > AR</a>
                                             @endif
                                             <ul>
 
@@ -56,7 +56,7 @@
                                 <div id="lang_sel">
                                     <ul>
                                         <li>
-                                            @if(\Illuminate\Support\Facades\Session::get('currency') == 'azn')<a class="lang_sel_sel icl-en" id="currency_sel" href="{{url('setCurrency?currency=azn')}}"> AZN </a> @else <a class="lang_sel_sel icl-en" id="currency_sel" href="{{url('setCurrency?currency=usd')}}">USD</a> @endif
+                                            @if(\Illuminate\Support\Facades\Session::get('currency') == 'azn')<a class="lang_sel_sel icl-en" id="currency_sel" > AZN </a> @else <a class="lang_sel_sel icl-en" id="currency_sel" >USD</a> @endif
                                             <ul>
                                                 <li class="icl-de">
                                                     @if(\Illuminate\Support\Facades\Session::get('currency') == 'usd') <a href="{{url('setCurrency?currency=azn')}}">AZN</a> @else <a href="{{url('setCurrency?currency=usd')}}">USD</a> @endif
@@ -71,11 +71,11 @@
                                     <ul>
                                         <li>
                                             @if(\Illuminate\Support\Facades\Session::get('tourType') == 'local')
-                                                <a class="lang_sel_sel icl-en" href="{{url('setToursType?tourType=local')}}">{{__('messages.exploreAzerbaijan')}}</a>
+                                                <a class="lang_sel_sel icl-en" >{{__('messages.exploreAzerbaijan')}}</a>
                                             @elseif(\Illuminate\Support\Facades\Session::get('tourType') == 'world')
-                                                <a class="lang_sel_sel icl-en" href="{{url('setToursType?tourType=world')}}">{{__('messages.exploreWorld')}}</a>
+                                                <a class="lang_sel_sel icl-en" >{{__('messages.exploreWorld')}}</a>
                                             @else
-                                                <a class="lang_sel_sel icl-en" href="{{url('setToursType?tourType=all')}}">{{__('messages.allTours')}}</a>
+                                                <a class="lang_sel_sel icl-en" >{{__('messages.allTours')}}</a>
                                             @endif
                                             <ul>
 
@@ -222,13 +222,13 @@
                                 <ul>
                                     <li>
                                         <span>{{__('messages.country')}}</span>
-                                        <input name="country" type="text" class="form-control" list="country">
-                                        <datalist id="country"></datalist>
+                                        <input name="country" type="text" class="form-control" list="list_cnt" id="cnt" onkeyup="getCountriesList('cnt')">
+                                        <datalist id="list_cnt"></datalist>
                                     </li>
                                     <li>
                                         <span>{{__('messages.city')}}</span>
-                                        <input name="city" type="text" class="form-control" list="city">
-                                        <datalist id="city"></datalist>
+                                        <input name="city" type="text" class="form-control" list="list_ct" id="ct" onfocus="getCitiesList('cnt', 'ct')">
+                                        <datalist id="list_ct"></datalist>
                                     </li>
                                     <li>
                                         <span>{{__('messages.minPrice')}}</span>
@@ -307,9 +307,10 @@
 
             <div class="row">
                 <div class="owl-carousel owl-theme">
+                    {{$images = DB::table('users')->where('status', 1)->select('cover_image')->get(15)}}
                     @foreach($images as $image)
-                        <div class="item">
-                            <img src="{{public_path('uploads/cover_images/' . $image->cover_image)}}">
+                        <div class="item" style="height: auto; !important;">
+                            <img src="{{'../uploads/cover_images/' . $image->cover_image}}">
                         </div>
                     @endforeach
                 </div>
@@ -351,10 +352,6 @@
     <script src="../assets/js/jquery.accordion.js"></script>
     <script src="../assets/js/owl.carousel.min.js"></script>
     <script src="../assets/js/functions.js"></script>
-
-
-
-
-
+    <script type="text/javascript" src="../assets/js/custom.js"></script>
 
 @endsection

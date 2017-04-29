@@ -94,14 +94,14 @@
                             <div class="pagination-wrap">
 
                                 <div class="pagination">
-                                <a href="{{$tours['prev']}}"><i class="fa fa-angle-double-left"></i></a>
+                                    @if($tours['prev'] != '#')<a href="{{$tours['prev']}}" ><i class="fa fa-angle-double-left"></i></a>@endif
                                 {{--<a href="#">1</a>--}}
                                 {{--<a href="#">2</a>--}}
                                 {{--<span>3</span>--}}
                                 {{--<a href="#">4</a>--}}
                                 {{--<a href="#">5</a>--}}
                                 {{--<a href="#">6</a>--}}
-                                <a href="{{$tours['next']}}"><i class="fa fa-angle-double-right"></i></a>
+                                    @if($tours['next'] != '#')<a href="{{$tours['next']}}" ><i class="fa fa-angle-double-right"></i></a>@endif
                                 </div>
                             </div>
                         </div>

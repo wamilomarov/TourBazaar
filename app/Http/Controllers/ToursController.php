@@ -111,6 +111,10 @@ class ToursController extends Controller
             $this->getPrice($tour);
         }
 
+        if (!Session::has('tourType')){
+            Session::set('tourType', 'all');
+        }
+
         return view('admin.tours')->with('tours', $tours);
     }
 
@@ -394,9 +398,6 @@ class ToursController extends Controller
         }
 
 
-
-
-
         $query .= $order . $limit;
 
         $tours['tours'] = DB::select($query);
@@ -420,21 +421,13 @@ class ToursController extends Controller
         else
         { $tours['prev'] = "#";}
 
-//        $sort['one'] = "$url&order=1";
-//        $sort['two'] = "$url&order=2";
-//        $sort['three'] = "$url&order=3";
-//        $sort['four'] = "$url&order=4";
-
-
         foreach ($tours['tours'] as $tour) {
             $tour->photos = DB::select("SELECT photo FROM tours_photos WHERE tour_id = $tour->id");
             $this->getPrice($tour);
         }
 
-        $images = DB::table('users')->where('status', 1)->select('cover_image')->get(15);
-
-        var_dump(DB::getQueryLog());
-        return view('home')->with('tours', $tours)->with('images', $images)->with('form', $form);
+        //var_dump(DB::getQueryLog());
+        return view('home')->with('tours', $tours)->with('form', $form);
 
     }
 
@@ -673,6 +666,8 @@ class ToursController extends Controller
                 Session::put('db_locale', $locale);
             }
         }
+
+        App::setLocale(Session::get('locale'));
 
         if (!Session::has('currency')){
             Session::put('currency', $currency);

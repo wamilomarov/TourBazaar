@@ -49,7 +49,7 @@ class UsersController extends Controller
             $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
 
 
-            Image::make($image)->resize(800, 600)->save(public_path('/uploads/cover_images/' . $fileName));
+            Image::make($image)->resize(800, 600)->save(storage_path('uploads\cover_images\\' . $fileName));
 
 
             $user = new User($request->all());

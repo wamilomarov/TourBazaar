@@ -76,7 +76,7 @@
                                             <tbody role="alert" aria-live="polite" aria-relevant="all">
                                             @foreach($tours as $tour)
                                                 <tr class="gradeA odd">
-                                                    <td class="">{{$tour->title}}</td>
+                                                    <td class=""><a href="{{url('getTour', $tour->id)}}">{{$tour->title}}</a></td>
                                                     <td class=" ">{{$tour->agency}}</td>
                                                     <td class="  sorting_1">{{$tour->price ." ". $tour->currency}}</td>
                                                     <td class="center ">
