@@ -112,7 +112,7 @@ class ToursController extends Controller
         }
 
         if (!Session::has('tourType')){
-            Session::set('tourType', 'all');
+            Session::put('tourType', 'all');
         }
 
         return view('admin.tours')->with('tours', $tours);
